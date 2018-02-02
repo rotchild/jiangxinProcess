@@ -459,7 +459,7 @@
                         android:layout_width="1dp"
                         android:layout_height="@dimen/list_height"
                         android:layout_weight="2"
-                        android:text="宝马"
+                        android:text=""
                         android:gravity="center_vertical"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/maintext"
@@ -505,54 +505,56 @@
                 android:layout_marginTop="@dimen/book_list_margin"
                 android:layout_marginBottom="@dimen/book_list_margin"
                 >
+
                 <TextView
                     android:layout_width="1dp"
                     android:layout_height="@dimen/list_height"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
                     android:paddingLeft="16dp"
                     android:text="定损点"
                     android:textSize="@dimen/default_size"
                     />
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="80dp"
                     android:layout_weight="2"
                     android:layout_marginRight="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
                     <RelativeLayout
-                        android:layout_height="wrap_content"
-                        android:layout_width="1dp"
-                        android:layout_weight="4"
+                        android:layout_height="36dp"
+                        android:layout_width="match_parent"
                         android:background="@drawable/sfrag_radius_halftrans"
                         android:layout_marginRight="3dp"
                         >
                         <Spinner
                             android:id="@+id/dsyy_edit_areaname_spinner"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:padding="1dp"/>
-                </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_height="wrap_content"
-                        android:layout_width="1dp"
-                        android:layout_weight="5"
-                        android:background="@drawable/sfrag_radius_halftrans"
-                        >
-                        <Spinner
-                            android:id="@+id/dsyy_edit_assess_name_spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="36dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:padding="1dp"/>
                     </RelativeLayout>
-                </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_height="36dp"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/sfrag_radius_halftrans"
+                        android:layout_marginTop="46dp"
+                        >
+                        <Spinner
+                            android:id="@+id/dsyy_edit_assess_name_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:padding="1dp"/>
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -598,7 +600,6 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/maintext"
                     android:textSize="@dimen/default_size"
-
                     />
                 </RelativeLayout>
             </LinearLayout>
