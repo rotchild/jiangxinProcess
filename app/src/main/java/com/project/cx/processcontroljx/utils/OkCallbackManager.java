@@ -156,12 +156,16 @@ public class OkCallbackManager {
 
                                 }else if(loadtype== LoadType.LOADMORE){// load more,update loadstart
                                     if(type.equals(ParamType.DCK)){
-                                        pm.loadStart_dck= pm.loadStart_dck+pm.loadLimit;
-
-                                        Log.i(TAG,"loadStart_dck"+pm.loadStart_dck);
+                                        //pm.loadStart_dck= pm.loadStart_dck+datas.length();
+                                        if(pm.lv_dck!=null){
+                                            pm.loadStart_dck=pm.lv_dck.getCount()+datas.length();
+                                            pm.refreshLimit_dck=pm.loadStart_dck;
+                                            Log.e(TAG,"loadStart_dck"+datas.length()+"/lv_dck.getCount()"+pm.lv_dck.getCount());
+                                        }
                                     }else if(type.equals(ParamType.YCK)){
-                                        pm.loadStart_yck= pm.loadStart_yck+pm.loadLimit;
-                                        Log.i(TAG,"loadStart_yck"+pm.loadStart_yck);
+                                        pm.loadStart_yck= pm.loadStart_yck+datas.length();
+                                        pm.refreshLimit_yck=pm.loadStart_yck;
+                                        Log.i(TAG,"loadStart_yck"+datas.length());
                                     }
 
                                 }
@@ -339,17 +343,17 @@ public class OkCallbackManager {
 
                                 }else if(loadtype== LoadType.LOADMORE){// load more,update loadstart
                                     if(type.equals(ParamType.DDS)){
-                                        pm.loadStart_dds= pm.loadStart_dds+pm.loadLimit;
-                                        Log.i(TAG,"loadStart_dds"+pm.loadStart_dds);
+                                        pm.loadStart_dds= pm.loadStart_dds+datas.length();
+                                        Log.i(TAG,"loadStart_dds"+datas.length());
                                     }else if(type.equals(ParamType.DSZ)){
-                                        pm.loadStart_dsz= pm.loadStart_dsz+pm.loadLimit;
-                                        Log.i(TAG,"loadStart_dsz"+pm.loadStart_dsz);
+                                        pm.loadStart_dsz= pm.loadStart_dsz+datas.length();
+                                        Log.i(TAG,"loadStart_dsz"+datas.length());
                                     }else if(type.equals(ParamType.YDS)){
-                                        pm.loadStart_yds= pm.loadStart_yds+pm.loadLimit;
-                                        Log.i(TAG,"loadStart_yds"+pm.loadStart_yds);
+                                        pm.loadStart_yds= pm.loadStart_yds+datas.length();
+                                        Log.i(TAG,"loadStart_yds"+datas.length());
                                     }else if(type.equals(ParamType.HP)){
-                                        pm.loadStart_hp= pm.loadStart_hp+pm.loadLimit;
-                                        Log.i(TAG,"loadStart_hp"+pm.loadStart_hp);
+                                        pm.loadStart_hp= pm.loadStart_hp+datas.length();
+                                        Log.i(TAG,"loadStart_hp"+datas.length());
                                     }
                                 }
 
@@ -519,11 +523,11 @@ public class OkCallbackManager {
 
                                 }else if(loadtype== LoadType.LOADMORE){// load more,update loadstart
                                     if(type.equals(ParamType.GZ)){
-                                        pm.loadStart_gz= pm.loadStart_gz+pm.loadLimit;
-                                        Log.i(TAG,"loadStart_gz"+pm.loadStart_gz);
+                                        pm.loadStart_gz= pm.loadStart_gz+datas.length();
+                                        Log.i(TAG,"loadStart_gz"+datas.length());
                                     }else if(type.equals(ParamType.LS)){
-                                        pm.loadStart_ls= pm.loadStart_ls+pm.loadLimit;
-                                        Log.i(TAG,"loadStart_ls"+pm.loadStart_ls);
+                                        pm.loadStart_ls= pm.loadStart_ls+datas.length();
+                                        Log.i(TAG,"loadStart_ls"+datas.length());
                                     }
                                 }
                                 pm.runOnUiThread(new Runnable() {

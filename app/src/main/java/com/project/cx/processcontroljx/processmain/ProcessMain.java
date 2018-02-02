@@ -93,17 +93,37 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     //public XRefreshView xrv_gz,xrv_ls;
 
     public int refreshStart=0;
-    public int refreshLimit=10;
+    //public int refreshLimit=10;
+    public int refreshLimit_search=10;
+    public int refreshLimit_dck=10;
+    public int refreshLimit_yck=10;
+    public int refreshLimit_dds=10;
+    public int refreshLimit_dsz=10;
+    public int refreshLimit_yds=10;
+    public int refreshLimit_hp=10;
+    public int refreshLimit_gz=10;
+    public int refreshLimit_ls=10;
+
+
     public int loadLimit=10;
 
-    public int loadStart_dck=refreshLimit;
-    public int loadStart_yck=refreshLimit;
-    public int loadStart_dds=refreshLimit;
-    public int loadStart_dsz=refreshLimit;
-    public int loadStart_yds=refreshLimit;
-    public int loadStart_hp=refreshLimit;
-    public int loadStart_gz=refreshLimit;
-    public int loadStart_ls=refreshLimit;
+//    public int loadStart_dck=refreshLimit;
+//    public int loadStart_yck=refreshLimit;
+//    public int loadStart_dds=refreshLimit;
+//    public int loadStart_dsz=refreshLimit;
+//    public int loadStart_yds=refreshLimit;
+//    public int loadStart_hp=refreshLimit;
+//    public int loadStart_gz=refreshLimit;
+//    public int loadStart_ls=refreshLimit;
+
+    public int loadStart_dck=10;
+    public int loadStart_yck=10;
+    public int loadStart_dds=10;
+    public int loadStart_dsz=10;
+    public int loadStart_yds=10;
+    public int loadStart_hp=10;
+    public int loadStart_gz=10;
+    public int loadStart_ls=10;
 
     public ArrayList<ContentValues> mArray_=new ArrayList<ContentValues>();
 
@@ -243,35 +263,35 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         }
 
         if(currentBottom.equals(CurrentBottom.RS_WORK)){
-            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit,
+            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit_gz,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.GZ,ProcessMain.this));
         }else if(currentBottom.equals(CurrentBottom.RS_HISTROY)){
-            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.LS,"",refreshStart,refreshLimit,
+            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.LS,"",refreshStart,refreshLimit_ls,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.LS,ProcessMain.this));
         }
         else if(currentBottom.equals(CurrentBottom.CK_DDS) || currentBottom.equals(CurrentBottom.DS_DDS) || currentBottom.equals(CurrentBottom.CD_DDS)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit,
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit_dds,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
         }else if(currentBottom.equals(CurrentBottom.DS_DSZ) || currentBottom.equals(CurrentBottom.CD_DSZ)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit,
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit_dsz,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DSZ,ProcessMain.this));
         }else if(currentBottom.equals(CurrentBottom.DS_YDS) || currentBottom.equals(CurrentBottom.CD_YDS)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit,
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit_yds,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YDS,ProcessMain.this));
         }
         else if(currentBottom.equals(CurrentBottom.DS_HP) || currentBottom.equals(CurrentBottom.CD_HP)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit,
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit_hp,
 
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.HP,ProcessMain.this));
         }
 
         else if(currentBottom.equals(CurrentBottom.CK_DCK) || currentBottom.equals(CurrentBottom.CD_DCK)){
-            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","","",refreshStart,refreshLimit,
+            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","","",refreshStart,refreshLimit_dck,
 
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
         }
         else if(currentBottom.equals(CurrentBottom.CK_YCK) || currentBottom.equals(CurrentBottom.CD_YCK)){
-            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","","",refreshStart,refreshLimit,
+            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","","",refreshStart,refreshLimit_yck,
 
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
         }
@@ -335,13 +355,13 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 if(type.containsKey("CK")){
                     String paramType=type.getAsString("CK");
                     getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(),paramType,"","",
-                            "",s,refreshStart,refreshLimit,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
+                            "",s,refreshStart,refreshLimit_search,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
                 }else if(type.containsKey("DS")){
                     String paramType=type.getAsString("DS");
-                    getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(),paramType,s,refreshStart,refreshLimit,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
+                    getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(),paramType,s,refreshStart,refreshLimit_search,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
                 }else if(type.containsKey("RS")){//人伤接口也需要keyword
                     String paramType=type.getAsString("RS");
-                    getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(),paramType,s,refreshStart,refreshLimit,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
+                    getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(),paramType,s,refreshStart,refreshLimit_search,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
                 }
             }
         });
@@ -365,13 +385,13 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     if(type.containsKey("CK")){
                         String paramType=type.getAsString("CK");
                         getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(),paramType,"","",
-                                "","",refreshStart,refreshLimit,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
+                                "","",refreshStart,refreshLimit_search,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
                     }else if(type.containsKey("DS")){
                         String paramType=type.getAsString("DS");
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(),paramType,"",refreshStart,refreshLimit,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(),paramType,"",refreshStart,refreshLimit_search,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
                     }else if(type.containsKey("RS")){//人伤接口也需要keyword
                         String paramType=type.getAsString("RS");
-                        getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(),paramType,"",refreshStart,refreshLimit,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
+                        getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(),paramType,"",refreshStart,refreshLimit_search,OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,paramType,ProcessMain.this));
                     }
                 }
             }
@@ -584,7 +604,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
                         resetLoadStart();
                         getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","",
-                                "",refreshStart,refreshLimit,
+                                "",refreshStart,refreshLimit_dck,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
 
                         process_title.setText("待查勘");
@@ -596,7 +616,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
                         resetLoadStart();
                         getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","",
-                                "",refreshStart,refreshLimit,
+                                "",refreshStart,refreshLimit_yck,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
 
                         process_title.setText("已查勘");
@@ -608,7 +628,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit_dds,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
 
                         process_title.setText("待定损");
@@ -629,7 +649,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit_dds,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
 
                         process_title.setText("待定损");
@@ -641,7 +661,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit_dsz,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DSZ,ProcessMain.this));
 
                         process_title.setText("定损中");
@@ -653,7 +673,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit_yds,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YDS,ProcessMain.this));
 
                         process_title.setText("已定损");
@@ -665,7 +685,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit_hp,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.HP,ProcessMain.this));
 
                         process_title.setText("获票");
@@ -681,7 +701,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit,
+                        getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit_gz,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.GZ,ProcessMain.this));
                         process_title.setText("首次跟踪");
                         text_rswork.setTextColor(mContext.getResources().getColor(R.color.orangered));
@@ -692,7 +712,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.LS,"",refreshStart,refreshLimit,
+                        getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.LS,"",refreshStart,refreshLimit_ls,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.LS,ProcessMain.this));
                         process_title.setText("历史列表");
                         text_rshistroy.setTextColor(mContext.getResources().getColor(R.color.orangered));
@@ -707,7 +727,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","","",refreshStart,refreshLimit,
+                        getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","","",refreshStart,refreshLimit_dck,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
 
                         process_title.setText("待查勘");
@@ -719,7 +739,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","","",refreshStart,refreshLimit,
+                        getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","","",refreshStart,refreshLimit_yck,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
 
                         process_title.setText("已查勘");
@@ -731,7 +751,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit_dds,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
 
                         process_title.setText("待定损");
@@ -743,7 +763,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit_dsz,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DSZ,ProcessMain.this));
 
                         process_title.setText("定损中");
@@ -755,7 +775,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit_yds,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YDS,ProcessMain.this));
 
                         process_title.setText("已定损");
@@ -767,7 +787,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                         setFilerVisiblity(currentBottom);
 
                         resetLoadStart();
-                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit,
+                        getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit_hp,
                                 OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.HP,ProcessMain.this));
 
                         process_title.setText("获票");
@@ -984,14 +1004,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     }
     //重置loadStart,切换时刷新,应当重置loadStart
     public void resetLoadStart(){
-        loadStart_dck=refreshLimit;
-        loadStart_yck=refreshLimit;
-        loadStart_dds=refreshLimit;
-        loadStart_dsz=refreshLimit;
-        loadStart_yds=refreshLimit;
-        loadStart_hp=refreshLimit;
-        loadStart_gz=refreshLimit;
-        loadStart_ls=refreshLimit;
+        loadStart_dck=refreshLimit_search;
+        loadStart_yck=refreshLimit_search;
+        loadStart_dds=refreshLimit_search;
+        loadStart_dsz=refreshLimit_search;
+        loadStart_yds=refreshLimit_search;
+        loadStart_hp=refreshLimit_search;
+        loadStart_gz=refreshLimit_search;
+        loadStart_ls=refreshLimit_search;
     }
 
     private void showFilterWindow(Context ctx) {
@@ -1117,7 +1137,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                                 String riskstate=FilterState.stateconvert(FilterState.shangbao_yes,FilterState.shangbao_no);
                                 String risklevel=FilterState.stateconvert(FilterState.fengxian_yes,FilterState.fengxian_no);
                                 String keywords="";
-                                getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,lian_state,riskstate,risklevel,keywords,refreshStart,refreshLimit,
+                                getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,lian_state,riskstate,risklevel,keywords,refreshStart,refreshLimit_search,
                                         OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
 
                             }

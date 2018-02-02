@@ -627,7 +627,9 @@ public class MViewManager {
 
     public void setDCKLayout(final Context context, ArrayList<ContentValues> listData,int loadtype, final ProcessMain pm){
         if(loadtype==LoadType.LOADMORE){
-             dckAdapter.notifyDataSetChanged();
+            if(dckAdapter!=null){//第一次进入刷新的时候如果失败不会进入setDCKLayout,dckAdapter没有创建,调用loadmore时要判空
+                dckAdapter.notifyDataSetChanged();
+            }
             //dckAdapterR.notifyDataSetChanged();
         }else if(loadtype==LoadType.REFRESH){
 //            dckAdapter=new DCKAdapter(context,listData);

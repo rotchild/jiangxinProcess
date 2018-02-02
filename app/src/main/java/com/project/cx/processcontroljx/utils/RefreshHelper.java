@@ -21,7 +21,7 @@ public class RefreshHelper {
     public void refreshtask(String bottom, ProcessMain pm){//貌似在resume中调用会有问题，暂时不用
         if(bottom.equals(CurrentBottom.CK_DDS)){
             pm.getTaskCKData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DCK,"","","",
-                    "",pm.refreshStart,pm.refreshLimit,
+                    "",pm.refreshStart,pm.refreshLimit_search,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,pm,ParamType.DCK,pm));
         }else if(bottom.equals(CurrentBottom.CK_DDS)){
             pm.getTaskCKData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.YCK,"","","",
