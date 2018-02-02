@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+//import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.AreaObj;
@@ -239,7 +240,9 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
         SimpleDateFormat cur_sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String curTime=cur_sdf.format(System.currentTimeMillis());
         dsyy_edit_appointTime.setText(curTime);
-        booktimestampSelected=String.valueOf(System.currentTimeMillis());
+        String booktimenow=String.valueOf(System.currentTimeMillis());
+        booktimestampSelected=booktimenow.substring(0,booktimenow.length()-3);
+
 
         //dsyy_edit_appointTime.setText(appointtimestr);
         //setTimeandTimeStamp();//需要在dsyy_edit_appointTime实例化以后--关闭只有年月日
@@ -487,10 +490,10 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                     @Override
                     public void onTimeSelect(Date date, View v) {//选中事件回调
                         //tvTime.setText(getTime(date));
-                        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String str=sdf.format(date);
-                        booktimestampSelected=String.valueOf(date.getTime());
-
+                        String booktimestr=String.valueOf(date.getTime());
+                        booktimestampSelected=booktimestr.substring(0,booktimestr.length()-3);;
                         dsyy_edit_appointTime.setText(str);
                     }
                 }).build();
