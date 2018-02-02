@@ -1239,6 +1239,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 
     public void updateCountView(){
         setCount(bar_num1,UnReadCounts.getCount(ParamType.DCK));
+        //setCount(bar_num1,120);
         setCount(bar_num2,UnReadCounts.getCount(ParamType.YCK));
         setCount(bar_num3,UnReadCounts.getCount(ParamType.DDS));
         setCount(bar_num4,UnReadCounts.getCount(ParamType.DSZ));

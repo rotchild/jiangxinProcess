@@ -79,14 +79,14 @@
             android:text="@string/tab_survey_wait" />
         <TextView
             android:id="@+id/bar_num1"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
             android:singleLine="true"
-            android:layout_marginLeft="-8dp"
+            android:layout_marginLeft="-14dp"
             android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/img_dck_re"
             android:background="@drawable/red_dot_bg"
-            android:text="1"
+            android:text="120"
             android:gravity="center"
             android:textColor="#FFFFFF"
             android:textSize="10dp"
@@ -101,22 +101,22 @@
         android:layout_weight="1"
         android:visibility="gone"
         >
-    <RelativeLayout
-        android:id="@+id/img_yck_re"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:paddingTop="5dp"
-        android:layout_centerHorizontal="true"
-        >
-        <ImageView
-                android:id="@+id/img_yck"
+         <RelativeLayout
+                android:id="@+id/img_yck_re"
+                android:layout_width="24dp"
+                android:layout_height="32dp"
+                android:paddingTop="5dp"
                 android:layout_centerHorizontal="true"
-                android:layout_width="@dimen/default_ico_size"
-                android:layout_height="@dimen/default_ico_size"
-                android:scaleType="fitXY"
-                android:src="@drawable/yck"
-                />
-    </RelativeLayout>
+                >
+                <ImageView
+                        android:id="@+id/img_yck"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="@dimen/default_ico_size"
+                        android:layout_height="@dimen/default_ico_size"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/yck"
+                        />
+            </RelativeLayout>
             <TextView
                 android:id="@+id/text_yck"
                 android:layout_width="wrap_content"
@@ -129,10 +129,11 @@
                 />
             <TextView
                 android:id="@+id/bar_num2"
-                android:layout_width="20dip"
-                android:layout_height="20dip"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
                 android:singleLine="true"
-                android:layout_marginLeft="-8dp"
+                android:layout_marginLeft="-14dp"
+                android:layout_marginTop="0dp"
                 android:layout_toRightOf="@+id/img_yck_re"
                 android:background="@drawable/red_dot_bg"
                 android:text="1"
@@ -176,10 +177,11 @@
                 />
             <TextView
                 android:id="@+id/bar_num3"
-                android:layout_width="20dip"
-                android:layout_height="20dip"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
                 android:singleLine="true"
-                android:layout_marginLeft="-8dp"
+                android:layout_marginLeft="-14dp"
+                android:layout_marginTop="0dp"
                 android:layout_toRightOf="@+id/img_dds_re"
                 android:background="@drawable/red_dot_bg"
                 android:text="1"
@@ -224,10 +226,11 @@
                 />
         <TextView
             android:id="@+id/bar_num4"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
             android:singleLine="true"
-            android:layout_marginLeft="-8dp"
+            android:layout_marginLeft="-14dp"
+            android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/img_dsz_re"
             android:background="@drawable/red_dot_bg"
             android:text="1"
@@ -272,10 +275,11 @@
                 />
         <TextView
             android:id="@+id/bar_num5"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
             android:singleLine="true"
-            android:layout_marginLeft="-8dp"
+            android:layout_marginLeft="-14dp"
+            android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/img_yds_re"
             android:background="@drawable/red_dot_bg"
             android:text="1"
@@ -320,10 +324,11 @@
                 />
         <TextView
             android:id="@+id/bar_num6"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
             android:singleLine="true"
-            android:layout_marginLeft="-8dp"
+            android:layout_marginLeft="-14dp"
+            android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/img_hp_re"
             android:background="@drawable/red_dot_bg"
             android:text="1"
@@ -368,10 +373,11 @@
                 />
         <TextView
             android:id="@+id/bar_num7"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
             android:singleLine="true"
-            android:layout_marginLeft="-8dp"
+            android:layout_marginLeft="-14dp"
+            android:layout_marginTop="0dp"
             android:layout_toRightOf="@+id/img_all_re"
             android:background="@drawable/red_dot_bg"
             android:text="1"
@@ -415,10 +421,11 @@
                 />
             <TextView
                 android:id="@+id/bar_num8"
-                android:layout_width="20dip"
-                android:layout_height="20dip"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
                 android:singleLine="true"
-                android:layout_marginLeft="-8dp"
+                android:layout_marginLeft="-14dp"
+                android:layout_marginTop="0dp"
                 android:layout_toRightOf="@+id/img_rswork_re"
                 android:background="@drawable/red_dot_bg"
                 android:text="1"
@@ -462,10 +469,11 @@
                 />
             <TextView
                 android:id="@+id/bar_num9"
-                android:layout_width="20dip"
-                android:layout_height="20dip"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
                 android:singleLine="true"
-                android:layout_marginLeft="-8dp"
+                android:layout_marginLeft="-14dp"
+                android:layout_marginTop="0dp"
                 android:layout_toRightOf="@+id/img_rshistory_re"
                 android:background="@drawable/red_dot_bg"
                 android:text="1"
