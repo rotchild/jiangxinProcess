@@ -3,6 +3,7 @@ package com.project.cx.processcontroljx.net;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -38,6 +39,7 @@ public class OkhttpDataHandler {
 
     private void initProgressDialog(Context context) {
         mProgressDialog=new ProgressDialog(context);
+        mProgressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         String loading="正在请求网络...";
         mProgressDialog.setMessage(loading);
         mProgressDialog.setCanceledOnTouchOutside(false);
@@ -198,7 +200,9 @@ public class OkhttpDataHandler {
      */
     public void setTaskReadHttp(String token,String frontrole, String taskid,String task_role,Callback Callback){
         Log.i(TAG,"getRisksWarnHttp enter");
-        if(mIsShowProgressDialog) mProgressDialog.show();
+        if(mIsShowProgressDialog)
+
+            mProgressDialog.show();
         mCallback=Callback;
         String url= MHttpParams.SetTask_isread;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).

@@ -231,7 +231,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_dck.setLoadCompleted();
+                                  //  pm.lvr_dck.setLoadCompleted();
                                 }
                                 //pm.xrv_dck.setLoadComplete(true);
 //                                pm.xrv_dck.stopLoadMore();
@@ -244,7 +244,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_yck.setLoadCompleted();
+                                    //pm.lvr_yck.setLoadCompleted();
                                 }
 //                                pm.xrv_yck.stopLoadMore();
 //                                pm.xrv_yck.stopRefresh();
@@ -425,7 +425,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_dds.setLoadCompleted();
+                                    //pm.lvr_dds.setLoadCompleted();
                                 }
                                 //pm.xrv_dds.stopLoadMore();
                             }
@@ -436,7 +436,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_dsz.setLoadCompleted();
+                                    //pm.lvr_dsz.setLoadCompleted();
                                 }
                                 //pm.xrv_dsz.stopLoadMore();
                             }
@@ -448,7 +448,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_yds.setLoadCompleted();
+                                   // pm.lvr_yds.setLoadCompleted();
                                 }
                                 //pm.xrv_yds.stopLoadMore();
                             }
@@ -460,7 +460,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_hp.setLoadCompleted();
+                                    //pm.lvr_hp.setLoadCompleted();
                                 }
                                 //pm.xrv_hp.stopLoadMore();
                             }
@@ -590,7 +590,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_rswork.setLoadCompleted();
+                                   // pm.lvr_rswork.setLoadCompleted();
                                 }
                                 //pm.xrv_gz.stopLoadMore();
                             }
@@ -601,7 +601,7 @@ public class OkCallbackManager {
                             @Override
                             public void run() {
                                 if(loadtype== LoadType.LOADMORE){
-                                    pm.lvr_rshistroy.setLoadCompleted();
+                                   // pm.lvr_rshistroy.setLoadCompleted();
                                 }
                                 //pm.xrv_ls.stopLoadMore();
                             }

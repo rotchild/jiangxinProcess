@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.adapters.DCKAdapter;
@@ -40,7 +41,8 @@ import com.project.cx.processcontroljx.taskdetail.DetailRSWORK;
 import com.project.cx.processcontroljx.taskdetail.DetailYCK;
 import com.project.cx.processcontroljx.taskdetail.DetailYDS;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
-import com.project.cx.processcontroljx.ui.LoadMoreListView;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
 
@@ -76,14 +78,24 @@ public class MViewManager {
         if(isVisible){
             pm.v_dck=inflater.inflate(R.layout.list_dck,null);
             //pm.xrv_dck= (XRefreshView) pm.v_dck.findViewById(R.id.xrv_dck);
-            pm.lvr_dck= (LoadMoreListView) pm.v_dck.findViewById(R.id.lv_dck);
-            pm.lvr_dck.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
+/*            pm.lvr_dck.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
                     pm.getTaskCKData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DCK,"","","","",pm.loadStart_dck,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DCK,pm));
                 }
+            });*/
+            pm.lv_dck= (ListView) pm.v_dck.findViewById(R.id.lv_dck);
+            pm.lvrf_dck= (RefreshLayout) pm.v_dck.findViewById(R.id.lvrf_dck);
+            pm.lvrf_dck.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_dck.finishLoadmore(2000/*,false*/);//传入false表示加载失败
+                    pm.getTaskCKData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DCK,"","","","",pm.loadStart_dck,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DCK,pm));
+                }
             });
+
 
 //            pm.v_dck=inflater.inflate(R.layout.list_dck_recycer,null);
 //            //pm.xrv_dck= (XRefreshView) pm.v_dck.findViewById(R.id.xrv_dck);
@@ -133,6 +145,16 @@ public class MViewManager {
         Log.i(context.getClass().getSimpleName(),"initYCK enter");
         if(isVisible){
             pm.v_yck=inflater.inflate(R.layout.list_yck,null);
+            pm.lvrf_yck= (RefreshLayout) pm.v_yck.findViewById(R.id.lvrf_yck);
+            pm.lv_yck= (ListView) pm.v_yck.findViewById(R.id.lv_yck);
+            pm.lvrf_yck.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_yck.finishLoadmore(2000/*,false*/);//传入false表示加载失败
+                    pm.getTaskCKData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.YCK,"","","","",pm.loadStart_yck,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.YCK,pm));
+                }
+            });
             //pm.xrv_yck= (XRefreshView) pm.v_yck.findViewById(R.id.xrv_yck);
             //pm.srf_yck= (SwipeRefreshLayout) pm.v_yck.findViewById(R.id.srf_yck);
             //pm.lv_yck=(ListView) pm.v_yck.findViewById(R.id.lv_yck);
@@ -151,14 +173,14 @@ public class MViewManager {
                 }
             });*/
 
-            pm.lvr_yck=(LoadMoreListView) pm.v_yck.findViewById(R.id.lv_yck);
+/*            pm.lvr_yck=(LoadMoreListView) pm.v_yck.findViewById(R.id.lv_yck);
             pm.lvr_yck.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
                     pm.getTaskCKData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.YCK,"","","","",pm.loadStart_yck,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.YCK,pm));
                 }
-            });
+            });*/
 /*            pm.xrv_yck.setPullRefreshEnable(false);
             pm.xrv_yck.setPullLoadEnable(true);
             pm.xrv_yck.setXRefreshViewListener(new XRefreshView.XRefreshViewListener() {
@@ -202,10 +224,20 @@ public class MViewManager {
             pm.v_dds=inflater.inflate(R.layout.list_dds,null);
             //pm.xrv_dds= (XRefreshView) pm.v_dds.findViewById(R.id.xrv_dds);
             //pm.lv_dds=(ListView)pm.v_dds.findViewById(R.id.lv_dds);
-            pm.lvr_dds=(LoadMoreListView) pm.v_dds.findViewById(R.id.lv_dds);
+/*            pm.lvr_dds=(LoadMoreListView) pm.v_dds.findViewById(R.id.lv_dds);
             pm.lvr_dds.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
+                    pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DDS,"",pm.loadStart_dds,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DDS,pm));
+                }
+            });*/
+            pm.lvrf_dds=(RefreshLayout) pm.v_dds.findViewById(R.id.lvrf_dds);
+            pm.lv_dds= (ListView) pm.v_dds.findViewById(R.id.lv_dds);
+            pm.lvrf_dds.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_dds.finishLoadmore(2000/*,false*/);//传入false表示加载失败
                     pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DDS,"",pm.loadStart_dds,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DDS,pm));
                 }
@@ -298,10 +330,20 @@ public class MViewManager {
             pm.v_dsz=inflater.inflate(R.layout.list_dsz,null);
             //pm.xrv_dsz= (XRefreshView) pm.v_dsz.findViewById(R.id.xrv_dsz);
             //pm.lv_dsz=(ListView)pm.v_dsz.findViewById(R.id.lv_dsz);
-            pm.lvr_dsz=(LoadMoreListView) pm.v_dsz.findViewById(R.id.lv_dsz);
+/*            pm.lvr_dsz=(LoadMoreListView) pm.v_dsz.findViewById(R.id.lv_dsz);
             pm.lvr_dsz.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
+                    pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DSZ,"",pm.loadStart_dsz,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DSZ,pm));
+                }
+            });*/
+            pm.lvrf_dsz= (RefreshLayout) pm.v_dsz.findViewById(R.id.lvrf_dsz);
+            pm.lv_dsz= (ListView) pm.v_dsz.findViewById(R.id.lv_dsz);
+            pm.lvrf_dsz.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_dsz.finishLoadmore(2000/*,false*/);//传入false表示加载失败
                     pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DSZ,"",pm.loadStart_dsz,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DSZ,pm));
                 }
@@ -349,10 +391,20 @@ public class MViewManager {
             pm.v_yds=inflater.inflate(R.layout.list_yds,null);
             //pm.xrv_yds= (XRefreshView) pm.v_yds.findViewById(R.id.xrv_yds);
             //pm.lv_yds=(ListView)pm.v_yds.findViewById(R.id.lv_yds);
-            pm.lvr_yds=(LoadMoreListView) pm.v_yds.findViewById(R.id.lv_yds);
+/*            pm.lvr_yds=(LoadMoreListView) pm.v_yds.findViewById(R.id.lv_yds);
             pm.lvr_yds.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
+                    pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.YDS,"",pm.loadStart_yds,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.YDS,pm));
+                }
+            });*/
+            pm.lvrf_yds= (RefreshLayout) pm.v_yds.findViewById(R.id.lvrf_yds);
+            pm.lv_yds= (ListView) pm.v_yds.findViewById(R.id.lv_yds);
+            pm.lvrf_yds.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_yds.finishLoadmore(2000/*,false*/);//传入false表示加载失败
                     pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.YDS,"",pm.loadStart_yds,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.YDS,pm));
                 }
@@ -400,10 +452,20 @@ public class MViewManager {
             pm.v_hp=inflater.inflate(R.layout.list_hp,null);
             //pm.xrv_hp= (XRefreshView) pm.v_hp.findViewById(R.id.xrv_hp);
             //pm.lv_hp=(ListView)pm.v_hp.findViewById(R.id.lv_hp);
-            pm.lvr_hp=(LoadMoreListView) pm.v_hp.findViewById(R.id.lv_hp);
+/*            pm.lvr_hp=(LoadMoreListView) pm.v_hp.findViewById(R.id.lv_hp);
             pm.lvr_hp.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
+                    pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.HP,"",pm.loadStart_hp,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.HP,pm));
+                }
+            });*/
+            pm.lvrf_hp= (RefreshLayout) pm.v_hp.findViewById(R.id.lvrf_hp);
+            pm.lv_hp= (ListView) pm.v_hp.findViewById(R.id.lv_hp);
+            pm.lvrf_hp.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_hp.finishLoadmore(2000/*,false*/);//传入false表示加载失败
                     pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.HP,"",pm.loadStart_hp,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.HP,pm));
                 }
@@ -451,10 +513,20 @@ public class MViewManager {
             pm.v_rswork=inflater.inflate(R.layout.list_rswork,null);
             //pm.xrv_gz= (XRefreshView) pm.v_rswork.findViewById(R.id.xrv_rswork);
             //pm.lv_rswork=(ListView)pm.v_rswork.findViewById(R.id.lv_rswork);
-            pm.lvr_rswork=(LoadMoreListView) pm.v_rswork.findViewById(R.id.lv_rswork);
+/*            pm.lvr_rswork=(LoadMoreListView) pm.v_rswork.findViewById(R.id.lv_rswork);
             pm.lvr_rswork.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
+                    pm.getTaskhurtData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.GZ,"",pm.loadStart_gz,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.GZ,pm));
+                }
+            });*/
+            pm.lvrf_gz= (RefreshLayout) pm.v_rswork.findViewById(R.id.lvrf_gz);
+            pm.lv_gz= (ListView) pm.v_rswork.findViewById(R.id.lv_gz);
+            pm.lvrf_gz.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_gz.finishLoadmore(2000/*,false*/);//传入false表示加载失败
                     pm.getTaskhurtData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.GZ,"",pm.loadStart_gz,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.GZ,pm));
                 }
@@ -500,16 +572,26 @@ public class MViewManager {
         LayoutInflater inflater=LayoutInflater.from(context);
         if(isVisible){
             pm.v_rshistroy=inflater.inflate(R.layout.list_rshistroy,null);
+            pm.lvrf_ls= (RefreshLayout) pm.v_rshistroy.findViewById(R.id.lvrf_ls);
+            pm.lv_ls= (ListView) pm.v_rshistroy.findViewById(R.id.lv_ls);
+            pm.lvrf_ls.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    pm.lvrf_ls.finishLoadmore(2000/*,false*/);//传入false表示加载失败
+                    pm.getTaskhurtData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.LS,"",pm.loadStart_ls,pm.loadLimit,
+                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.LS,pm));
+                }
+            });
             //pm.xrv_ls= (XRefreshView) pm.v_rshistroy.findViewById(R.id.xrv_rshistroy);
             //pm.lv_rshistroy=(ListView)pm.v_rshistroy.findViewById(R.id.lv_rshistroy);
-            pm.lvr_rshistroy=(LoadMoreListView) pm.v_rshistroy.findViewById(R.id.lv_rshistroy);
+/*            pm.lvr_rshistroy=(LoadMoreListView) pm.v_rshistroy.findViewById(R.id.lv_rshistroy);
             pm.lvr_rshistroy.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
                 @Override
                 public void onloadMore() {
                     pm.getTaskhurtData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.LS,"",pm.loadStart_ls,pm.loadLimit,
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.LS,pm));
                 }
-            });
+            });*/
 /*            pm.xrv_ls.setPullRefreshEnable(false);
             pm.xrv_ls.setPullLoadEnable(true);
             pm.xrv_ls.setXRefreshViewListener(new XRefreshView.XRefreshViewListener() {
@@ -575,12 +657,12 @@ public class MViewManager {
             }
             //pm.lv_yck.setAdapter(yckAdapter);
             // pm.lvr_yck.setAdapter(yckAdapter);
-            pm.lvr_dck.setAdapter(dckAdapter);
+            pm.lv_dck.setAdapter(dckAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int dckindex=sp.getInt("dckindex",0);
             int dcktop=sp.getInt("dcktop",0);
             Log.e("MViewManager","dckindex"+dckindex+"/dcktop"+dcktop);
-            pm.lvr_dck.setSelectionFromTop(dckindex,dcktop);
+            pm.lv_dck.setSelectionFromTop(dckindex,dcktop);
 /*            int[] indexs=pm.lvr_yck.getStorePosition();
             pm.lvr_yck.setSelectionFromTop(indexs[0],indexs[1]);*/
 
@@ -679,12 +761,13 @@ public class MViewManager {
             }
             //pm.lv_yck.setAdapter(yckAdapter);
            // pm.lvr_yck.setAdapter(yckAdapter);
-            pm.lvr_yck.setAdapter(yckAdapter);
+           // pm.lvr_yck.setAdapter(yckAdapter);
+            pm.lv_yck.setAdapter(yckAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int yckindex=sp.getInt("yckindex",0);
             int ycktop=sp.getInt("ycktop",0);
             Log.e("MViewManager","yckindex"+yckindex+"/ycktop"+ycktop);
-            pm.lvr_yck.setSelectionFromTop(yckindex,ycktop);
+            pm.lv_yck.setSelectionFromTop(yckindex,ycktop);
 /*            int[] indexs=pm.lvr_yck.getStorePosition();
             pm.lvr_yck.setSelectionFromTop(indexs[0],indexs[1]);*/
         }
@@ -745,12 +828,12 @@ public class MViewManager {
                 ddsAdapter.setDataList(listData);
                 Log.e("MViewManager","DDSsetDataList Enter listDataLength:"+listData.size());
             }
-            pm.lvr_dds.setAdapter(ddsAdapter);
+            pm.lv_dds.setAdapter(ddsAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int ddsindex=sp.getInt("ddsindex",0);
             int ddstop=sp.getInt("ddstop",0);
             Log.e("MViewManager","ddsindex"+ddsindex+"/ddstop"+ddstop);
-            pm.lvr_dds.setSelectionFromTop(ddsindex,ddstop);
+            pm.lv_dds.setSelectionFromTop(ddsindex,ddstop);
 
             /*int[] indexs=pm.lvr_dds.getStorePosition();
             pm.lvr_dds.setSelectionFromTop(indexs[0],indexs[1]);*/
@@ -831,11 +914,11 @@ public class MViewManager {
                 dszAdapter.setDataList(listData);
                 Log.e("MViewManager","DSZsetDataList Enter listDataLength:"+listData.size());
             }
-            pm.lvr_dsz.setAdapter(dszAdapter);
+            pm.lv_dsz.setAdapter(dszAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int dszindex=sp.getInt("dszindex",0);
             int dsztop=sp.getInt("dsztop",0);
-            pm.lvr_dsz.setSelectionFromTop(dszindex,dsztop);
+            pm.lv_dsz.setSelectionFromTop(dszindex,dsztop);
 
             /*int[] indexs=pm.lvr_dds.getStorePosition();
             pm.lvr_dds.setSelectionFromTop(indexs[0],indexs[1]);*/
@@ -905,11 +988,11 @@ public class MViewManager {
                 ydsAdapter.setDataList(listData);
                 Log.e("MViewManager","YDSsetDataList Enter listDataLength:"+listData.size());
             }
-            pm.lvr_yds.setAdapter(ydsAdapter);
+            pm.lv_yds.setAdapter(ydsAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int ydsindex=sp.getInt("ydsindex",0);
             int ydstop=sp.getInt("ydstop",0);
-            pm.lvr_yds.setSelectionFromTop(ydsindex,ydstop);
+            pm.lv_yds.setSelectionFromTop(ydsindex,ydstop);
 
             /*int[] indexs=pm.lvr_dds.getStorePosition();
             pm.lvr_dds.setSelectionFromTop(indexs[0],indexs[1]);*/
@@ -977,11 +1060,11 @@ public class MViewManager {
                 hpAdapter.setDataList(listData);
                 Log.e("MViewManager","YDSsetDataList Enter listDataLength:"+listData.size());
             }
-            pm.lvr_hp.setAdapter(hpAdapter);
+            pm.lv_hp.setAdapter(hpAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int hpindex=sp.getInt("hpindex",0);
             int hptop=sp.getInt("hptop",0);
-            pm.lvr_hp.setSelectionFromTop(hpindex,hptop);
+            pm.lv_hp.setSelectionFromTop(hpindex,hptop);
         }
 
         if(listData.size()==0){//是否显示无数据页面
@@ -1048,11 +1131,11 @@ public class MViewManager {
                 rsworkAdapter.setDataList(listData);
                 Log.e("MViewManager","YDSsetDataList Enter listDataLength:"+listData.size());
             }
-            pm.lvr_rswork.setAdapter(rsworkAdapter);
+            pm.lv_gz.setAdapter(rsworkAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int gzindex=sp.getInt("gzindex",0);
             int gztop=sp.getInt("gztop",0);
-            pm.lvr_rswork.setSelectionFromTop(gzindex,gztop);
+            pm.lv_gz.setSelectionFromTop(gzindex,gztop);
         }
 
         if(listData.size()==0){//是否显示无数据页面
@@ -1119,11 +1202,11 @@ public class MViewManager {
                 rshisAdapter.setDataList(listData);
                 Log.e("MViewManager","RSHISsetDataList Enter listDataLength:"+listData.size());
             }
-            pm.lvr_rshistroy.setAdapter(rshisAdapter);
+            pm.lv_ls.setAdapter(rshisAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int lsindex=sp.getInt("lsindex",0);
             int lstop=sp.getInt("lstop",0);
-            pm.lvr_rshistroy.setSelectionFromTop(lsindex,lstop);
+            pm.lv_ls.setSelectionFromTop(lsindex,lstop);
         }
 
         if(listData.size()==0){//是否显示无数据页面

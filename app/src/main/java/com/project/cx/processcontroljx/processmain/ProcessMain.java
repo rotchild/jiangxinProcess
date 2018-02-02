@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +44,7 @@ import com.project.cx.processcontroljx.utils.MetricUtil;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.SearchHelper;
 import com.project.cx.processcontroljx.utils.UserManager;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -73,7 +74,9 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 
     //public ListView lv_dck,lv_yck,lv_dds,lv_all;
     //public ListView lv_dck,lv_dds,lv_all;
-    public LoadMoreListView lvr_dck,lvr_yck,lvr_dds;
+    public LoadMoreListView lvr_yck,lvr_dds;
+    public RefreshLayout lvrf_dck,lvrf_yck,lvrf_dds,lvrf_dsz,lvrf_yds,lvrf_hp,lvrf_gz,lvrf_ls;
+    public ListView lv_dck,lv_yck,lv_dds,lv_dsz,lv_yds,lv_hp,lv_gz,lv_ls;
 
 //    public ListView lv_dsz,lv_yds,lv_hp;
 //    public ListView lv_rswork,lv_rshistroy;
@@ -868,6 +871,9 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     public void setTaskReadHttp(String token,String frontrole,String taskid,String task_role,
                                  Callback getReadCall){
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
+/*        if(!isFinishing()){//判断activity是否被销毁
+            okhandler.setmIsShowProgressDialog(true);
+        }*/
         okhandler.setmIsShowProgressDialog(true);
         okhandler.setTaskReadHttp(token,frontrole,taskid,task_role,getReadCall);
     }

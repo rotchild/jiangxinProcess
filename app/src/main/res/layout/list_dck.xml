@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         xrefreshview:autoLoadMore="false"
         >-->
-    <com.project.cx.processcontroljx.ui.LoadMoreListView
+<!--    <com.project.cx.processcontroljx.ui.LoadMoreListView
         android:id="@+id/lv_dck"
         android:layout_width="match_parent"
         android:layout_height="600dp"
@@ -19,15 +19,20 @@
         mTag:tag="dck"
         >
 
-    </com.project.cx.processcontroljx.ui.LoadMoreListView>
-<!--    <ListView
-        android:id="@+id/lv_dck"
+    </com.project.cx.processcontroljx.ui.LoadMoreListView>-->
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/lvrf_dck"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:divider="@null"
-        android:dividerHeight="1px"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_dck"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="1px"
+            />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        />-->
    <!-- </com.andview.refreshview.XRefreshView>-->
     <RelativeLayout
         android:id="@+id/dck_noReportRL"

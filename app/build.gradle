@@ -38,6 +38,8 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
+    //refresh and load
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5-alpha-3'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.zhy:mpermission-compiler:1.0.0'
 }

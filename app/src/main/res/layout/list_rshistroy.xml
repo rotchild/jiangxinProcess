@@ -11,16 +11,28 @@
         android:layout_height="match_parent"
         xrefreshview:autoRefresh="true"
         >-->
-    <com.project.cx.processcontroljx.ui.LoadMoreListView
-        android:id="@+id/lv_rshistroy"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="1px"
-        mTag:tag="ls"
-        >
+    <!--<com.project.cx.processcontroljx.ui.LoadMoreListView-->
+        <!--android:id="@+id/lv_rshistroy"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:divider="@null"-->
+        <!--android:dividerHeight="1px"-->
+        <!--mTag:tag="ls"-->
+        <!--&gt;-->
 
-    </com.project.cx.processcontroljx.ui.LoadMoreListView>
+    <!--</com.project.cx.processcontroljx.ui.LoadMoreListView>-->
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/lvrf_ls"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_ls"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="1px"
+            />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 <!--    <ListView
         android:id="@+id/lv_rshistroy"
         android:layout_width="match_parent"
