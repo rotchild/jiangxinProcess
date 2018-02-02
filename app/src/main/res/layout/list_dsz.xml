@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mTag="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--<com.andview.refreshview.XRefreshView
@@ -25,7 +26,8 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/lvrf_dsz"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:srlEnableRefresh="false">
         <ListView
             android:id="@+id/lv_dsz"
             android:layout_width="match_parent"
