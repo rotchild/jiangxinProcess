@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -6,6 +9,115 @@
               android:orientation="vertical"
 
     >
+    <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="@string/select_date"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/selectDate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color2"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="@string/current_date"
+                android:textColor="@color/color4"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/currentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/color5"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="@string/select_time"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/selectTime"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color2"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="@string/current_time"
+                android:textColor="@color/color4"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/currentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/color5"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/title_relative"
@@ -167,7 +279,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="何峰"
+                    android:text=""
                     android:textColor="@color/maintext"
                     android:textSize="@dimen/default_size"
                     />
@@ -529,7 +641,7 @@
                         android:layout_marginRight="3dp"
                         >
                         <Spinner
-                            android:id="@+id/dsyy_edit_areaname_spinner"
+                            android:id="@+id/dsyy_edit_assess_name_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="36dp"
                             android:layout_alignParentStart="true"
@@ -544,12 +656,14 @@
                         android:background="@drawable/sfrag_radius_halftrans"
                         android:layout_marginTop="46dp"
                         >
+
+
                         <Spinner
-                            android:id="@+id/dsyy_edit_assess_name_spinner"
+                            android:id="@+id/dsyy_edit_areaname_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="36dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
                             android:padding="1dp"/>
                     </RelativeLayout>
 
@@ -582,12 +696,12 @@
                     android:background="@drawable/sfrag_radius_halftrans"
                     >
                     <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"
                         android:src="@drawable/threeshape_36"
                         android:scaleType="fitXY"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="24dp"
                         android:layout_alignParentRight="true"
                         />
                 <TextView
@@ -630,10 +744,10 @@
                     >
                     <Spinner
                         android:id="@+id/dsyy_edit_case_from_spinner"
-
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
+                        android:layout_marginRight="5dp"
                         android:layout_alignParentTop="true" />
 <!--                    <TextView
                         android:id="@+id/dsyy_edit_case_from"
@@ -693,5 +807,7 @@
             </LinearLayout>
         </LinearLayout>
 
+
     </ScrollView>
 </LinearLayout>
+

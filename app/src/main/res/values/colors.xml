@@ -22,7 +22,16 @@
     <color name="check_red">#eb655e</color>
     <color name="divider_color">#e0e0e0</color>
     <color name="telpannel">#1bbc9b</color>
-
+    //时间选择器样式
+    <color name="background">#FFFFFF</color>
+    <color name="split_line">#11112233</color>
+    <color name="text1">#eb655e</color>
+    <color name="text2">#333333</color>
+    <color name="color1">#F0F0F0</color>
+    <color name="color2">#FFFFFF</color>
+    <color name="color3">#B0B0B0</color>
+    <color name="color4">#666666</color>
+    <color name="color5">#57C5E8</color>
 
 
 
