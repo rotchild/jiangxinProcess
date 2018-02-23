@@ -467,7 +467,7 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
         String now = sdf.format(new Date());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
         Date date1 = new Date();
-        Long nextYear=Long.valueOf(sdf1.format(date1))+1;
+        Long nextYear=Long.valueOf(sdf1.format(date1))+2;
         String now1 = String.valueOf(nextYear)+"-12-31 11:59";
         //Toast.makeText(mContext,"当前时间："+now+" 一年之后的时间："+now1,Toast.LENGTH_SHORT).show();
         currentDate.setText(now.split(" ")[0]);
