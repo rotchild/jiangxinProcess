@@ -38,10 +38,8 @@ public class DSappointmentDetail extends MBaseActivity implements View.OnClickLi
     }
     private void initView() {
         book_detail_brandlinear= (LinearLayout) findViewById(R.id.book_detail_brandlinear);
-
         go_back= (Button) findViewById(R.id.go_back);
         go_back.setOnClickListener(this);
-
         book_detail_caseNo= (TextView) findViewById(R.id.book_detail_caseNo);
         book_detail_caseTime= (TextView) findViewById(R.id.book_detail_caseTime);
         book_detail_outTime= (TextView) findViewById(R.id.book_detail_outTime);
@@ -50,7 +48,6 @@ public class DSappointmentDetail extends MBaseActivity implements View.OnClickLi
         book_detail_assessor_name= (TextView) findViewById(R.id.book_detail_assessor_name);
         book_detail_assessor_mobile= (TextView) findViewById(R.id.book_detail_assessor_mobile);
         book_detail_assessor_mobile.setOnClickListener(this);
-
         dsyy_edit_licenseno= (TextView) findViewById(R.id.dsyy_edit_licenseno);
         book_detail_vehicleBrand= (TextView) findViewById(R.id.book_detail_vehicleBrand);
         book_detail_car_role= (TextView) findViewById(R.id.book_detail_car_role);
@@ -59,7 +56,6 @@ public class DSappointmentDetail extends MBaseActivity implements View.OnClickLi
         book_detail_case_from= (TextView) findViewById(R.id.book_detail_case_from);
         book_detail_reporter1= (TextView) findViewById(R.id.book_detail_reporter1);
         book_detail_reporterPhone1= (TextView) findViewById(R.id.book_detail_reporterPhone1);
-
         book_detail_caseNo.setText(AccessDetailData.caseNo);
         String caseTimeSr= TimeUtil.formatTime(AccessDetailData.caseTime);
         book_detail_caseTime.setText(caseTimeSr);
@@ -68,13 +64,11 @@ public class DSappointmentDetail extends MBaseActivity implements View.OnClickLi
         book_detail_reporter.setText(AccessDetailData.reporter);//notice reporter
         book_detail_reporterPhone.setText(AccessDetailData.reporterPhone);
         book_detail_reporterPhone.setOnClickListener(this);
-
         book_detail_assessor_name.setText(AccessDetailData.assessor_name);
         book_detail_assessor_mobile.setText(AccessDetailData.assessor_mobile);
         book_detail_assessor_mobile.setOnClickListener(this);
         dsyy_edit_licenseno.setText(AccessDetailData.licenseno);
         book_detail_vehicleBrand.setText(AccessDetailData.vehicleBrand);
-
         String car_roleStr="--";
         if(AccessDetailData.car_role.equals("1")){
             car_roleStr="标的车";

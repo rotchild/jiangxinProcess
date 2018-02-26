@@ -14,8 +14,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //import com.bigkoo.pickerview.TimePickerView;
 import com.bigkoo.pickerview.TimePickerView;
@@ -40,9 +42,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.Callback;
 
+import com.project.cx.processcontroljx.widget.CustomDatePicker;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 /**
  * Created by Administrator on 2017/12/6 0006.
  */
@@ -100,16 +108,20 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
     private String group_id="";
     public String case_from_seleced="";
     private String car_role="";
+    long booktimelong=0;
 
     String type="";//YCK,DDS,YDS
     String showType="";//预约，任务改派
-
     UserManager mUsermanager=null;
     int mSYear,mSMonth,mSDay;
     private String timestampSelected="";
     private String booktimestampSelected="";
     String appointtimestr;
     LinearLayout book_edit_brand;
+
+    private RelativeLayout selectDate, selectTime;
+    private TextView currentDate, currentTime;
+    private CustomDatePicker customDatePicker1, customDatePicker2;
 
     private ListView yds_detail_risklist;
 
@@ -180,7 +192,13 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
         //这里有点奇怪mSMonth比当前少一个月
         //appointtimestr=mSYear+"-"+(mSMonth+1)+"-"+mSDay;
         Log.i(TAG,"mSYear"+mSYear+"/mSMonth"+mSMonth+"/mSDay"+mSDay);
-
+        selectTime = (RelativeLayout) findViewById(R.id.selectTime);
+        selectTime.setOnClickListener(this);
+        selectDate = (RelativeLayout) findViewById(R.id.selectDate);
+        selectDate.setOnClickListener(this);
+        currentDate = (TextView) findViewById(R.id.currentDate);
+        currentTime = (TextView) findViewById(R.id.currentTime);
+        initDatePicker();
 
         yds_detail_risklist= (ListView) findViewById(R.id.yds_detail_risklist);
         dsyy_edit_yes=(Button) findViewById(R.id.dsyy_edit_yes);
@@ -237,7 +255,7 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
 
 
         dsyy_edit_appointTime=(TextView) findViewById(R.id.dsyy_edit_appointTime);
-        SimpleDateFormat cur_sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat cur_sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String curTime=cur_sdf.format(System.currentTimeMillis());
         dsyy_edit_appointTime.setText(curTime);
         String booktimenow=String.valueOf(System.currentTimeMillis());
@@ -444,6 +462,44 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
         return null;
     }
 
+    private void initDatePicker() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        String now = sdf.format(new Date());
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy");
+        Date date1 = new Date();
+        Long nextYear=Long.valueOf(sdf1.format(date1))+2;
+        String now1 = String.valueOf(nextYear)+"-12-31 11:59";
+        //Toast.makeText(mContext,"当前时间："+now+" 一年之后的时间："+now1,Toast.LENGTH_SHORT).show();
+        currentDate.setText(now.split(" ")[0]);
+        currentTime.setText(now);
+
+        customDatePicker1 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                currentDate.setText(time.split(" ")[0]);
+            }
+        }, "2010-01-01 00:00", now); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker1.showSpecificTime(false); // 不显示时和分
+        customDatePicker1.setIsLoop(false); // 不允许循环滚动
+        SimpleDateFormat cur_sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String curTime=cur_sdf.format(System.currentTimeMillis());
+        customDatePicker2 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                currentTime.setText(time);
+                dsyy_edit_appointTime.setText(time);
+                booktimelong=TimeUtil.timeStamp(time,"yyyy-MM-dd HH:mm");
+                booktimestampSelected=String.valueOf(booktimelong);
+                //booktimestampSelected=booktimestr.substring(0,booktimestr.length()-3);;
+                //Toast.makeText(mContext,"选中的时间戳为："+booktimestampSelected,Toast.LENGTH_SHORT).show();
+
+            }
+        }, "2010-12-31 11:59",now1); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker2.showSpecificTime(true); // 显示时和分
+        customDatePicker2.setIsLoop(true); // 允许循环滚动
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -464,7 +520,11 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                     car_role="2";
                 }*/
                 //areaname_selected
-
+                long today = System.currentTimeMillis() / 1000;
+                if(booktimelong<today){
+                    Toast.makeText(mContext,"预约时间必须在当天以后",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 areaname_selected_id=DSArea.area_idMap.get(areaname_selected);
                 assess_selected_id=DSArea.access_idMap.get(assess_selected);
                 group_id=DSArea.access_group.get(assess_selected);
@@ -486,21 +546,21 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
 
                 //showDialog(APPOINTTime_DIALOG);
                 //时间选择器
-                TimePickerView  pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {//选中事件回调
-                        //tvTime.setText(getTime(date));
-                        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        String str=sdf.format(date);
-                        String booktimestr=String.valueOf(date.getTime());
-                        booktimestampSelected=booktimestr.substring(0,booktimestr.length()-3);;
-                        dsyy_edit_appointTime.setText(str);
-                    }
-                }).build();
-                pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
-
-                pvTime.show();
-
+//                TimePickerView  pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+//                    @Override
+//                    public void onTimeSelect(Date date, View v) {//选中事件回调
+//                        //tvTime.setText(getTime(date));
+//                        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//                        String str=sdf.format(date);
+//                        String booktimestr=String.valueOf(date.getTime());
+//                        booktimestampSelected=booktimestr.substring(0,booktimestr.length()-3);;
+//                        dsyy_edit_appointTime.setText(str);
+//                    }
+//                }).build();
+//                pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+//
+//                pvTime.show();
+                customDatePicker2.show(currentTime.getText().toString());
                 break;
             case R.id.dsyy_edit_reporterPhone:
                 TelphoneUtil.toDial(mContext,selectTask.getAsString(TaskCK.reporterPhone));

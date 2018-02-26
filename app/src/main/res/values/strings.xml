@@ -22,4 +22,17 @@
     <string name="safeType7">"⑦同一报案电话在一个自然年内出现三次及以上且在不同案件；"</string>
     <string name="safeType8">"⑧事故车辆同厂修理案件（相同修理厂）；"</string>
     <string name="safeType9">"⑨停放被撞案件且投保“无法找到第三方特约损失险"</string>
+    <string name="cancle">取消</string>
+    <string name="title">请选择时间</string>
+    <string name="commit">确定</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="app_nametime">日期选择控件</string>
+    <string name="select_date">选择日期</string>
+    <string name="current_date">当前日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="current_time">当前时间</string>
 </resources>
