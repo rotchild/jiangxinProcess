@@ -218,4 +218,5 @@ public class DetailHP extends MBaseActivity implements View.OnClickListener {
         okhandler.setmIsShowProgressDialog(true);
         okhandler.TicketReportHttp(token,frontrole,taskid,remarks,Callback);
     }
+
 }

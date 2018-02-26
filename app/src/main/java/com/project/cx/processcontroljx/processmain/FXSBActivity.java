@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.RiskWarm;
@@ -218,11 +220,11 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
     }
 
     //提交风险上报数据
-    public void commitRiskRecordData(String token,String frontrole,String taskid,String task_role,String risktype,String risktype_sys,String risktype_man,
+    public void commitRiskRecordData(String token,String frontrole,String taskid,String task_role,String risktype,String risktype_sys,String risktype_man,String risktype_temp,
                                      String others, String remark,Callback Callback){
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
-        okhandler.commitRiskRecordHttp(token,frontrole,taskid,task_role,risktype,risktype_sys,risktype_man,others,remark,Callback);
+        okhandler.commitRiskRecordHttp(token,frontrole,taskid,task_role,risktype,risktype_sys,risktype_man,risktype_temp,others,remark,Callback);
     }
     public void  detailShow(){
         detailtip=new Dialog_detailtip(mContext,R.style.RiskTipDialog);
@@ -249,13 +251,17 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
                 risktypecustom=getLeft(risktypeall,risktypesolid);
                 String risktype_sysStr=array2String(risktypesolid);
                 String risktype_manStr=array2String(risktypecustom);
-
-                if(tasktype.equals("CK")){
-                    commitRiskRecordData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
-                            TaskRole.ck,risktypeStr,risktype_sysStr,risktype_manStr, others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this,"CK"));
-                }else if(tasktype.equals("DS")){
-                    commitRiskRecordData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
-                            TaskRole.ds,risktypeStr,risktype_sysStr,risktype_manStr, others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this,"DS"));
+                String risktypenew=array2String(risktypecustom);
+                if(TextUtils.isEmpty(risktypenew) && TextUtils.isEmpty(others)){
+                    Toast.makeText(this,"请选择一个需上报的风险类型或填写其他类型",Toast.LENGTH_SHORT).show();
+                }else{
+                    if(tasktype.equals("CK")){
+                        commitRiskRecordData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
+                                TaskRole.ck,risktypenew,"","","", others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this,"CK"));
+                    }else if(tasktype.equals("DS")){
+                        commitRiskRecordData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
+                                TaskRole.ds,risktypenew,"","","", others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this,"DS"));
+                    }
                 }
 
                 break;

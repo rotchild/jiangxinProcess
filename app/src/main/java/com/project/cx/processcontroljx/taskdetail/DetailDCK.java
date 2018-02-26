@@ -194,6 +194,8 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
             Log.i(TAG,"onResume  userManager !=null enter");
             getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ck,
                     selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDCK.this));
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),
+                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDCK.this));
         }
     }
 

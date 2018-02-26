@@ -283,6 +283,8 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
             Log.i(TAG,"onResume  userManager !=null enter");
             getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
                     selectDDS.getAsString(TaskDS.caseNo),selectDDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDDS.this));
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectDDS.getAsString(TaskDS.caseNo),
+                    selectDDS.getAsString(TaskDS.licenseno),"all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDDS.this));
         }
     }
 
