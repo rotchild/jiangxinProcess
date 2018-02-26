@@ -224,14 +224,14 @@ public class OkhttpDataHandler {
      * @param remark
      * @param Callback
      */
-    public void commitRiskRecordHttp(String token,String frontrole,String taskid,String task_role,String risktype,String risktype_sys,String risktype_man,String risktype_temp,String others,
+    public void commitRiskRecordHttp(String token,String frontrole,String taskid,String task_role,String risktype,String risktype_sys,String risktype_man,String others,
                                       String remark,Callback Callback){
         Log.i(TAG,"comimitRiskRecordHttp enter");
         if(mIsShowProgressDialog) mProgressDialog.show();
         mCallback=Callback;
         String url= MHttpParams.CommitRiskRecord;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
-                add("taskid",taskid).add("task_role",task_role).add("risktype",risktype).add("risktype_sys",risktype_sys).add("risktype_man",risktype_man).add("risktype_temp",risktype_temp)
+                add("taskid",taskid).add("task_role",task_role).add("risktype",risktype).add("risktype_sys",risktype_sys).add("risktype_man",risktype_man)
                 .add("others",others).add("remark",remark).build();
         Log.i(TAG,"comimitRiskRecordHttp params:"+"url:"+url+"?token="+token+"&"+"frontrole="+frontrole+"&"+"taskid="+taskid+"&"+"task_role="+task_role
         +"&"+"risktype="+risktype +"&"+"risktype_sys="+risktype_sys+"&"+"risktype_man="+risktype_man+"&"+"others="+others+"&"+"remark="+remark);

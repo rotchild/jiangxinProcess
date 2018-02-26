@@ -228,8 +228,6 @@ public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
             Log.i(TAG,"onResume  userManager !=null enter");
             getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
                     selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDSZ.this));
-            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),
-                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDSZ.this));
         }
     }
 
