@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.project.cx.processcontroljx.R;
+import com.project.cx.processcontroljx.beans.BusFXState;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.MRequestCode;
 import com.project.cx.processcontroljx.beans.SelectedTask;
@@ -25,10 +26,12 @@ import com.project.cx.processcontroljx.processmain.DSappointment;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.utils.AppManager;
+import com.project.cx.processcontroljx.utils.BusUtil;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.TelphoneUtil;
 import com.project.cx.processcontroljx.utils.TimeUtil;
 import com.project.cx.processcontroljx.utils.UserManager;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -69,10 +72,15 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_dds);
         mContext=this;
+        BusUtil.getINSTANCE().register(this);
         initData();
         initView();
-        getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), TaskRole.ds,
-                selectDDS.getAsString(TaskDS.id), OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDDS.this));
+        getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectDDS.getAsString(TaskDS.caseNo),
+                selectDDS.getAsString(TaskDS.licenseno),"all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDDS.this));
+        if(intentType==DetailIntentType.UNREAD){
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDDS.getAsString(TaskDS.caseNo),selectDDS.getAsString(TaskDS.licenseno),
+                    "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailDDS.this));
+        }
     }
 
     private void initView() {
@@ -256,10 +264,10 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
         okhandler.claimTaskHttp(token,frontrole,taskid,Callback);
     }
     //获取风险提示数据
-    public void getRisksWarnHttpData(String token, String frontrole, String task_role, String taskid, Callback Callback){
+    public void getRisksWarnHttpData(String token, String frontrole, String caseNo, String licenseno,String type, Callback Callback){
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
-        okhandler.getRisksWarnHttp(token,frontrole,task_role,taskid,Callback);
+        okhandler.getRisksWarnHttp(token,frontrole,caseNo,licenseno,type,Callback);
     }
     //获取风险上报任务数据
     public void getTaskRiskHttpData(String token,String frontrole, String task_role,String caseNo,String licenseNo,int start,int limit,Callback Callback){
@@ -276,5 +284,20 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
             getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
                     selectDDS.getAsString(TaskDS.caseNo),selectDDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDDS.this));
         }
+    }
+
+    @Subscribe
+    public void setRiskState(BusFXState busdata){
+        if(busdata.getType().equals("DS")){
+            if(dds_detail_riskstate!=null){
+                dds_detail_riskstate.setText("已上报");
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        BusUtil.getINSTANCE().unregister(this);
+        super.onDestroy();
     }
 }

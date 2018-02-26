@@ -165,6 +165,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     //存储权限
     private final int STORAGE_PERMISSION=22;
 
+
     //selectionPosition
    // public int scrolledX=0,scrolledY=0;
 //    public int mindex=0,mtop=0;
@@ -210,6 +211,8 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         MPermissions.requestPermissions(ProcessMain.this,STORAGE_PERMISSION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     };
 
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         MPermissions.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
@@ -226,6 +229,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         //
         Toast.makeText(mContext,"请开启存储权限",Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     protected void onPause() {
@@ -262,7 +266,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             hasGetCount=true;
         }
 
-        if(currentBottom.equals(CurrentBottom.RS_WORK)){
+/*        if(currentBottom.equals(CurrentBottom.RS_WORK)){
             getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit_gz,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.GZ,ProcessMain.this));
         }else if(currentBottom.equals(CurrentBottom.RS_HISTROY)){
@@ -294,7 +298,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","","",refreshStart,refreshLimit_yck,
 
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
-        }
+        }*/
 
         Log.i(TAG,"onResume");
     }
@@ -324,25 +328,26 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         initTitle();
         initBottom();//must before setpage
         setPage();
+        getFirstData();
     }
 
-/*    private void getFirstData(){//进入后，默认页面的数据来源,selectpage没有触发
+    private void getFirstData(){//进入后，默认页面的数据来源,selectpage没有触发
         if(frontRole.equals(String.valueOf(FrontRole.CK))){
             getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","",
-                    "","",refreshStart,refreshLimit,
+                    "","",refreshStart,refreshLimit_dck,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
         }else if(frontRole.equals(String.valueOf(FrontRole.DS))){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit,
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit_dds,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
         }else if(frontRole.equals(String.valueOf(FrontRole.CK_DS))){
             getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","",
-                    "",refreshStart,refreshLimit,
+                    "",refreshStart,refreshLimit_dck,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
         }else if(frontRole.equals(String.valueOf(FrontRole.RS))){
-            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit,
+            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit_gz,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.GZ,ProcessMain.this));
         }
-    }*/
+    }
 
     private void initTitle(){
         cur_search_et2= (IconCenterEditText) findViewById(R.id.cur_search_et2);

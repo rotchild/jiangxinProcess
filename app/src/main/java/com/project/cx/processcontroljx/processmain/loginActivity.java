@@ -35,8 +35,11 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
     String username,password,pwMd5;
     Context mContext;
     UserManager userManager;
+    boolean canLogin=true;
 
     EditText usernameET,passwordEt;
+    //Window_alert
+    //private final int WINDOWALERT_PERMISSION=23;
     private final String TAG=getClass().getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,11 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
     private void initData() {
         userManager=UserManager.getInstance();
         userManager.init(mContext);
+        //toRequestAlertWindow();
     }
+/*    public void toRequestAlertWindow(){
+        MPermissions.requestPermissions(loginActivity.this,WINDOWALERT_PERMISSION, Manifest.permission.SYSTEM_ALERT_WINDOW);
+    }*/
 
     public void login(String username,String password){
         pwMd5= new MD5().toMd5(password);
@@ -73,6 +80,23 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
         okhandler.setmIsShowProgressDialog(true);
         okhandler.loginOKhttp(username,pwMd5,loginCallback);
     }
+/*    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        MPermissions.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @PermissionGrant(WINDOWALERT_PERMISSION)
+    public void requestSuccess(){
+        //
+        canLogin=true;
+    }
+
+    @PermissionDenied(WINDOWALERT_PERMISSION)
+    public void requestFail(){
+        Toast.makeText(mContext,"请开启弹框权限",Toast.LENGTH_SHORT).show();
+        canLogin=false;
+    }*/
 
     Callback loginCallback=new Callback() {
         @Override
@@ -137,11 +161,16 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
             case R.id.login:
                 String username=usernameET.getText().toString().trim();
                 String password=passwordEt.getText().toString().trim();
-                if(TextUtils.isEmpty(username)||TextUtils.isEmpty(password)){
-                    Toast.makeText(mContext,"用户名或密码不能为空",Toast.LENGTH_SHORT).show();
+                if(canLogin){
+                    if(TextUtils.isEmpty(username)||TextUtils.isEmpty(password)){
+                        Toast.makeText(mContext,"用户名或密码不能为空",Toast.LENGTH_SHORT).show();
+                    }else{
+                        login(username,password);
+                    }
                 }else{
-                    login(username,password);
+                    Toast.makeText(mContext,"请开启弹框权限后再登录",Toast.LENGTH_SHORT).show();
                 }
+
 /*                Intent toLogin=new Intent(loginActivity.this,ProcessMain.class);
                 startActivity(toLogin);
                 AppManager.getAppManager().finishActivity();*/

@@ -30,7 +30,7 @@ public class DSZAdapter extends BaseAdapter {
     ViewHolder_dck holder_dsz=null;
 
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(int i,View view);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -153,7 +153,7 @@ public class DSZAdapter extends BaseAdapter {
             holder_dsz.item_ck.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(position,v);
                 }
             });
             convertView.setTag(holder_dsz);

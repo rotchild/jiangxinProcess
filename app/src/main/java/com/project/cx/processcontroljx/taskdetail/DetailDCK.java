@@ -14,22 +14,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.project.cx.processcontroljx.R;
+import com.project.cx.processcontroljx.beans.BusFXState;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.RiskWarm;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskCK;
-import com.project.cx.processcontroljx.beans.TaskDS;
 import com.project.cx.processcontroljx.beans.TaskRole;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.ui.Dialog_risktip;
 import com.project.cx.processcontroljx.utils.AppManager;
+import com.project.cx.processcontroljx.utils.BusUtil;
 import com.project.cx.processcontroljx.utils.LayoutAddDanamic;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.TelphoneUtil;
 import com.project.cx.processcontroljx.utils.TimeUtil;
 import com.project.cx.processcontroljx.utils.UserManager;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -69,10 +71,15 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_detail_dck);
         mContext=this;
         TAG=mContext.getClass().getSimpleName();
+        BusUtil.getINSTANCE().register(this);
         initData();
         initView();
-        getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), TaskRole.ds,
-                selectDCK.getAsString(TaskDS.id), OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDCK.this));
+        getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),
+                "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDCK.this));
+        if(intentType==DetailIntentType.UNREAD){
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),
+                    "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailDCK.this));
+        }
         Log.e(TAG,"onCreate enter");
     }
     public void startActivity(Class activity,int intentType){
@@ -150,6 +157,7 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
+
         Intent intent=getIntent();
         intentType=intent.getIntExtra("intentType", DetailIntentType.UNREAD);
         selectDCK= SelectedTask.getTaskDCK();
@@ -226,10 +234,10 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
         }*/
     }
     //获取风险提示数据
-    public void getRisksWarnHttpData(String token,String frontrole, String task_role,String taskid,Callback Callback){
+    public void getRisksWarnHttpData(String token,String frontrole, String caseNo,String licenseNo,String type,Callback Callback){
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
-        okhandler.getRisksWarnHttp(token,frontrole,task_role,taskid,Callback);
+        okhandler.getRisksWarnHttp(token,frontrole,caseNo,licenseNo,type,Callback);
 /*        if(okhandler!=null){
             okhandler.getRisksWarnHttp(token,frontrole,task_role,taskid,Callback);
         }else{
@@ -248,5 +256,20 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
         okhandler.urgeDealHurtHttp(token,frontrole,taskid,Callback);
+    }
+
+    @Subscribe
+    public void setRiskState(BusFXState busdata){
+        if(busdata.getType().equals("CK")){
+            if(dck_riskstate!=null){
+                dck_riskstate.setText("已上报");
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        BusUtil.getINSTANCE().unregister(this);
+        super.onDestroy();
     }
 }

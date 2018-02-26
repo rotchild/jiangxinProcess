@@ -29,7 +29,7 @@ public class YCKAdapter extends BaseAdapter {
     ViewHolder_yck holder_yck=null;
 
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(int i,View view);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -90,7 +90,7 @@ public class YCKAdapter extends BaseAdapter {
             holder_yck.item_yck.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(position,v);
                 }
             });
             long reparations_long=Long.valueOf(mData.get(position).getAsString(TaskCK.reparations));

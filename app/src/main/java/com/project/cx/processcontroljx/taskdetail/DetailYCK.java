@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.adapters.ThirdcarAdapter;
+import com.project.cx.processcontroljx.beans.BusFXState;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.MRequestCode;
 import com.project.cx.processcontroljx.beans.MResultCode;
@@ -30,11 +31,13 @@ import com.project.cx.processcontroljx.processmain.DSappointment;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.utils.AppManager;
+import com.project.cx.processcontroljx.utils.BusUtil;
 import com.project.cx.processcontroljx.utils.LayoutAddDanamic;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.TelphoneUtil;
 import com.project.cx.processcontroljx.utils.TimeUtil;
 import com.project.cx.processcontroljx.utils.UserManager;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -77,12 +80,17 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_detail_yck);
         mContext = this;
         TAG = getClass().getSimpleName();
+        BusUtil.getINSTANCE().register(this);
         initData();
        // getthirdcarHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYCK.getAsString(TaskCK.id), OkCallbackManager.getInstance().getthirdcarCallback(mContext,DetailYCK.this));
         initView();
         //获取风险类型,为风险上报提供数据,如果获取失败如何处理
-        getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), TaskRole.ck,
-                selectYCK.getAsString(TaskCK.id), OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailYCK.this));
+        getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectYCK.getAsString(TaskCK.caseNo),selectYCK.getAsString(TaskCK.licenseno),
+                "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailYCK.this));
+        if(intentType==DetailIntentType.UNREAD){
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectYCK.getAsString(TaskCK.caseNo),selectYCK.getAsString(TaskCK.licenseno),
+                    "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailYCK.this));
+        }
         //获取三者车数据,转移到resume中使用
         //getthirdcarHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYCK.getAsString(TaskCK.id), OkCallbackManager.getInstance().getthirdcarCallback(mContext,DetailYCK.this));
     }
@@ -232,10 +240,10 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
     }
 
     //获取风险提示数据
-    public void getRisksWarnHttpData(String token, String frontrole, String task_role, String taskid, Callback Callback){
+    public void getRisksWarnHttpData(String token, String frontrole, String caseno, String licenseno,String type, Callback Callback){
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
-        okhandler.getRisksWarnHttp(token,frontrole,task_role,taskid,Callback);
+        okhandler.getRisksWarnHttp(token,frontrole,caseno,licenseno,type,Callback);
     }
 
     //获取三者车数据
@@ -350,4 +358,18 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
                 selectYCK.getAsString(TaskCK.caseNo), selectYCK.getAsString(TaskCK.licenseno),risktask_start, risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext, DetailYCK.this));
     }
 
+    @Subscribe
+    public void setRiskState(BusFXState busdata){
+        if(busdata.getType().equals("CK")){
+            if(yck_detail_riskstate!=null){
+                yck_detail_riskstate.setText("已上报");
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        BusUtil.getINSTANCE().unregister(this);
+        super.onDestroy();
+    }
 }
