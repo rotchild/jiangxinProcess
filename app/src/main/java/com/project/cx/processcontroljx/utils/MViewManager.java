@@ -10,9 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.project.cx.processcontroljx.R;
-import com.project.cx.processcontroljx.adapters.DCKAdapter;
 import com.project.cx.processcontroljx.adapters.DCKAdapterR;
-import com.project.cx.processcontroljx.adapters.DDSAdapter;
 import com.project.cx.processcontroljx.adapters.DSZAdapter;
 import com.project.cx.processcontroljx.adapters.HPAdapter;
 import com.project.cx.processcontroljx.adapters.RSHISAdapter;
@@ -26,7 +24,6 @@ import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.LoadType;
 import com.project.cx.processcontroljx.beans.ParamType;
 import com.project.cx.processcontroljx.beans.SelectedTask;
-import com.project.cx.processcontroljx.beans.TaskCK;
 import com.project.cx.processcontroljx.beans.TaskDS;
 import com.project.cx.processcontroljx.beans.TaskRole;
 import com.project.cx.processcontroljx.beans.Taskhurt;
@@ -34,7 +31,6 @@ import com.project.cx.processcontroljx.processmain.DSappointment;
 import com.project.cx.processcontroljx.processmain.FxsbDetailActivity;
 import com.project.cx.processcontroljx.processmain.ProcessMain;
 import com.project.cx.processcontroljx.taskdetail.DetailDCK;
-import com.project.cx.processcontroljx.taskdetail.DetailDDS;
 import com.project.cx.processcontroljx.taskdetail.DetailDSZ;
 import com.project.cx.processcontroljx.taskdetail.DetailHP;
 import com.project.cx.processcontroljx.taskdetail.DetailRSHIS;
@@ -53,10 +49,10 @@ import java.util.ArrayList;
 
 public class MViewManager {
     private static MViewManager mViewManager;
-    DCKAdapter dckAdapter;
+    //DCKAdapter dckAdapter;
     DCKAdapterR dckAdapterR;
     YCKAdapter yckAdapter;
-    DDSAdapter ddsAdapter;
+   // DDSAdapter ddsAdapter;
     DSZAdapter dszAdapter;
     YDSAdapter ydsAdapter;
     HPAdapter hpAdapter;
@@ -87,6 +83,7 @@ public class MViewManager {
                 }
             });*/
             pm.lv_dck= (ListView) pm.v_dck.findViewById(R.id.lv_dck);
+            pm.lv_dck.setAdapter(pm.mdckAdapter);
             pm.lvrf_dck= (RefreshLayout) pm.v_dck.findViewById(R.id.lvrf_dck);
             pm.lvrf_dck.setOnLoadMoreListener(new OnLoadMoreListener() {
                 @Override
@@ -148,6 +145,7 @@ public class MViewManager {
             pm.v_yck=inflater.inflate(R.layout.list_yck,null);
             pm.lvrf_yck= (RefreshLayout) pm.v_yck.findViewById(R.id.lvrf_yck);
             pm.lv_yck= (ListView) pm.v_yck.findViewById(R.id.lv_yck);
+            pm.lv_yck.setAdapter(pm.myckAdapter);
             pm.lvrf_yck.setOnLoadMoreListener(new OnLoadMoreListener() {
                 @Override
                 public void onLoadMore(RefreshLayout refreshLayout) {
@@ -223,18 +221,9 @@ public class MViewManager {
         LayoutInflater inflater=LayoutInflater.from(context);
         if(isVisible){
             pm.v_dds=inflater.inflate(R.layout.list_dds,null);
-            //pm.xrv_dds= (XRefreshView) pm.v_dds.findViewById(R.id.xrv_dds);
-            //pm.lv_dds=(ListView)pm.v_dds.findViewById(R.id.lv_dds);
-/*            pm.lvr_dds=(LoadMoreListView) pm.v_dds.findViewById(R.id.lv_dds);
-            pm.lvr_dds.setOnloadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
-                @Override
-                public void onloadMore() {
-                    pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DDS,"",pm.loadStart_dds,pm.loadLimit,
-                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DDS,pm));
-                }
-            });*/
             pm.lvrf_dds=(RefreshLayout) pm.v_dds.findViewById(R.id.lvrf_dds);
             pm.lv_dds= (ListView) pm.v_dds.findViewById(R.id.lv_dds);
+            pm.lv_dds.setAdapter(pm.mddsAdapter);
             pm.lvrf_dds.setOnLoadMoreListener(new OnLoadMoreListener() {
                 @Override
                 public void onLoadMore(RefreshLayout refreshLayout) {
@@ -243,36 +232,7 @@ public class MViewManager {
                             OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DDS,pm));
                 }
             });
-//            pm.xrv_dds.setPullRefreshEnable(false);
-//            pm.xrv_dds.setPullLoadEnable(true);
-//            pm.xrv_dds.setXRefreshViewListener(new XRefreshView.XRefreshViewListener() {
-//                @Override
-//                public void onRefresh() {
-//
-//                }
-//
-//                @Override
-//                public void onRefresh(boolean isPullDown) {
-//
-//                }
-//
-//                @Override
-//                public void onLoadMore(boolean isSilence) {
-//                    Log.i(context.getClass().getSimpleName(),"onLoadMore enter");
-//                    pm.getTaskDSData(pm.userManager.getUserToken(),pm.userManager.getFrontRole(), ParamType.DDS,"",pm.loadStart_dds,pm.loadLimit,
-//                            OkCallbackManager.getInstance().getCallback(LoadType.LOADMORE,context,ParamType.DDS,pm));
-//                }
-//
-//                @Override
-//                public void onRelease(float direction) {
-//
-//                }
-//
-//                @Override
-//                public void onHeaderMove(double headerMovePercent, int offsetY) {
-//
-//                }
-//            });
+
         }
     }
 
@@ -628,14 +588,14 @@ public class MViewManager {
 
     public void setDCKLayout(final Context context, ArrayList<ContentValues> listData,int loadtype, final ProcessMain pm){
         if(loadtype==LoadType.LOADMORE){
-            if(dckAdapter!=null){//第一次进入刷新的时候如果失败不会进入setDCKLayout,dckAdapter没有创建,调用loadmore时要判空
-                dckAdapter.notifyDataSetChanged();
+            if(pm.mdckAdapter!=null){//第一次进入刷新的时候如果失败不会进入setDCKLayout,dckAdapter没有创建,调用loadmore时要判空
+                pm.mdckAdapter.notifyDataSetChanged();
             }
             //dckAdapterR.notifyDataSetChanged();
         }else if(loadtype==LoadType.REFRESH){
 //            dckAdapter=new DCKAdapter(context,listData);
 //            pm.lvr_dck.setAdapter(dckAdapter);
-            if(dckAdapter==null){
+/*            if(dckAdapter==null){
                 dckAdapter=new DCKAdapter(context,listData);
                 dckAdapter.setMOnItemClickListener(new DCKAdapter.MOnItemClickListener() {
                     @Override
@@ -658,21 +618,21 @@ public class MViewManager {
             }else{
                 dckAdapter.setDataList(listData);
                 Log.e("MViewManager","setDataList Enter listDataLength:"+listData.size());
-            }
+            }*/
             //pm.lv_yck.setAdapter(yckAdapter);
             // pm.lvr_yck.setAdapter(yckAdapter);
-            pm.lv_dck.setAdapter(dckAdapter);
+/*            pm.lv_dck.setAdapter(dckAdapter);
             SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int dckindex=sp.getInt("dckindex",0);
             int dcktop=sp.getInt("dcktop",0);
             Log.e("MViewManager","dckindex"+dckindex+"/dcktop"+dcktop);
-            pm.lv_dck.setSelectionFromTop(dckindex,dcktop);
+            pm.lv_dck.setSelectionFromTop(dckindex,dcktop);*/
 /*            int[] indexs=pm.lvr_yck.getStorePosition();
             pm.lvr_yck.setSelectionFromTop(indexs[0],indexs[1]);*/
 
 //            dckAdapterR=new DCKAdapterR(context,listData);
 //            pm.lv_dckR.setAdapter(dckAdapterR);
-
+            pm.mdckAdapter.setDataList(listData);
         }
         if(listData.size()==0){//是否显示无数据页面
             pm.setNoDataView(true,ParamType.DCK);
@@ -737,9 +697,12 @@ public class MViewManager {
     public void setYCKLayout(final Context context, ArrayList<ContentValues> listData,int loadtype, final ProcessMain pm){
         if(loadtype==LoadType.LOADMORE){
             Log.i("MViewManager","loadmore enter");
-            yckAdapter.notifyDataSetChanged();
+            //yckAdapter.notifyDataSetChanged();
+            if(pm.myckAdapter!=null){
+                pm.myckAdapter.notifyDataSetChanged();
+            }
         }else if(loadtype==LoadType.REFRESH){
-            if(yckAdapter==null){
+/*            if(yckAdapter==null){
                 yckAdapter=new YCKAdapter(context,listData);
 
                 yckAdapter.setMOnItemClickListener(new YCKAdapter.MOnItemClickListener() {
@@ -774,8 +737,9 @@ public class MViewManager {
             int ycktop=sp.getInt("ycktop",0);
             Log.e("MViewManager","yckindex"+yckindex+"/ycktop"+ycktop);
             pm.lv_yck.setSelectionFromTop(yckindex,ycktop);
-/*            int[] indexs=pm.lvr_yck.getStorePosition();
+*//*            int[] indexs=pm.lvr_yck.getStorePosition();
             pm.lvr_yck.setSelectionFromTop(indexs[0],indexs[1]);*/
+            pm.myckAdapter.setDataList(listData);
         }
 
         if(listData.size()==0){//是否显示无数据页面
@@ -798,12 +762,12 @@ public class MViewManager {
 
     public void setDDSLayout(final Context context, ArrayList<ContentValues> listData,int loadtype, final ProcessMain pm){
         if(loadtype==LoadType.LOADMORE){
-            ddsAdapter.notifyDataSetChanged();
+            pm.mddsAdapter.notifyDataSetChanged();
         }else if(loadtype==LoadType.REFRESH){
            /* ddsAdapter=new DDSAdapter(context,listData);
             pm.lv_dds.setAdapter(ddsAdapter);*/
             Log.e("MViewManager","DDSLayout Enter"+listData.size());
-            if(ddsAdapter==null){
+/*            if(ddsAdapter==null){
                 ddsAdapter=new DDSAdapter(context,listData);
                 ddsAdapter.setMOnItemClickListener(new DDSAdapter.MOnItemClickListener() {
                     @Override
@@ -834,16 +798,17 @@ public class MViewManager {
             }else{
                 ddsAdapter.setDataList(listData);
                 Log.e("MViewManager","DDSsetDataList Enter listDataLength:"+listData.size());
-            }
-            pm.lv_dds.setAdapter(ddsAdapter);
-            SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
+            }*/
+            //pm.lv_dds.setAdapter(ddsAdapter);
+/*            SharedPreferences sp=context.getSharedPreferences("loadMore",Context.MODE_PRIVATE);
             int ddsindex=sp.getInt("ddsindex",0);
             int ddstop=sp.getInt("ddstop",0);
             Log.e("MViewManager","ddsindex"+ddsindex+"/ddstop"+ddstop);
-            pm.lv_dds.setSelectionFromTop(ddsindex,ddstop);
+            pm.lv_dds.setSelectionFromTop(ddsindex,ddstop);*/
 
             /*int[] indexs=pm.lvr_dds.getStorePosition();
             pm.lvr_dds.setSelectionFromTop(indexs[0],indexs[1]);*/
+            pm.mddsAdapter.setDataList(listData);
         }
 
 
@@ -1371,33 +1336,32 @@ public class MViewManager {
 
     }
 
-    public void finishAllAdapter(){//销毁所有adapter
-        if(dckAdapter!=null){
-            dckAdapter=null;
-        }
-        if(yckAdapter!=null){
-            yckAdapter=null;
-        }
-        if(ddsAdapter!=null){
-            ddsAdapter=null;
-        }
-        if(dszAdapter!=null){
-            dszAdapter=null;
-        }
-        if(ydsAdapter!=null){
-            ydsAdapter=null;
-        }
-        if(hpAdapter!=null){
-            hpAdapter=null;
-        }
-        if(rsworkAdapter!=null){
-            rsworkAdapter=null;
-        }
-        if(rshisAdapter!=null){
-            rshisAdapter=null;
-        }
-
-    }
+//    public void finishAllAdapter(){//销毁所有adapter
+//        if(dckAdapter!=null){
+//            dckAdapter=null;
+//        }
+//        if(yckAdapter!=null){
+//            yckAdapter=null;
+//        }
+//        if(ddsAdapter!=null){
+//            ddsAdapter=null;
+//        }
+//        if(dszAdapter!=null){
+//            dszAdapter=null;
+//        }
+//        if(ydsAdapter!=null){
+//            ydsAdapter=null;
+//        }
+//        if(hpAdapter!=null){
+//            hpAdapter=null;
+//        }
+//        if(rsworkAdapter!=null){
+//            rsworkAdapter=null;
+//        }
+//        if(rshisAdapter!=null){
+//            rshisAdapter=null;
+//        }
+//    }
 
 
 

@@ -22,18 +22,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
+import com.project.cx.processcontroljx.adapters.DCKAdapter;
+import com.project.cx.processcontroljx.adapters.DDSAdapter;
 import com.project.cx.processcontroljx.adapters.MainPageAdapter;
+import com.project.cx.processcontroljx.adapters.YCKAdapter;
 import com.project.cx.processcontroljx.beans.BottomIndex;
 import com.project.cx.processcontroljx.beans.CurrentBottom;
+import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.FilterState;
 import com.project.cx.processcontroljx.beans.FrontRole;
 import com.project.cx.processcontroljx.beans.LoadType;
 import com.project.cx.processcontroljx.beans.ParamType;
+import com.project.cx.processcontroljx.beans.SelectedTask;
+import com.project.cx.processcontroljx.beans.TaskCK;
+import com.project.cx.processcontroljx.beans.TaskDS;
+import com.project.cx.processcontroljx.beans.TaskRole;
 import com.project.cx.processcontroljx.beans.UnReadCounts;
 import com.project.cx.processcontroljx.net.MHttpParams;
 import com.project.cx.processcontroljx.net.MSocketHelper;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.settings.SystemSetActivity;
+import com.project.cx.processcontroljx.taskdetail.DetailDCK;
+import com.project.cx.processcontroljx.taskdetail.DetailDDS;
+import com.project.cx.processcontroljx.taskdetail.DetailYCK;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.ui.IconCenterEditText;
 import com.project.cx.processcontroljx.ui.LoadMoreListView;
@@ -178,6 +189,11 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     public int rsworkIndex=0,rsworkTop=0;
     public int rshisIndex=0,rshisTop=0;
 
+    public DCKAdapter mdckAdapter;
+    public YCKAdapter myckAdapter;
+    public DDSAdapter mddsAdapter;
+    public ArrayList<ContentValues> initialList=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,7 +228,6 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     };
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         MPermissions.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
@@ -245,61 +260,12 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             return;
         }
        updateCountView();
-
-       /* if(currentBottom.equals(CurrentBottom.RS_WORK) || currentBottom.equals(CurrentBottom.RS_WORK)){//人伤无模块数量接口
-            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit,
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.GZ,ProcessMain.this));
-        }else{
-            Log.e("processMain","hasGetCount"+String.valueOf(hasGetCount));
-            if(!hasGetCount){
-                getTaskCountHttpData(userManager.getUserToken(),userManager.getFrontRole(),
-                        OkCallbackManager.getInstance().getTaskCountCallback(mContext,userManager.getFrontRole(),ProcessMain.this));
-                hasGetCount=true;
-            }
-           *//* getTaskCountHttpData(userManager.getUserToken(),userManager.getFrontRole(),
-                    OkCallbackManager.getInstance().getTaskCountCallback(mContext,userManager.getFrontRole(),ProcessMain.this));*//*
-        }*/
-
+        refreshCurrentPage();
         if(!hasGetCount){
             getTaskCountHttpData(userManager.getUserToken(),userManager.getFrontRole(),
                     OkCallbackManager.getInstance().getTaskCountCallback(mContext,userManager.getFrontRole(),ProcessMain.this));
             hasGetCount=true;
         }
-
-/*        if(currentBottom.equals(CurrentBottom.RS_WORK)){
-            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit_gz,
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.GZ,ProcessMain.this));
-        }else if(currentBottom.equals(CurrentBottom.RS_HISTROY)){
-            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.LS,"",refreshStart,refreshLimit_ls,
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.LS,ProcessMain.this));
-        }
-        else if(currentBottom.equals(CurrentBottom.CK_DDS) || currentBottom.equals(CurrentBottom.DS_DDS) || currentBottom.equals(CurrentBottom.CD_DDS)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit_dds,
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
-        }else if(currentBottom.equals(CurrentBottom.DS_DSZ) || currentBottom.equals(CurrentBottom.CD_DSZ)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit_dsz,
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DSZ,ProcessMain.this));
-        }else if(currentBottom.equals(CurrentBottom.DS_YDS) || currentBottom.equals(CurrentBottom.CD_YDS)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit_yds,
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YDS,ProcessMain.this));
-        }
-        else if(currentBottom.equals(CurrentBottom.DS_HP) || currentBottom.equals(CurrentBottom.CD_HP)){
-            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit_hp,
-
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.HP,ProcessMain.this));
-        }
-
-        else if(currentBottom.equals(CurrentBottom.CK_DCK) || currentBottom.equals(CurrentBottom.CD_DCK)){
-            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","","",refreshStart,refreshLimit_dck,
-
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
-        }
-        else if(currentBottom.equals(CurrentBottom.CK_YCK) || currentBottom.equals(CurrentBottom.CD_YCK)){
-            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","","",refreshStart,refreshLimit_yck,
-
-                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
-        }*/
-
         Log.i(TAG,"onResume");
     }
 
@@ -325,10 +291,83 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     private void initView() {
         mViewPager=(ViewPager)findViewById(R.id.mViewPager);
         //noReportRL= (RelativeLayout) findViewById(R.id.noReportRL);//无数据界面
+        initAdapter();
         initTitle();
         initBottom();//must before setpage
         setPage();
-        getFirstData();
+        //getFirstData();
+
+    }
+
+    private void initAdapter() {
+        mdckAdapter=new DCKAdapter(this,initialList);
+        mdckAdapter.setMOnItemClickListener(new DCKAdapter.MOnItemClickListener() {
+            @Override
+            public void onClick(int id,View v) {
+                Log.i("MViewManager","selece position:"+id);
+                ContentValues selectTask= (ContentValues) mdckAdapter.getItem(id);
+                if(selectTask!=null){
+                    SelectedTask.storeTaskDCK(selectTask);
+                    SelectedTask.storeView(v);//存储被选中的view;
+                }
+                String isRead=selectTask.getAsString(TaskCK.isRead);
+                if(isRead.equals("0")){//未读,调用设置已读接口,!需要注意刷新的时机
+                    setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
+                            TaskRole.ck,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailDCK.class,ProcessMain.this,ParamType.DCK));
+                }else if(isRead.equals("1")){//已读
+                    startActivity(DetailDCK.class,DetailIntentType.READ);
+                }
+            }
+        });
+
+        myckAdapter=new YCKAdapter(this,initialList);
+        myckAdapter.setMOnItemClickListener(new YCKAdapter.MOnItemClickListener() {
+            @Override
+            public void onClick(int id,View v) {
+                Log.i("MViewManager","selece position:"+id);
+                ContentValues selectTask= (ContentValues) myckAdapter.getItem(id);
+                if(selectTask!=null){
+                    SelectedTask.storeTaskYCK(selectTask);
+                    SelectedTask.storeView(v);
+                }
+
+                String isRead=selectTask.getAsString(TaskCK.isRead);
+                if(isRead.equals("0")){//未读,调用设置已读接口
+                    setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
+                            TaskRole.ck,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailYCK.class,ProcessMain.this,ParamType.YCK));
+                }else if(isRead.equals("1")){//已读
+                    startActivity(DetailYCK.class,DetailIntentType.READ);
+                }
+            }
+        });
+
+        mddsAdapter=new DDSAdapter(this,initialList);
+        mddsAdapter.setMOnItemClickListener(new DDSAdapter.MOnItemClickListener() {
+            @Override
+            public void onClick(int id,View v) {
+                //Detail对应修改
+                Log.i("MViewManager","selece position:"+id);
+                ContentValues selectTask= (ContentValues) mddsAdapter.getItem(id);
+                if(selectTask!=null){
+                    SelectedTask.storeTaskDDS(selectTask);
+                    SelectedTask.storeView(v);
+                }
+
+                String isRead=selectTask.getAsString(TaskDS.isRead);
+                if(isRead.equals("0")){//未读,调用设置已读接口
+                    //需要判断该待定损任务是否属于自己
+                    if(!selectTask.getAsString(TaskDS.assessorNo).equals(userManager.getJobNo())){
+                        //不是自己的任务不调用setTaskRead
+                        startActivity(DetailDDS.class, DetailIntentType.UNREAD);
+                    }else{
+                        setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
+                                TaskRole.ds,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailDDS.class,ProcessMain.this,ParamType.DDS));
+                    }
+                }else if(isRead.equals("1")){//已读
+                    startActivity(DetailDDS.class,DetailIntentType.READ);
+                }
+            }
+        });
     }
 
     private void getFirstData(){//进入后，默认页面的数据来源,selectpage没有触发
@@ -1231,6 +1270,10 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                                         }
                                     }
                                     //CountSetHelper.getInstance(ProcessMain.this).setCount(ParamType.YCK,UnReadCounts.getCount(ParamType.YCK));
+                                }else{
+                                    if(finalEventtype==null){
+                                        Log.e("ProcessMain","finalEventType is null");
+                                    }
                                 }
                             }
                         });
@@ -1244,7 +1287,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     MSocketHelper.getInstance().logout();
                     //显示退出alet框
                     if(AppManager.getAppManager().getCurrentActivity()!=null){
-                        OkCallbackManager.getInstance().showCloseAlert(AppManager.getAppManager().getCurrentActivity());
+                        OkCallbackManager.getInstance().showCloseAlert(ProcessMain.this);
                     }else{
                         Log.e("ProcessMain","current Visible activity is null");
                     }
@@ -1369,5 +1412,41 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     protected void onDestroy() {
         //MViewManager.getInstance().finishAllAdapter();//销毁所有adapter
         super.onDestroy();
+    }
+    //刷新当前页面
+    public void refreshCurrentPage(){
+              if(currentBottom.equals(CurrentBottom.RS_WORK)){
+            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.GZ,"",refreshStart,refreshLimit_gz,
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.GZ,ProcessMain.this));
+        }else if(currentBottom.equals(CurrentBottom.RS_HISTROY)){
+            getTaskhurtData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.LS,"",refreshStart,refreshLimit_ls,
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.LS,ProcessMain.this));
+        }
+        else if(currentBottom.equals(CurrentBottom.CK_DDS) || currentBottom.equals(CurrentBottom.DS_DDS) || currentBottom.equals(CurrentBottom.CD_DDS)){
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",refreshStart,refreshLimit_dds,
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
+        }else if(currentBottom.equals(CurrentBottom.DS_DSZ) || currentBottom.equals(CurrentBottom.CD_DSZ)){
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,"",refreshStart,refreshLimit_dsz,
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DSZ,ProcessMain.this));
+        }else if(currentBottom.equals(CurrentBottom.DS_YDS) || currentBottom.equals(CurrentBottom.CD_YDS)){
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,"",refreshStart,refreshLimit_yds,
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YDS,ProcessMain.this));
+        }
+        else if(currentBottom.equals(CurrentBottom.DS_HP) || currentBottom.equals(CurrentBottom.CD_HP)){
+            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,"",refreshStart,refreshLimit_hp,
+
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.HP,ProcessMain.this));
+        }
+
+        else if(currentBottom.equals(CurrentBottom.CK_DCK) || currentBottom.equals(CurrentBottom.CD_DCK)){
+            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","","",refreshStart,refreshLimit_dck,
+
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
+        }
+        else if(currentBottom.equals(CurrentBottom.CK_YCK) || currentBottom.equals(CurrentBottom.CD_YCK)){
+            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","","",refreshStart,refreshLimit_yck,
+
+                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
+        }
     }
 }

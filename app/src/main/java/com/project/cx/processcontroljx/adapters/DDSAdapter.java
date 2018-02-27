@@ -180,6 +180,8 @@ public class DDSAdapter extends BaseAdapter {
 
     //修改数据源
     public void setDataList(ArrayList<ContentValues> dataList){
-        mData=dataList;
+        mData.clear();
+        mData.addAll(dataList);
+        notifyDataSetChanged();
     }
 }
