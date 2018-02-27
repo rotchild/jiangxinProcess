@@ -720,79 +720,6 @@ public class OkCallbackManager {
                                     RiskWarm.riskwarmArray.add(values);
                                 }
                             }
-/*                            //在dck,yck,dds,dsz,yds,hp详情页显示riskdialguo并把riskArray填充进去,只有未读任务需要
-                            if(detailClass instanceof DetailDCK){
-                                final DetailDCK detailDCK= (DetailDCK) detailClass;
-                                if(detailDCK.intentType==DetailIntentType.UNREAD){
-                                    detailDCK.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            //detailDCK.showRiskDg(RiskWarm.riskwarmArray);
-                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
-                                        }
-                                    });
-                                }
-                            }
-
-                            if(detailClass instanceof DetailYCK){
-                                final DetailYCK detailYCK= (DetailYCK) detailClass;
-                                if(detailYCK.intentType==DetailIntentType.UNREAD){
-                                    detailYCK.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
-                                        }
-                                    });
-                                }
-                            }
-
-                            if(detailClass instanceof DetailDDS){
-                                final DetailDDS detailDDS= (DetailDDS) detailClass;
-                                if(detailDDS.intentType==DetailIntentType.UNREAD){
-                                    detailDDS.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
-                                        }
-                                    });
-                                }
-                            }
-
-                            if(detailClass instanceof DetailDSZ){
-                                final DetailDSZ detailDSZ= (DetailDSZ) detailClass;
-                                if(detailDSZ.intentType==DetailIntentType.UNREAD){
-                                    detailDSZ.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
-                                        }
-                                    });
-                                }
-                            }
-
-                            if(detailClass instanceof DetailYDS){
-                                final DetailYDS detailYDS= (DetailYDS) detailClass;
-                                if(detailYDS.intentType==DetailIntentType.UNREAD){
-                                    detailYDS.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
-                                        }
-                                    });
-                                }
-                            }
-                            if(detailClass instanceof DetailHP){
-                                final DetailHP detailHP= (DetailHP) detailClass;
-                                if(detailHP.intentType==DetailIntentType.UNREAD){
-                                    detailHP.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
-                                        }
-                                    });
-                                }
-                            }*/
-
 
                             //处理dck,yck,dds,dsz,yds中的风险类型展示
                             if(detailClass instanceof DetailDCK){
@@ -933,7 +860,7 @@ public class OkCallbackManager {
                                     detailYCK.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
+                                            showRiskDg(ctx,RiskWarm.risksyswarmArray);
                                         }
                                     });
                                 }

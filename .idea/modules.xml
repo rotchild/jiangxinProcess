@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dm.iml" filepath="$PROJECT_DIR$/dm.iml" />
+      <module fileurl="file://E:\workgithub\jiangxinProcess\dm.iml" filepath="E:\workgithub\jiangxinProcess\dm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jiangxinProcess.iml" filepath="$PROJECT_DIR$/jiangxinProcess.iml" />
       <module fileurl="file://E:\dm\jiangxinProcess.iml" filepath="E:\dm\jiangxinProcess.iml" />
     </modules>
   </component>

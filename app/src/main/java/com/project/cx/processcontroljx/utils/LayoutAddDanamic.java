@@ -397,12 +397,16 @@ public void addThirdcarItem(final Context context, LinearLayout parentLayout, Co
     }
     public void addRiskTypeItem(Context context,LinearLayout parentLayout,ContentValues data){
         TextView riskTypeTV=new TextView(context);
-        LinearLayout.LayoutParams risktypePra=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,60);
+        LinearLayout.LayoutParams risktypePra=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         risktypePra.gravity=Gravity.CENTER_VERTICAL;
-        //risktypePra.setMargins(5,10,5,10);
+        risktypePra.setMargins(0,10,0,10);
         riskTypeTV.setLayoutParams(risktypePra);
         riskTypeTV.setGravity(Gravity.CENTER_VERTICAL);
-        riskTypeTV.setText(data.getAsString(TaskRiskWarm.riskname));
+        if(data.getAsString(TaskRiskWarm.riskname).equals("其他类型:")){
+            riskTypeTV.setText(data.getAsString(TaskRiskWarm.riskname)+data.getAsString(TaskRiskWarm.content));
+        }else{
+            riskTypeTV.setText(data.getAsString(TaskRiskWarm.riskname));
+        }
         riskTypeTV.setTextColor(context.getResources().getColor(R.color.maintext));
         riskTypeTV.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
         parentLayout.addView(riskTypeTV);

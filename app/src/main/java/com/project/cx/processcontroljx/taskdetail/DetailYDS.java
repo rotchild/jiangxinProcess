@@ -209,6 +209,8 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
             Log.i(TAG,"onResume  userManager !=null enter");
             getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
                     selectYDS.getAsString(TaskDS.caseNo), selectYDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailYDS.this));
+            getRisksWarnHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYDS.getAsString(TaskDS.caseNo),selectYDS.getAsString(TaskDS.licenseno),
+                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext,DetailYDS.this));
         }
     }
 
