@@ -1721,6 +1721,70 @@ public class OkCallbackManager {
         return resultCallback;
     }
 
+    public Callback commitRiskTypeCallback(final Context ctx, final FXSBActivity fxsb){
+        Callback resultCallback=null;
+        resultCallback=new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG,"commitRiskRecordCallbackFAIL/e"+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"commitRiskRecordCallbackSUCCESS");
+                if(response!=null){
+                    String bodystr=response.body().string();
+                    Log.i(TAG,"getCallbackResponsebodyStr:"+bodystr);
+                    try{
+                        JSONObject jsonObject=new JSONObject(bodystr);
+                        boolean success=jsonObject.getBoolean("success");
+                        if(success){
+                           /* boolean data=jsonObject.getBoolean("data");
+                            if(data){//?依据data为true,还是success为true,设置成功
+                                pm.startActivity(denstination, DetailIntentType.UNREAD);
+                            }*/
+                            fxsb.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ctx,"提交成功",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }else{
+                            final JSONObject err=jsonObject.getJSONObject("err");//err是否一定是jsonobject?
+                            final String msg=err.getString("message");
+                            if(msg.equals("token已失效，请重新登录")){//据此判断是否下线
+                                //弹出alert
+                                fxsb.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showCloseAlert(fxsb);
+                                    }
+                                });
+                            }else{
+                                fxsb.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(ctx,msg,Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,"exception info:"+e.getMessage());
+                    }
+                }else{
+                    Log.i(TAG,"loginCallbackResponse is null or length0");
+                }
+            }
+        };
+        return resultCallback;
+    }
+
+
+
+
     public Callback supperReportCallback(final Context ctx, final AuthorityActivity authorityActivity){
         Callback resultCallback=null;
         resultCallback=new Callback() {
@@ -2371,6 +2435,8 @@ public class OkCallbackManager {
             dialog_alert.show();
         }
     }
+
+
 
 /*    *//**
      * 根据type 获取processMain对应的arraylist

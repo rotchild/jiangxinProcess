@@ -235,7 +235,7 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
                 Intent toDsappoint=new Intent(DetailDDS.this, DSappointment.class);
                 toDsappoint.putExtra("type","DDS");
                 startActivity(toDsappoint);
-                AppManager.getAppManager().finishActivity(DetailDDS.this);
+                //AppManager.getAppManager().finishActivity(DetailDDS.this);
                 break;
                 //dds_detail_reporterPhone
             case R.id.dds_detail_reporterPhone:

@@ -179,7 +179,7 @@ public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
                 Intent intent=new Intent(DetailDSZ.this, DSappointment.class);
                 intent.putExtra("type","DSZ");
                 startActivity(intent);
-                AppManager.getAppManager().finishActivity(DetailDSZ.this);
+                //AppManager.getAppManager().finishActivity(DetailDSZ.this);
                 break;
 
             case R.id.authority_book:
