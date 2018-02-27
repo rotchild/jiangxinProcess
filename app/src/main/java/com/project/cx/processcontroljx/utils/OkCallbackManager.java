@@ -38,6 +38,7 @@ import com.project.cx.processcontroljx.processmain.DSappointment;
 import com.project.cx.processcontroljx.processmain.DSappointmentDetail;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
 import com.project.cx.processcontroljx.processmain.ProcessMain;
+import com.project.cx.processcontroljx.processmain.loginActivity;
 import com.project.cx.processcontroljx.taskdetail.DetailDCK;
 import com.project.cx.processcontroljx.taskdetail.DetailDDS;
 import com.project.cx.processcontroljx.taskdetail.DetailDSZ;
@@ -161,12 +162,12 @@ public class OkCallbackManager {
                                         //pm.loadStart_dck= pm.loadStart_dck+datas.length();
                                         if(pm.lv_dck!=null){
                                             pm.loadStart_dck=pm.lv_dck.getCount()+datas.length();
-                                            pm.refreshLimit_dck=pm.loadStart_dck;
+                                            //pm.refreshLimit_dck=pm.loadStart_dck;
                                             Log.e(TAG,"loadStart_dck"+datas.length()+"/lv_dck.getCount()"+pm.lv_dck.getCount());
                                         }
                                     }else if(type.equals(ParamType.YCK)){
                                         pm.loadStart_yck= pm.loadStart_yck+datas.length();
-                                        pm.refreshLimit_yck=pm.loadStart_yck;
+                                        //pm.refreshLimit_yck=pm.loadStart_yck;
                                         Log.i(TAG,"loadStart_yck"+datas.length());
                                     }
 
@@ -197,14 +198,6 @@ public class OkCallbackManager {
                                         }
                                     });
                             }else{
-/*                                final String err=jsonObject.getString("err");
-
-                                pm.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(mContext,err,Toast.LENGTH_SHORT).show();
-                                    }
-                                });*/
                                 final JSONObject err=jsonObject.getJSONObject("err");//err是否一定是jsonobject?
                                 final String msg=err.getString("message");
                                 if(msg.equals("token已失效，请重新登录")){//据此判断是否下线
@@ -1774,8 +1767,6 @@ public class OkCallbackManager {
                                             yds_riskstate.setText("已上报");
                                         }
                                         BusUtil.getINSTANCE().post(new BusFXState("DS"));//
-
-
                                     }
 
 
@@ -2451,20 +2442,28 @@ public class OkCallbackManager {
 
     public void showCloseAlert(final Activity mPm){
             if(!mPm.isFinishing()){//判断ProcessMain是否存在
-                dialog_alert=new Dialog_alert(mPm,R.style.RiskTipDialog,R.layout.dialog_alerttip);
-                dialog_alert.setCancelable(true);
-                dialog_alert.setalertText("账号已在其他端登录");
-                dialog_alert.setOnPositiveListener(new View.OnClickListener() {
+                mPm.runOnUiThread(new Runnable() {
                     @Override
-                    public void onClick(View v) {
-                        if(dialog_alert!=null && dialog_alert.isShowing()){
-                            dialog_alert.dismiss();
-                            dialog_alert=null;
-                            AppManager.getAppManager().AppExit(mPm.getApplicationContext());//context 是否正确
-                        }
+                    public void run() {
+                        dialog_alert=new Dialog_alert(mPm,R.style.RiskTipDialog,R.layout.dialog_alerttip);
+                        dialog_alert.setCancelable(false);
+                        dialog_alert.setalertText("账号已在其他端登录");
+                        dialog_alert.setOnPositiveListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(dialog_alert!=null && dialog_alert.isShowing()){
+                                    dialog_alert.dismiss();
+                                    dialog_alert=null;
+                                    AppManager.getAppManager().AppExit(mPm.getApplicationContext());//context 是否正确
+                                    Intent toLogin=new Intent(mPm,loginActivity.class);
+                                    mPm.startActivity(toLogin);
+                                }
+                            }
+                        });
+                        dialog_alert.show();
                     }
                 });
-                dialog_alert.show();
+
             }
     }
 

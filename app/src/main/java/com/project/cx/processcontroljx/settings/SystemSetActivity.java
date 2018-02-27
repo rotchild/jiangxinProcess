@@ -16,7 +16,6 @@ import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.update.MyUpdateObject;
 import com.project.cx.processcontroljx.update.UpdateHelper;
 import com.project.cx.processcontroljx.utils.AppManager;
-import com.project.cx.processcontroljx.utils.MViewManager;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.UserManager;
 
@@ -98,7 +97,7 @@ public class SystemSetActivity extends MBaseActivity implements View.OnClickList
                 AppManager.getAppManager().finishActivity();
                 break;
             case R.id.system_exit:
-                MViewManager.getInstance().finishAllAdapter();//销毁所有adapter
+                //MViewManager.getInstance().finishAllAdapter();//销毁所有adapter
                 AppManager.getAppManager().AppExit(mContext);
                 Intent toLogin=new Intent(SystemSetActivity.this,loginActivity.class);
                 startActivity(toLogin);

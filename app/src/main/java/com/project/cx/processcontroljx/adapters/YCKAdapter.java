@@ -119,7 +119,8 @@ public class YCKAdapter extends BaseAdapter {
             String caseTime_str= TimeUtil.stampToDate(Ctime_str);
             holder_yck.caseTime.setText(caseTime_str);
             String hurtstate_str="--";
-            Long hurtstate_long=Long.valueOf(mData.get(position).getAsString(TaskCK.hurt_state));
+
+            Long hurtstate_long=Long.valueOf(mData.get(position).getAsString(TaskCK.hurt_state)==null?"0":mData.get(position).getAsString(TaskCK.hurt_state));
             if(hurtstate_long==0){
                 hurtstate_str="";
             }else if(hurtstate_long==1){
@@ -156,7 +157,7 @@ public class YCKAdapter extends BaseAdapter {
             }
             holder_yck.riskstate.setText(riskstate_str);
             String lianstate_str="--";
-            Long lianstate_long=Long.valueOf(mData.get(position).getAsString(TaskCK.lian_state));
+            Long lianstate_long=Long.valueOf(mData.get(position).getAsString(TaskCK.lian_state)==null?"0":mData.get(position).getAsString(TaskCK.lian_state));
             if(lianstate_long==0){
                 lianstate_str="未立案";
                 holder_yck.lian_state.setTextColor(mContext.getResources().getColor(R.color.typered));
@@ -182,6 +183,8 @@ public class YCKAdapter extends BaseAdapter {
     }
     //修改数据源
     public void setDataList(ArrayList<ContentValues> dataList){
-        mData=dataList;
+        mData.clear();
+        mData.addAll(dataList);
+        notifyDataSetChanged();
     }
 }
