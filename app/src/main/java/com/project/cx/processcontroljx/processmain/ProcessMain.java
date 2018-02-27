@@ -127,14 +127,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 //    public int loadStart_gz=refreshLimit;
 //    public int loadStart_ls=refreshLimit;
 
-    public int loadStart_dck=10;
-    public int loadStart_yck=10;
-    public int loadStart_dds=10;
-    public int loadStart_dsz=10;
-    public int loadStart_yds=10;
-    public int loadStart_hp=10;
-    public int loadStart_gz=10;
-    public int loadStart_ls=10;
+    public int loadStart_dck=0;
+    public int loadStart_yck=0;
+    public int loadStart_dds=0;
+    public int loadStart_dsz=0;
+    public int loadStart_yds=0;
+    public int loadStart_hp=0;
+    public int loadStart_gz=0;
+    public int loadStart_ls=0;
 
     public ArrayList<ContentValues> mArray_=new ArrayList<ContentValues>();
 
@@ -1048,14 +1048,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     }
     //重置loadStart,切换时刷新,应当重置loadStart
     public void resetLoadStart(){
-        loadStart_dck=refreshLimit_search;
-        loadStart_yck=refreshLimit_search;
-        loadStart_dds=refreshLimit_search;
-        loadStart_dsz=refreshLimit_search;
-        loadStart_yds=refreshLimit_search;
-        loadStart_hp=refreshLimit_search;
-        loadStart_gz=refreshLimit_search;
-        loadStart_ls=refreshLimit_search;
+        loadStart_dck=0;
+        loadStart_yck=0;
+        loadStart_dds=0;
+        loadStart_dsz=0;
+        loadStart_yds=0;
+        loadStart_hp=0;
+        loadStart_gz=0;
+        loadStart_ls=0;
     }
 
     private void showFilterWindow(Context ctx) {
