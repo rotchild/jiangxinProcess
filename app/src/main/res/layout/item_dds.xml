@@ -73,7 +73,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="12dp"
             android:layout_centerVertical="true"
-            android:text="报案时间："
+            android:text="派发时间："
             android:textColor="@color/maintext"
             android:textSize="@dimen/default_size"
             />
@@ -88,27 +88,20 @@
             android:textSize="@dimen/default_size"
             />
         <TextView
-            android:id="@+id/dds_hurt_state"
+            android:id="@+id/dds_car_role"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="--"
-            android:textColor="@color/typered"
             android:textSize="@dimen/default_size"
-            android:visibility="invisible"
-            />
-        <ImageView
-            android:id="@+id/dds_hurt_state_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_toLeftOf="@id/dds_hurt_state"
-            android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/red_medical"
-            android:visibility="invisible"
+            android:visibility="visible"
             />
 
     </RelativeLayout>

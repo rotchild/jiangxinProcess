@@ -128,7 +128,7 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
         String Ctime_str=String.valueOf(Ctime_long);
         String Ctime_result= TimeUtil.stampToDate(Ctime_str);
         dds_detail_caseTime.setText(Ctime_result);
-        Long Otime_long=Long.valueOf(selectDDS.getAsString(TaskDS.outTime))*1000;
+        Long Otime_long=Long.valueOf(selectDDS.getAsString(TaskDS.createtime))*1000;
         String Otime_str=String.valueOf(Otime_long);
         String Otime_result= TimeUtil.stampToDate(Otime_str);
         dds_detail_outTime.setText(Otime_result);
@@ -142,7 +142,7 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
         dds_detail_reporterPhone1.setText(selectDDS.getAsString(TaskDS.reporterPhone1));
         dds_detail_reporterPhone1.setOnClickListener(this);
 
-        dds_detail_expect_amount.setText(selectDDS.getAsString(TaskDS.expect_amount));
+        dds_detail_expect_amount.setText(selectDDS.getAsString(TaskDS.expect_amount)+"元");
         dds_detail_vehicleBrand.setText(selectDDS.getAsString(TaskDS.vehicleBrand));
         dds_detail_assess_address.setText(selectDDS.getAsString(TaskDS.assess_address));
         Long Atime_long=Long.valueOf(selectDDS.getAsString(TaskDS.appointTime))*1000;
@@ -155,6 +155,16 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
             rolestate_str="标的车";
         }else if(rolestate_long==2){
             rolestate_str="三者车";
+            LinearLayout threehide1=(LinearLayout) findViewById(R.id.threehide1);
+            threehide1.setVisibility(View.GONE);
+            LinearLayout threehide2=(LinearLayout) findViewById(R.id.threehide2);
+            threehide2.setVisibility(View.GONE);
+            LinearLayout threehide3=(LinearLayout) findViewById(R.id.threehide3);
+            threehide3.setVisibility(View.GONE);
+            LinearLayout threehide4=(LinearLayout) findViewById(R.id.threehide4);
+            threehide4.setVisibility(View.GONE);
+            LinearLayout threehide5=(LinearLayout) findViewById(R.id.dds_risklist_wrapper);
+            threehide5.setVisibility(View.GONE);
         }
         dds_detail_car_role.setText(rolestate_str);
         dds_detail_licenseno.setText(selectDDS.getAsString(TaskDS.licenseno));

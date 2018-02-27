@@ -432,6 +432,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/threehide1"
         >
 
         <TextView
@@ -553,6 +554,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/threehide2"
 
         >
 
@@ -617,6 +619,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:id="@+id/threehide3"
             >
 
             <TextView
@@ -638,6 +641,7 @@
             android:background="#a9a9a9"
             android:gravity="center|center_horizontal|center_vertical"
             android:orientation="horizontal"
+            android:id="@+id/threehide4"
             >
 
             <TextView

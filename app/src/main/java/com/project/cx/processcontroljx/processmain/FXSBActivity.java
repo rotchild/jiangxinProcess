@@ -20,6 +20,7 @@ import com.project.cx.processcontroljx.beans.RiskWarm;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskCK;
 import com.project.cx.processcontroljx.beans.TaskDS;
+import com.project.cx.processcontroljx.beans.TaskRisk;
 import com.project.cx.processcontroljx.beans.TaskRole;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
@@ -27,6 +28,7 @@ import com.project.cx.processcontroljx.ui.Dialog_detailtip;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.TelphoneUtil;
+import com.project.cx.processcontroljx.utils.TimeUtil;
 import com.project.cx.processcontroljx.utils.UserManager;
 
 import java.util.ArrayList;
@@ -90,8 +92,15 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
 
         if(tasktype.equals("CK")){
             fxsb_edit_caseNo.setText(selectTask.getAsString(TaskCK.caseNo));
-            fxsb_edit_caseTime.setText(selectTask.getAsString(TaskCK.caseTime));
-            fxsb_edit_outTime.setText(selectTask.getAsString(TaskCK.outTime));
+            Long Ctime_long=Long.valueOf(selectTask.getAsString(TaskCK.caseTime))*1000;
+            String Ctime_str=String.valueOf(Ctime_long);
+            String caseTime_str= TimeUtil.stampToDate(Ctime_str);
+            fxsb_edit_caseTime.setText(caseTime_str);
+            Long Otime_long=Long.valueOf(selectTask.getAsString(TaskCK.outTime))*1000;
+            String Otime_str=String.valueOf(Otime_long);
+            String OcaseTime_str= TimeUtil.stampToDate(Otime_str);
+            //Log.i("selectDCK","OcaseTime_str:"+OcaseTime_str);
+            fxsb_edit_outTime.setText(OcaseTime_str);
             fxsb_edit_reporter.setText(selectTask.getAsString(TaskCK.reporter));
             fxsb_edit_reporterPhone.setText(selectTask.getAsString(TaskCK.reporterPhone));
             fxsb_edit_vehicleBrand.setText(selectTask.getAsString(TaskCK.licenseno));

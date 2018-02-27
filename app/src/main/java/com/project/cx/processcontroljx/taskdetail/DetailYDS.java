@@ -105,7 +105,7 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
         String Ctime_str=String.valueOf(Ctime_long);
         String Ctime_result= TimeUtil.stampToDate(Ctime_str);
         yds_detail_caseTime.setText(Ctime_result);
-        Long Otime_long=Long.valueOf(selectYDS.getAsString(TaskDS.outTime))*1000;
+        Long Otime_long=Long.valueOf(selectYDS.getAsString(TaskDS.createtime))*1000;
         String Otime_str=String.valueOf(Otime_long);
         String Otime_result= TimeUtil.stampToDate(Otime_str);
         yds_detail_outTime.setText(Otime_result);

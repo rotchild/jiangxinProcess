@@ -82,7 +82,7 @@ public class DDSAdapter extends BaseAdapter {
             }
 
             RelativeLayout head= (RelativeLayout)convertView.findViewById(R.id.dds_head_change);
-            ImageView image_hurt = (ImageView)convertView.findViewById(R.id.dds_hurt_state_icon);
+            //ImageView image_hurt = (ImageView)convertView.findViewById(R.id.dds_hurt_state_icon);
             long reparations_long=Long.valueOf(mData.get(position).getAsString(TaskDS.reparations));
             //Log.i("dm","reparations_long"+reparations_long);
             if(reparations_long>10000){
@@ -103,7 +103,7 @@ public class DDSAdapter extends BaseAdapter {
             }
             holder_dds.caseNo.setText(mData.get(position).getAsString(TaskDS.caseNo));
             holder_dds.licenseno.setText(mData.get(position).getAsString(TaskDS.licenseno));
-            Long Ctime_long=Long.valueOf(mData.get(position).getAsString(TaskDS.caseTime))*1000;
+            Long Ctime_long=Long.valueOf(mData.get(position).getAsString(TaskDS.createtime))*1000;//0227在待定损把报案时间改成派发时间
             String Ctime_str=String.valueOf(Ctime_long);
             String caseTime_str= TimeUtil.stampToDate(Ctime_str);
             holder_dds.caseTime.setText(caseTime_str);
@@ -145,7 +145,18 @@ public class DDSAdapter extends BaseAdapter {
                 riskstate_str="已上报";
             }
             holder_dds.riskstate.setText(riskstate_str);
-
+            // 0227新增标的和三者
+            TextView dds_car_role=(TextView)convertView.findViewById(R.id.dds_car_role);
+             Long rolestate_long=Long.valueOf(mData.get(position).getAsString(TaskDS.car_role));
+            if(rolestate_long==1){
+                dds_car_role.setText("标的车");
+                dds_car_role.setTextColor(mContext.getResources().getColor(R.color.typered));
+                dds_car_role.setBackground(mContext.getResources().getDrawable(R.drawable.text_border_red));
+             }else if(rolestate_long==2){
+                dds_car_role.setText("三者车");
+                dds_car_role.setTextColor(mContext.getResources().getColor(R.color.typegreen));
+                dds_car_role.setBackground(mContext.getResources().getDrawable(R.drawable.text_border_green));
+            }
             holder_dds.item_dds.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

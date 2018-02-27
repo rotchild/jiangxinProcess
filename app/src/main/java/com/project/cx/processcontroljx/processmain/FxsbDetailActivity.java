@@ -71,7 +71,7 @@ public class FxsbDetailActivity extends MBaseActivity implements View.OnClickLis
         String caseTime_str= TimeUtil.stampToDate(Ctime_str);
         fxsb_detail_caseTime.setText(caseTime_str);
         Long Otime_long=Long.valueOf(selectRisk.getAsString(TaskRisk.createtime))*1000;
-        String Otime_str=String.valueOf(Ctime_long);
+        String Otime_str=String.valueOf(Otime_long);
         String OcaseTime_str= TimeUtil.stampToDate(Otime_str);
         Log.i("selectDCK","OcaseTime_str:"+OcaseTime_str);
         fxsb_detail_outTime.setText(OcaseTime_str);

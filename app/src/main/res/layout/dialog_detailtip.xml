@@ -38,7 +38,7 @@
                 android:text="@string/safeType1"
                 android:textSize="14sp"
                 android:textColor="@color/noticetext"
-                android:padding="3dp"
+
                 android:layout_gravity="center_vertical"
                 />
             <TextView
@@ -55,11 +55,9 @@
                 android:text="@string/safeType3"
                 android:textSize="14sp"
                 android:textColor="@color/noticetext"
-                android:padding="3dp"
                 android:layout_gravity="center_vertical"
                 />
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/safeType4"
@@ -73,7 +71,6 @@
                 android:text="@string/safeType5"
                 android:textSize="14sp"
                 android:textColor="@color/noticetext"
-                android:padding="3dp"
                 android:layout_gravity="center_vertical"
                 />
             <TextView
@@ -90,32 +87,7 @@
                 android:text="@string/safeType7"
                 android:textSize="14sp"
                 android:textColor="@color/noticetext"
-                android:padding="3dp"
-                android:layout_gravity="center_vertical"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/safeType5"
-                android:textSize="14sp"
-                android:textColor="@color/noticetext"
-                android:layout_gravity="center_vertical"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/safeType6"
-                android:textSize="14sp"
-                android:textColor="@color/noticetext"
-                android:padding="3dp"
-                android:layout_gravity="center_vertical"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/safeType7"
-                android:textSize="14sp"
-                android:textColor="@color/noticetext"
+
                 android:layout_gravity="center_vertical"
                 />
             <TextView
