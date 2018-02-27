@@ -29,7 +29,7 @@ public class DDSAdapter extends BaseAdapter {
     ViewHolder_dck holder_dds=null;
 
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(int i,View view);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -149,7 +149,7 @@ public class DDSAdapter extends BaseAdapter {
             holder_dds.item_dds.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(position,v);
                 }
             });
             convertView.setTag(holder_dds);

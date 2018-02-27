@@ -40,7 +40,7 @@ public class DCKAdapter extends BaseAdapter {
 
 
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(int i,View view);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -72,6 +72,7 @@ public class DCKAdapter extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Log.i("dckadapterText","size:"+mData.size());
@@ -100,7 +101,7 @@ public class DCKAdapter extends BaseAdapter {
             holder_dck.item_ck.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(position,v);
                 }
             });
             long reparations_long=Long.valueOf(mData.get(position).getAsString(TaskCK.reparations));
@@ -178,6 +179,8 @@ public class DCKAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+
 
     public class ViewHolder_dck{
         TextView caseNo,licenseno,caseTime,caseState,outNumber,risklevel,riskstate,hurt_state;

@@ -14,18 +14,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.project.cx.processcontroljx.R;
+import com.project.cx.processcontroljx.beans.BusFXState;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.SelectedTask;
+import com.project.cx.processcontroljx.beans.TaskCK;
 import com.project.cx.processcontroljx.beans.TaskDS;
 import com.project.cx.processcontroljx.beans.TaskRole;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.utils.AppManager;
+import com.project.cx.processcontroljx.utils.BusUtil;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.TelphoneUtil;
 import com.project.cx.processcontroljx.utils.TimeUtil;
 import com.project.cx.processcontroljx.utils.UserManager;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
@@ -59,17 +63,19 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_yds);
         mContext=this;
+        BusUtil.getINSTANCE().register(this);
         initData();
         initView();
+        getRisksWarnHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYDS.getAsString(TaskDS.caseNo),selectYDS.getAsString(TaskDS.licenseno),
+                "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext,DetailYDS.this));
+        if(intentType==DetailIntentType.UNREAD){
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectYDS.getAsString(TaskCK.caseNo),selectYDS.getAsString(TaskCK.licenseno),
+                    "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailYDS.this));
+        }
     }
 
     private void initView() {
         yds_risktype_wrapper= (LinearLayout) findViewById(R.id.yds_risktype_wrapper);
-
-        getRisksWarnHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
-                selectYDS.getAsString(TaskDS.id), OkCallbackManager.getInstance().getRiskWarmCallback(mContext,DetailYDS.this));
-
-
         safe_book= (Button) findViewById(R.id.safe_book);
         safe_book.setOnClickListener(this);
 
@@ -183,10 +189,10 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
     }
 
     //获取风险提示数据
-    public void getRisksWarnHttpData(String token, String frontrole, String task_role, String taskid, Callback Callback){
+    public void getRisksWarnHttpData(String token, String frontrole, String caseNo, String licenseno,String type, Callback Callback){
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
-        okhandler.getRisksWarnHttp(token,frontrole,task_role,taskid,Callback);
+        okhandler.getRisksWarnHttp(token,frontrole,caseNo,licenseno,type,Callback);
     }
 
     //获取风险上报任务数据
@@ -204,5 +210,20 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
             getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
                     selectYDS.getAsString(TaskDS.caseNo), selectYDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailYDS.this));
         }
+    }
+
+    @Subscribe
+    public void setRiskState(BusFXState busdata){
+        if(busdata.getType().equals("DS")){
+            if(yds_detail_riskstate!=null){
+                yds_detail_riskstate.setText("已上报");
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        BusUtil.getINSTANCE().unregister(this);
+        super.onDestroy();
     }
 }

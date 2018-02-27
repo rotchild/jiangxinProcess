@@ -174,18 +174,18 @@ public class OkhttpDataHandler {
      * 风险预警
      * @param token
      * @param frontrole
-     * @param taskid
-     * @param task_role
+     * @param type
+     * @param caseNo
      * @param Callback
      */
-    public void getRisksWarnHttp(String token,String frontrole,String taskid,String task_role,Callback Callback){
+    public void getRisksWarnHttp(String token,String frontrole,String caseNo,String licenseno,String type,Callback Callback){
         Log.i(TAG,"getRisksWarnHttp enter");
         if(mIsShowProgressDialog) mProgressDialog.show();
         mCallback=Callback;
         String url= MHttpParams.GetRisks_warn;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
-                add("taskid",taskid).add("task_role",task_role).build();
-        Log.i(TAG,"getTaskDSHttp params:"+"url:"+url+"?token="+token+"&"+"frontrole="+frontrole+"&"+"taskid="+taskid+"&"+"task_role="+task_role);
+                add("caseNo",caseNo).add("licenseno",licenseno).add("type",type).build();
+        Log.i(TAG,"getTaskDSHttp params:"+"url:"+url+"?token="+token+"&"+"frontrole="+frontrole+"&"+"caseNo="+caseNo+"&"+"licenseno="+licenseno+"&"+"type="+type);
         Request request=new Request.Builder().url(url).post(requestBody).build();
         Call call=okhttpClient.newCall(request);
         call.enqueue(pcallback);

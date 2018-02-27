@@ -253,10 +253,10 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
 
                 if(tasktype.equals("CK")){
                     commitRiskRecordData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
-                            TaskRole.ck,risktypeStr,risktype_sysStr,risktype_manStr, others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this));
+                            TaskRole.ck,risktypeStr,risktype_sysStr,risktype_manStr, others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this,"CK"));
                 }else if(tasktype.equals("DS")){
                     commitRiskRecordData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
-                            TaskRole.ds,risktypeStr,risktype_sysStr,risktype_manStr, others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this));
+                            TaskRole.ds,risktypeStr,risktype_sysStr,risktype_manStr, others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this,"DS"));
                 }
 
                 break;

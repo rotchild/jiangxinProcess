@@ -1,6 +1,7 @@
 package com.project.cx.processcontroljx.beans;
 
 import android.content.ContentValues;
+import android.view.View;
 
 /**
  * Created by Administrator on 2017/12/5 0005.
@@ -8,6 +9,16 @@ import android.content.ContentValues;
 //管理选中的task
 public class SelectedTask {
     private static ContentValues mtaskDCK,mtaskYCK,mtaskDDS,mtaskDSZ,mtaskYDS,mtaskHP,mtaskRSWORK,mtaskRSHIS,mtaskRisk;
+
+    private static View selectedView;
+
+    public static void storeView(View view){
+        selectedView=view;
+    }
+
+    public static View getView(){
+        return selectedView;
+    }
 
     public static void storeTaskDCK(ContentValues taskDCK){
         mtaskDCK=taskDCK;

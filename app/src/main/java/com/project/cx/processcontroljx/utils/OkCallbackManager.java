@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.AccessDetailBean;
 import com.project.cx.processcontroljx.beans.AccessDetailData;
+import com.project.cx.processcontroljx.beans.BusFXState;
 import com.project.cx.processcontroljx.beans.DSArea;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.ListDataCache;
@@ -718,7 +720,7 @@ public class OkCallbackManager {
                                     RiskWarm.riskwarmArray.add(values);
                                 }
                             }
-                            //在dck,yck,dds,dsz,yds,hp详情页显示riskdialguo并把riskArray填充进去,只有未读任务需要
+/*                            //在dck,yck,dds,dsz,yds,hp详情页显示riskdialguo并把riskArray填充进去,只有未读任务需要
                             if(detailClass instanceof DetailDCK){
                                 final DetailDCK detailDCK= (DetailDCK) detailClass;
                                 if(detailDCK.intentType==DetailIntentType.UNREAD){
@@ -789,7 +791,7 @@ public class OkCallbackManager {
                                         }
                                     });
                                 }
-                            }
+                            }*/
 
 
                             //处理dck,yck,dds,dsz,yds中的风险类型展示
@@ -845,6 +847,143 @@ public class OkCallbackManager {
                                         LayoutAddDanamic.getInstance().addRiskTypeListView(ctx,risktype_wrapper,RiskWarm.riskwarmArray);
                                     }
                                 });
+                            }
+
+                        }else{
+                            final JSONObject err=jsonObject.getJSONObject("err");//err是否一定是jsonobject?
+                            final String msg=err.getString("message");
+                            if(msg.equals("token已失效，请重新登录")){//据此判断是否下线
+                                //弹出alert
+                                detailClass.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showCloseAlert(detailClass);
+                                    }
+                                });
+                            }else{
+                                detailClass.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(ctx,msg,Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,"warm exception info:"+e.getMessage());
+                    }
+                }else{
+                    Log.i(TAG,"loginCallbackResponse is null or length0");
+                }
+            }
+        };
+        return resultCallback;
+    }
+
+    //设置系统风险Callback
+    public Callback getRiskWarmsysCallback(final Context ctx, final MBaseActivity detailClass){
+        Callback resultCallback=null;
+        RiskWarm.risksyswarmArray=new ArrayList<ContentValues>();//清除riskArray
+        resultCallback=new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG,"getRiskWarmCallbackFAIL/e"+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i(TAG,"getRiskWarmCallbackSUCCESS");
+                if(response!=null){
+                    String bodystr=response.body().string();
+                    Log.i(TAG,"getwarmCallbackResponsebodyStr:"+bodystr);
+                    try{
+                        JSONObject jsonObject=new JSONObject(bodystr);
+                        boolean success=jsonObject.getBoolean("success");
+                        if(success){
+                            JSONArray datas=jsonObject.getJSONArray("data");
+                            if(datas!=null && datas.length()>0){
+                                for(int i=0;i<datas.length();i++){
+                                    ContentValues values=new ContentValues();
+                                    JSONObject mdata=datas.getJSONObject(i);
+                                    values.put(RiskWarm.RISKNAME,mdata.getString(RiskWarm.RISKNAME));
+                                    values.put(RiskWarm.CONTENT,mdata.getString(RiskWarm.CONTENT));
+                                    RiskWarm.risksyswarmArray.add(values);
+                                }
+                            }else{//不弹出弹框
+                                return;
+                            }
+                            //在dck,yck,dds,dsz,yds,hp详情页显示riskdialguo并把riskArray填充进去,只有未读任务需要
+                            if(detailClass instanceof DetailDCK){
+                                final DetailDCK detailDCK= (DetailDCK) detailClass;
+                                if(detailDCK.intentType==DetailIntentType.UNREAD){
+                                    detailDCK.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //detailDCK.showRiskDg(RiskWarm.riskwarmArray);
+                                            showRiskDg(ctx,RiskWarm.risksyswarmArray);
+                                        }
+                                    });
+                                }
+                            }
+
+                            if(detailClass instanceof DetailYCK){
+                                final DetailYCK detailYCK= (DetailYCK) detailClass;
+                                if(detailYCK.intentType==DetailIntentType.UNREAD){
+                                    detailYCK.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            showRiskDg(ctx,RiskWarm.riskwarmArray);
+                                        }
+                                    });
+                                }
+                            }
+
+                            if(detailClass instanceof DetailDDS){
+                                final DetailDDS detailDDS= (DetailDDS) detailClass;
+                                if(detailDDS.intentType==DetailIntentType.UNREAD){
+                                    detailDDS.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            showRiskDg(ctx,RiskWarm.risksyswarmArray);
+                                        }
+                                    });
+                                }
+                            }
+
+                            if(detailClass instanceof DetailDSZ){
+                                final DetailDSZ detailDSZ= (DetailDSZ) detailClass;
+                                if(detailDSZ.intentType==DetailIntentType.UNREAD){
+                                    detailDSZ.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            showRiskDg(ctx,RiskWarm.risksyswarmArray);
+                                        }
+                                    });
+                                }
+                            }
+
+                            if(detailClass instanceof DetailYDS){
+                                final DetailYDS detailYDS= (DetailYDS) detailClass;
+                                if(detailYDS.intentType==DetailIntentType.UNREAD){
+                                    detailYDS.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            showRiskDg(ctx,RiskWarm.risksyswarmArray);
+                                        }
+                                    });
+                                }
+                            }
+                            if(detailClass instanceof DetailHP){
+                                final DetailHP detailHP= (DetailHP) detailClass;
+                                if(detailHP.intentType==DetailIntentType.UNREAD){
+                                    detailHP.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            showRiskDg(ctx,RiskWarm.risksyswarmArray);
+                                        }
+                                    });
+                                }
                             }
 
                         }else{
@@ -1656,7 +1795,7 @@ public class OkCallbackManager {
         return resultCallback;
     }
 
-    public Callback commitRiskRecordCallback(final Context ctx, final FXSBActivity fxsb){
+    public Callback commitRiskRecordCallback(final Context ctx, final FXSBActivity fxsb, final String taskType){
         Callback resultCallback=null;
         resultCallback=new Callback() {
             @Override
@@ -1681,6 +1820,38 @@ public class OkCallbackManager {
                             fxsb.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    View view=SelectedTask.getView();//更改list列表的上报状态,但对应详情的状态没有变
+                                    if(taskType.equals("CK")){
+                                        TextView dck_riskstate= (TextView) view.findViewById(R.id.dck_riskstate);
+                                        TextView yck_riskstate= (TextView) view.findViewById(R.id.yck_riskstate);
+                                        if(dck_riskstate!=null){
+                                            dck_riskstate.setText("已上报");
+                                        }
+                                        if(yck_riskstate!=null){
+                                            yck_riskstate.setText("已上报");
+                                        }
+                                        BusUtil.getINSTANCE().post(new BusFXState("CK"));//
+                                    }else if(taskType.equals("DS")){
+                                        TextView dds_riskstate= (TextView) view.findViewById(R.id.dds_riskstate);
+                                        TextView dsz_riskstate= (TextView) view.findViewById(R.id.dsz_riskstate);
+                                        TextView yds_riskstate= (TextView) view.findViewById(R.id.yds_riskstate);
+                                        if(dds_riskstate!=null){
+                                            dds_riskstate.setText("已上报");
+                                        }
+
+                                        if(dsz_riskstate!=null){
+                                            dsz_riskstate.setText("已上报");
+                                        }
+
+                                        if(yds_riskstate!=null){
+                                            yds_riskstate.setText("已上报");
+                                        }
+                                        BusUtil.getINSTANCE().post(new BusFXState("DS"));//
+
+
+                                    }
+
+
                                     Toast.makeText(ctx,"提交成功",Toast.LENGTH_SHORT).show();
                                     Intent mIntent=new Intent();
                                     mIntent.putExtra("sbstate","1");

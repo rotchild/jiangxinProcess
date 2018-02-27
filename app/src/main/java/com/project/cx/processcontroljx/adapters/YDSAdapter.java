@@ -29,7 +29,7 @@ public class YDSAdapter extends BaseAdapter {
     ViewHolder_yds holder_yds=null;
 
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(int i,View view);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -156,7 +156,7 @@ public class YDSAdapter extends BaseAdapter {
             holder_yds.item_yds.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(position,v);
                 }
             });
 

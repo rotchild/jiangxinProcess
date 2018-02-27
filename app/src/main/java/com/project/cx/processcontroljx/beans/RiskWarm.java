@@ -16,4 +16,5 @@ public class RiskWarm {
     public static final String RISKNAME="riskname";
     public static final String CONTENT="content";
     public static ArrayList<ContentValues> riskwarmArray=new ArrayList<ContentValues>();
+    public static ArrayList<ContentValues> risksyswarmArray=new ArrayList<ContentValues>();
 }

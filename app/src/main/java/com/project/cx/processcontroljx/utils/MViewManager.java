@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -638,11 +639,12 @@ public class MViewManager {
                 dckAdapter=new DCKAdapter(context,listData);
                 dckAdapter.setMOnItemClickListener(new DCKAdapter.MOnItemClickListener() {
                     @Override
-                    public void onClick(int id) {
+                    public void onClick(int id,View v) {
                         Log.i("MViewManager","selece position:"+id);
                         ContentValues selectTask= (ContentValues) dckAdapter.getItem(id);
                         if(selectTask!=null){
                             SelectedTask.storeTaskDCK(selectTask);
+                            SelectedTask.storeView(v);//存储被选中的view;
                         }
                         String isRead=selectTask.getAsString(TaskCK.isRead);
                         if(isRead.equals("0")){//未读,调用设置已读接口,!需要注意刷新的时机
@@ -739,13 +741,15 @@ public class MViewManager {
         }else if(loadtype==LoadType.REFRESH){
             if(yckAdapter==null){
                 yckAdapter=new YCKAdapter(context,listData);
+
                 yckAdapter.setMOnItemClickListener(new YCKAdapter.MOnItemClickListener() {
                     @Override
-                    public void onClick(int id) {
+                    public void onClick(int id,View v) {
                         Log.i("MViewManager","selece position:"+id);
                         ContentValues selectTask= (ContentValues) yckAdapter.getItem(id);
                         if(selectTask!=null){
                             SelectedTask.storeTaskYCK(selectTask);
+                            SelectedTask.storeView(v);
                         }
 
                         String isRead=selectTask.getAsString(TaskCK.isRead);
@@ -803,12 +807,13 @@ public class MViewManager {
                 ddsAdapter=new DDSAdapter(context,listData);
                 ddsAdapter.setMOnItemClickListener(new DDSAdapter.MOnItemClickListener() {
                     @Override
-                    public void onClick(int id) {
+                    public void onClick(int id,View v) {
                         //Detail对应修改
                         Log.i("MViewManager","selece position:"+id);
                         ContentValues selectTask= (ContentValues) ddsAdapter.getItem(id);
                         if(selectTask!=null){
                             SelectedTask.storeTaskDDS(selectTask);
+                            SelectedTask.storeView(v);
                         }
 
                         String isRead=selectTask.getAsString(TaskDS.isRead);
@@ -896,7 +901,7 @@ public class MViewManager {
                 dszAdapter=new DSZAdapter(context,listData);
                 dszAdapter.setMOnItemClickListener(new DSZAdapter.MOnItemClickListener() {
                     @Override
-                    public void onClick(int id) {
+                    public void onClick(int id,View v) {
                         Log.i("MViewManager","selece position:"+id);
                         ContentValues selectTask= (ContentValues) dszAdapter.getItem(id);
                         if(selectTask!=null){
@@ -970,11 +975,12 @@ public class MViewManager {
                 ydsAdapter=new YDSAdapter(context,listData);
                 ydsAdapter.setMOnItemClickListener(new YDSAdapter.MOnItemClickListener() {
                     @Override
-                    public void onClick(int id) {
+                    public void onClick(int id,View v) {
                         Log.i("MViewManager","selece position:"+id);
                         ContentValues selectTask= (ContentValues) ydsAdapter.getItem(id);
                         if(selectTask!=null){
                             SelectedTask.storeTaskYDS(selectTask);
+                            SelectedTask.storeView(v);
                         }
 
                         String isRead=selectTask.getAsString(TaskDS.isRead);

@@ -16,7 +16,6 @@ import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskDS;
-import com.project.cx.processcontroljx.beans.TaskRole;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.ui.Dialog_risktip;
@@ -52,11 +51,15 @@ public class DetailHP extends MBaseActivity implements View.OnClickListener {
         mContext=this;
         initData();
         initView();
+        getRisksWarnHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectHP.getAsString(TaskDS.caseNo),selectHP.getAsString(TaskDS.licenseno),
+                "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext,DetailHP.this));
+        if(intentType==DetailIntentType.UNREAD){
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectHP.getAsString(TaskDS.caseNo),selectHP.getAsString(TaskDS.licenseno),
+                    "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailHP.this));
+        }
     }
 
     private void initView() {
-        getRisksWarnHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
-                selectHP.getAsString(TaskDS.id), OkCallbackManager.getInstance().getRiskWarmCallback(mContext,DetailHP.this));
 
         approve_btn=(Button)findViewById(R.id.approve_btn);
         approve_btn.setOnClickListener(this);
@@ -203,10 +206,10 @@ public class DetailHP extends MBaseActivity implements View.OnClickListener {
     }
 
     //获取风险提示数据
-    public void getRisksWarnHttpData(String token, String frontrole, String task_role, String taskid, Callback Callback){
+    public void getRisksWarnHttpData(String token, String frontrole, String caseNo, String licenseno,String type, Callback Callback){
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
-        okhandler.getRisksWarnHttp(token,frontrole,task_role,taskid,Callback);
+        okhandler.getRisksWarnHttp(token,frontrole,caseNo,licenseno,type,Callback);
     }
 
     //提交上报审批数据
