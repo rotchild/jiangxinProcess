@@ -37,8 +37,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/safeType1"
                 android:textSize="14sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/noticetext"
-
                 android:layout_gravity="center_vertical"
                 />
             <TextView
@@ -46,6 +47,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/safeType2"
                 android:textSize="14sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/noticetext"
                 android:layout_gravity="center_vertical"
                 />
@@ -53,6 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/safeType3"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="14sp"
                 android:textColor="@color/noticetext"
                 android:layout_gravity="center_vertical"
@@ -61,6 +66,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/safeType4"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="14sp"
                 android:textColor="@color/noticetext"
                 android:layout_gravity="center_vertical"
@@ -69,6 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/safeType5"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="14sp"
                 android:textColor="@color/noticetext"
                 android:layout_gravity="center_vertical"
@@ -86,6 +95,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/safeType7"
                 android:textSize="14sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/noticetext"
 
                 android:layout_gravity="center_vertical"
@@ -95,6 +106,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/safeType8"
                 android:textSize="14sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/noticetext"
                 android:layout_gravity="center_vertical"
                 />
@@ -103,6 +116,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/safeType9"
                 android:textSize="14sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/noticetext"
                 android:layout_gravity="center_vertical"
                 />

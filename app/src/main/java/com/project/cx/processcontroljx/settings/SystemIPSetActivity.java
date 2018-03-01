@@ -1,6 +1,7 @@
 package com.project.cx.processcontroljx.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import com.project.cx.processcontroljx.net.MHttpParams;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.MRegex;
+import com.project.cx.processcontroljx.processmain.loginActivity;
 
 /**
  * Created by Administrator on 2017/11/27 0027.
@@ -65,7 +67,10 @@ public class SystemIPSetActivity extends MBaseActivity implements View.OnClickLi
                         mHttpParams.setPort(portStr);
                         mHttpParams.init(mContext);//修改及时更新
                         Toast.makeText(mContext,"保存成功",Toast.LENGTH_SHORT).show();
-                        AppManager.getAppManager().finishActivity();
+                        //AppManager.getAppManager().finishActivity();
+                        AppManager.getAppManager().AppExit(mContext);
+                        Intent toLogin=new Intent(mContext,loginActivity.class);
+                        startActivity(toLogin);
                     }else{
                         Toast.makeText(mContext,"端口格式错误",Toast.LENGTH_SHORT).show();
                     }

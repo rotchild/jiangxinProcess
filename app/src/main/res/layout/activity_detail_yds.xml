@@ -431,7 +431,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-
                 <TextView
                     android:layout_width="1dp"
                     android:layout_height="@dimen/list_height"
@@ -456,6 +455,12 @@
                     android:textSize="@dimen/detail_size"
                     />
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/szhide2"
+            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -517,7 +522,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -546,7 +550,6 @@
                     android:textSize="@dimen/detail_size"
                     />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -576,7 +579,6 @@
 
                     />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -713,6 +715,7 @@
                     android:visibility="gone"
                     />
             </LinearLayout>
+             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

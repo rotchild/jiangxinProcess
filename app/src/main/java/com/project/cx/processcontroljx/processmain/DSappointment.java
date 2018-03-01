@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -499,7 +500,6 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
         customDatePicker2.setIsLoop(true); // 允许循环滚动
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -511,7 +511,20 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                 break;
             case R.id.dsyy_edit_yes:
                 String assessor_nameStr=dsyy_edit_assessor_name.getText().toString().trim();
+                String nameRex="^(([\\u4e00-\\u9fa5]{2,8})|([a-zA-Z]{2,16}))$";
+                boolean namecheck =assessor_nameStr.matches(nameRex);
+                if(!namecheck){
+                    Toast.makeText(mContext,"请输入正确联系人",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String assessor_mobileStr=dsyy_edit_assessor_mobile.getText().toString().trim();
+                String num = "[1][345678]\\d{9}";
+                boolean telcheck =assessor_mobileStr.matches(num);
+                if(!telcheck){
+                    Toast.makeText(mContext,"请输入正确手机号码",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
               /*  String car_role="";
                 if(licenseno_selected.equals(selectYCK.getAsString(TaskCK.licenseno))){//是否为标的车
                     car_role="1";

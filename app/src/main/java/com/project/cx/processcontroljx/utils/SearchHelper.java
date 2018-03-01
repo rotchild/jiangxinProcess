@@ -26,7 +26,12 @@ public class SearchHelper {
         }else if(currentBottom.equals(CurrentBottom.CK_DDS) || currentBottom.equals(CurrentBottom.CD_DDS)){
             httpType="DS";
             paramType=ParamType.DDS;
-        }else if(currentBottom.equals(CurrentBottom.DS_DSZ) || currentBottom.equals(CurrentBottom.CD_DSZ)){
+
+        }else if(currentBottom.equals(CurrentBottom.DS_DDS) || currentBottom.equals(CurrentBottom.CD_DDS)){
+            httpType="DS";
+            paramType=ParamType.DDS;
+        }
+        else if(currentBottom.equals(CurrentBottom.DS_DSZ) || currentBottom.equals(CurrentBottom.CD_DSZ)){
             httpType="DS";
             paramType=ParamType.DSZ;
         }else if(currentBottom.equals(CurrentBottom.DS_YDS) || currentBottom.equals(CurrentBottom.CD_YDS)){

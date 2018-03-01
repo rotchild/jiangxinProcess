@@ -136,6 +136,9 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
             rolestate_str="标的车";
         }else if(rolestate_long==2){
             rolestate_str="三者车";
+            LinearLayout threehide1=(LinearLayout) findViewById(R.id.szhide2);
+            threehide1.setVisibility(View.GONE);
+
         }
         yds_detail_car_role.setText(rolestate_str);
         yds_detail_licenseno.setText(selectYDS.getAsString(TaskDS.licenseno));

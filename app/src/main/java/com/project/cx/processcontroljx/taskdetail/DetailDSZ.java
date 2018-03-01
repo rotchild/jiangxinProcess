@@ -143,6 +143,8 @@ public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
             rolestate_str="标的车";
         }else if(rolestate_long==2){
             rolestate_str="三者车";
+            LinearLayout threehide1=(LinearLayout) findViewById(R.id.szhide1);
+            threehide1.setVisibility(View.GONE);
         }
         dsz_detail_car_role.setText(rolestate_str);
         dsz_detail_licenseno.setText(selectDSZ.getAsString(TaskDS.licenseno));

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
@@ -97,6 +98,8 @@ public class FxsbDetailActivity extends MBaseActivity implements View.OnClickLis
         LayoutAddDanamic.getInstance().addRiskTypeListView(mContext,risktype_wrapper, RiskWarm.riskwarmArray);
 
         fxsb_detail_auditor.setText(selectRisk.getAsString(TaskRisk.auditor));
+
+        Toast.makeText(mContext,selectRisk.getAsString(TaskRisk.auditor), Toast.LENGTH_SHORT).show();
     }
 
     private void initData() {

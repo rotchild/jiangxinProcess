@@ -31,7 +31,7 @@ public class Dialog_detailtip extends Dialog {
         dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_detailtip, null);
         confirm_bt = (Button) dialogView.findViewById(R.id.alert_cancle);
         int diaW = scrW * 9 /10;
-        int diaH = scrH * 9 /10;
+        int diaH = scrH * 4/5;
         super.addContentView(dialogView, new ViewGroup.LayoutParams(diaW, diaH));
     }
 

@@ -191,7 +191,7 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
         super.onResume();
         Log.e(TAG,"onResume enter");
         if(userManager!=null){//更新risk表
-            Log.i(TAG,"onResume  userManager !=null enter");
+            Log.i(TAG,"New-onResume  userManager !=null enter");
             getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ck,
                     selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDCK.this));
             getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),

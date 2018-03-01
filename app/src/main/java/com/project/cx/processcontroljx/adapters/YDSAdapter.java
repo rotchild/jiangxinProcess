@@ -107,7 +107,7 @@ public class YDSAdapter extends BaseAdapter {
             }
             holder_yds.caseNo.setText(mData.get(position).getAsString(TaskDS.caseNo));
             holder_yds.licenseno.setText(mData.get(position).getAsString(TaskDS.licenseno));
-            Long Ctime_long=Long.valueOf(mData.get(position).getAsString(TaskDS.caseTime))*1000;
+            Long Ctime_long=Long.valueOf(mData.get(position).getAsString(TaskDS.caseTime))*1000;//已定损为报案时间
             String Ctime_str=String.valueOf(Ctime_long);
             String caseTime_str= TimeUtil.stampToDate(Ctime_str);
             holder_yds.caseTime.setText(caseTime_str);
@@ -152,7 +152,17 @@ public class YDSAdapter extends BaseAdapter {
                 riskstate_str="已上报";
             }
             holder_yds.riskstate.setText(riskstate_str);
-
+        TextView dds_car_role=(TextView)convertView.findViewById(R.id.yds_car_role);
+        Long rolestate_long=Long.valueOf(mData.get(position).getAsString(TaskDS.car_role));
+        if(rolestate_long==1){
+            dds_car_role.setText("标的车");
+            dds_car_role.setTextColor(mContext.getResources().getColor(R.color.typered));
+            dds_car_role.setBackground(mContext.getResources().getDrawable(R.drawable.text_border_red));
+        }else if(rolestate_long==2){
+            dds_car_role.setText("三者车");
+            dds_car_role.setTextColor(mContext.getResources().getColor(R.color.typegreen));
+            dds_car_role.setBackground(mContext.getResources().getDrawable(R.drawable.text_border_green));
+        }
             holder_yds.item_yds.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

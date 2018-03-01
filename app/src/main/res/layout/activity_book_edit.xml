@@ -340,6 +340,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="16dp"
                         android:text="定损联系人："
+
                         android:textSize="@dimen/detail_size"/>
                     <EditText
                         android:id="@+id/dsyy_edit_assessor_name"
@@ -349,6 +350,7 @@
                         android:layout_weight="2"
                         android:text=""
                         android:gravity="center_vertical"
+                        android:singleLine= "true"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/maintext"
                         android:textSize="@dimen/default_size"
@@ -372,6 +374,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="16dp"
                         android:text="定损联系电话："
+
                         android:textSize="@dimen/detail_size"/>
                     <EditText
                         android:id="@+id/dsyy_edit_assessor_mobile"
@@ -380,6 +383,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_weight="2"
                         android:text=""
+                        android:singleLine= "true"
                         android:gravity="center_vertical"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/maintext"
@@ -638,35 +642,31 @@
                         android:layout_height="36dp"
                         android:layout_width="match_parent"
                         android:background="@drawable/sfrag_radius_halftrans"
-                        android:layout_marginRight="3dp"
-                        >
-                        <Spinner
-                            android:id="@+id/dsyy_edit_assess_name_spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="36dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:padding="1dp"/>
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_height="36dp"
-                        android:layout_width="match_parent"
-                        android:background="@drawable/sfrag_radius_halftrans"
                         android:layout_marginTop="46dp"
                         >
-
-
                         <Spinner
-                            android:id="@+id/dsyy_edit_areaname_spinner"
+
+                            android:id="@+id/dsyy_edit_assess_name_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="36dp"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:padding="1dp"/>
                     </RelativeLayout>
-
+                    <RelativeLayout
+                        android:layout_height="36dp"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/sfrag_radius_halftrans"
+                        android:layout_marginRight="3dp"
+                        >
+                        <Spinner
+                            android:id="@+id/dsyy_edit_areaname_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:padding="1dp"/>
+                    </RelativeLayout>
 
                 </RelativeLayout>
             </LinearLayout>

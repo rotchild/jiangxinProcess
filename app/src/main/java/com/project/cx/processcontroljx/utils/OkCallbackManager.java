@@ -1122,6 +1122,7 @@ public class OkCallbackManager {
                                     values.put(TaskRisk.remark,mdata.getString(TaskRisk.remark));
                                     values.put(TaskRisk.state,mdata.getString(TaskRisk.state));
                                     values.put(TaskRisk.auditor,mdata.getString(TaskRisk.auditor));
+                                    Log.e("dm","auditor:"+mdata.getString(TaskRisk.auditor));
                                     //values.put(TaskRisk.audit_time,mdata.getString(TaskRisk.audit_time));
                                     values.put(TaskRisk.auditorNo,mdata.getString(TaskRisk.auditorNo));
                                     values.put(TaskRisk.reporter_name,mdata.getString(TaskRisk.reporter_name));
@@ -1771,6 +1772,7 @@ public class OkCallbackManager {
 
 
                                     Toast.makeText(ctx,"提交成功",Toast.LENGTH_SHORT).show();
+                                    //LayoutAddDanamic.getInstance().addTraceListView(ctx,risklist_wrapper,detailDCK.riskArray);
                                     Intent mIntent=new Intent();
                                     mIntent.putExtra("sbstate","1");
                                     fxsb.setResult(MResultCode.FXSB,mIntent);
