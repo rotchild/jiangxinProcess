@@ -147,7 +147,7 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:visibility="gone"
+        android:visibility="visible"
         >
     <RelativeLayout
         android:id="@+id/img_dds_re"
@@ -185,7 +185,7 @@
                 android:layout_toRightOf="@+id/img_dds_re"
                 android:background="@drawable/red_dot_bg"
                 android:text="1"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:textSize="10dp" />

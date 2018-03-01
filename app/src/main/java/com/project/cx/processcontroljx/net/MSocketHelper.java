@@ -1,5 +1,7 @@
 package com.project.cx.processcontroljx.net;
 
+import android.util.Log;
+
 import com.project.cx.processcontroljx.beans.ParamType;
 
 import java.net.URISyntaxException;
@@ -28,9 +30,16 @@ public class MSocketHelper {
      * @param token
      */
     public void init(String socketUrl,String token){
+        Log.e("MScoket","mSocket init enter");
         if(mSocket==null){
             connect(socketUrl,token);
+        }else{
+            Log.e("MScoket","mSocket is:"+mSocket.toString());
         }
+    }
+
+    public Socket getSocket(){
+        return mSocket;
     }
 
     /**
@@ -45,6 +54,7 @@ public class MSocketHelper {
                 //mSocket = IO.socket("http://192.168.1.13:1017/", opts);
                 mSocket = IO.socket(socketUrl, opts);
                 hasInit=true;
+                Log.e("MScoket","mSocket==null enter");
             }
             mSocket.connect();
             mSocket.emit("token",token);
@@ -82,6 +92,7 @@ public class MSocketHelper {
         }
         return null;
     }
+
 
     public static String getTaskType(String eventType){
         String taskType="";

@@ -18,38 +18,47 @@ public class UnReadCounts {
     public static int LSCount=0;
 
     public static int getCount(String tasktype){
+        int count=-1;
         switch (tasktype){
             case ParamType.DCK:
-                return DCKCount;
+                count=DCKCount;
+                break;
 
             case ParamType.YCK:
-                return YCKCount;
+                count=YCKCount;
+                break;
 
             case ParamType.DDS:
-                return DDSCount;
+                count=DDSCount;
+                break;
 
             case ParamType.DSZ:
-                return DSZCount;
+                count=DSZCount;
+                break;
 
             case ParamType.YDS:
-                return YDSCount;
+                count=YDSCount;
+                break;
 
             case ParamType.HP:
-                return HPCount;
+                count=HPCount;
+                break;
 
             case ParamType.ALL:
                 break;
 
             case ParamType.GZ:
-                return GZCount;
+                count=GZCount;
+                break;
 
             case ParamType.LS:
-                return LSCount;
+                count=LSCount;
+                break;
 
             default:
                 break;
         }
-        return -1;
+        return count;
     }
 
     public static void setCount(String tasktype,int count){
