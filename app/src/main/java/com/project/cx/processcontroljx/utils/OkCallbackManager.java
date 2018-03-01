@@ -156,15 +156,20 @@ public class OkCallbackManager {
                                 }
 
                                 if(loadtype== LoadType.REFRESH){//clear arrayList
-
+                                    if(type.equals(ParamType.DCK)){
+                                        pm.loadStart_dck=datas.length();
+                                    }else if(type.equals(ParamType.YCK)){
+                                        pm.loadStart_yck=datas.length();
+                                    }
                                 }else if(loadtype== LoadType.LOADMORE){// load more,update loadstart
                                     if(type.equals(ParamType.DCK)){
                                         //pm.loadStart_dck= pm.loadStart_dck+datas.length();
-                                        if(pm.lv_dck!=null){
+/*                                        if(pm.lv_dck!=null){
                                             pm.loadStart_dck=pm.lv_dck.getCount()+datas.length();
                                             //pm.refreshLimit_dck=pm.loadStart_dck;
                                             Log.e(TAG,"loadStart_dck"+datas.length()+"/lv_dck.getCount()"+pm.lv_dck.getCount());
-                                        }
+                                        }*/
+                                        pm.loadStart_dck=pm.loadStart_dck+datas.length();
                                     }else if(type.equals(ParamType.YCK)){
                                         pm.loadStart_yck= pm.loadStart_yck+datas.length();
                                         //pm.refreshLimit_yck=pm.loadStart_yck;
@@ -335,7 +340,19 @@ public class OkCallbackManager {
                                     Log.i(TAG,"datas is null or length=0");
                                 }
                                 if(loadtype==LoadType.REFRESH){//clear arrayList
+                                    if(type.equals(ParamType.DDS)){
+                                        pm.loadStart_dds=datas.length();
 
+                                    }else if(type.equals(ParamType.DSZ)){
+                                        pm.loadStart_dsz=datas.length();
+
+                                    }else if(type.equals(ParamType.YDS)){
+                                        pm.loadStart_yds=datas.length();
+
+                                    }else if(type.equals(ParamType.HP)){
+                                        pm.loadStart_hp=datas.length();
+
+                                    }
                                 }else if(loadtype== LoadType.LOADMORE){// load more,update loadstart
                                     if(type.equals(ParamType.DDS)){
                                         pm.loadStart_dds= pm.loadStart_dds+datas.length();
@@ -515,7 +532,13 @@ public class OkCallbackManager {
 
 
                                 if(loadtype==LoadType.REFRESH){//clear arrayList
+                                    if(type.equals(ParamType.GZ)){
+                                        pm.loadStart_gz= datas.length();
 
+                                    }else if(type.equals(ParamType.LS)){
+                                        pm.loadStart_ls=datas.length();
+
+                                    }
                                 }else if(loadtype== LoadType.LOADMORE){// load more,update loadstart
                                     if(type.equals(ParamType.GZ)){
                                         pm.loadStart_gz= pm.loadStart_gz+datas.length();

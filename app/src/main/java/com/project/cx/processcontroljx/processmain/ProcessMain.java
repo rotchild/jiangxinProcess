@@ -127,14 +127,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 //    public int loadStart_gz=refreshLimit;
 //    public int loadStart_ls=refreshLimit;
 
-    public int loadStart_dck=10;
-    public int loadStart_yck=10;
-    public int loadStart_dds=10;
-    public int loadStart_dsz=10;
-    public int loadStart_yds=10;
-    public int loadStart_hp=10;
-    public int loadStart_gz=10;
-    public int loadStart_ls=10;
+    public int loadStart_dck=0;
+    public int loadStart_yck=0;
+    public int loadStart_dds=0;
+    public int loadStart_dsz=0;
+    public int loadStart_yds=0;
+    public int loadStart_hp=0;
+    public int loadStart_gz=0;
+    public int loadStart_ls=0;
 
     public ArrayList<ContentValues> mArray_=new ArrayList<ContentValues>();
 
@@ -194,8 +194,74 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     public DDSAdapter mddsAdapter;
     public ArrayList<ContentValues> initialList=new ArrayList<>();
 
+    Emitter.Listener msgListener=new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            Log.e("ProcessMain","server is new_msg");
+                    /*try{
+                        JSONObject dataGet=new JSONObject(args[0].toString());
+                    }catch(){
+
+                    }*/
+            String toUser="";
+            String eventtype="";
+            if(args[0]!=null){//jsonobject转换
+                Log.e("ProcessMain","args[0]"+args[0].toString());
+                try{
+                    JSONObject dataGet=new JSONObject(args[0].toString());
+                    toUser=dataGet.getString("toUser");
+                    eventtype=dataGet.getString("eventype");
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }else{
+                Log.e("ProcessMain","args[0]=null");
+            }
+            if(toUser!="" && toUser.equals(userManager.getUserName())){
+                final String finalEventtype = eventtype;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String taskTypeName=MSocketHelper.getTaskTypeName(finalEventtype);
+                        Toast.makeText(mContext,"您有新的"+taskTypeName+"消息",Toast.LENGTH_SHORT).show();//未读数量+1
+//                        bar_num3.setTextColor(Color.parseColor("#00FF00"));
+//                        bar_num3.setText("3");
+                                if(finalEventtype !=null && finalEventtype.length()>0){
+                                    String taskType=MSocketHelper.getTaskType(finalEventtype);
+                                    int counts= UnReadCounts.getCount(taskType);
+                                    UnReadCounts.setCount(taskType,counts+1);
+                                    Log.e("processmain","counts+1:"+UnReadCounts.getCount(taskType));
+
+
+
+                                    Log.e("processmain","counts+2:"+String.valueOf(3));
+                                    Log.e("processmain","counts+3:"+bar_num3.getText().toString());
+
+                                    updateCountView();
+
+                                    if(currentBottom.equals(taskType)){
+                                        if(taskType.equals(ParamType.DCK) ||taskType.equals(ParamType.YCK) ){
+                                            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(),taskType,"","","","",loadStart_dck,loadLimit,
+                                                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,taskType,ProcessMain.this));
+                                        }else if(taskType.equals(ParamType.DDS) ||taskType.equals(ParamType.DSZ) || taskType.equals(ParamType.YDS) ||taskType.equals(ParamType.HP)){
+                                            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",loadStart_dds,loadLimit,
+                                                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
+                                        }
+                                    }
+                                }else{
+                                    if(finalEventtype==null){
+                                        Log.e("ProcessMain","finalEventType is null");
+                                    }
+                                }
+                    }
+                });
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("Main","onCreate enter");
         super.onCreate(savedInstanceState);
         Log.i(TAG,"onCreate");
         setContentView(R.layout.activity_processmain);
@@ -207,16 +273,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         mHttpParams.init(mContext);
         String socketUrl="http://"+mHttpParams.getIP()+":1017/";
         Log.e("pm","socketUrl:"+socketUrl);
-        if(MSocketHelper.getInstance().hasInit()){//是否已经初始化
-
-        }else {
-            MSocketHelper.getInstance().init(socketUrl,userManager.getUserToken());
-            InitSocket();//on事件监听
+        MSocketHelper.getInstance().init(socketUrl,userManager.getUserToken());
+        mSocket=MSocketHelper.getInstance().getMSocket();
+        if(mSocket.hasListeners("new_msg")){
+            mSocket.off();
+            InitSocketListener();
+        }else{
+            InitSocketListener();//on事件监听
         }
-        //getFirstData();
-        //?进入页面请求时机是否修改
-       /* getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"0","10",
-                OkCallbackManager.getInstance().getCallback(mContext,ParamType.DCK,ProcessMain.this));*/
     }
 
     private void toRequestPermission() {
@@ -248,12 +312,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 
     @Override
     protected void onPause() {
+        Log.e("Main","onPause enter");
         super.onPause();
         Log.i(TAG,"onPause");
     }
 
     @Override
     protected void onResume() {//刷新当前的任务列表?
+        Log.e("Main","onResume enter");
         super.onResume();
         toRequestPermission();
         if(userManager==null){
@@ -271,14 +337,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 
     @Override
     protected void onStart() {
+        Log.e("Main","onStart enter");
         super.onStart();
-        Log.i(TAG,"onStart");
     }
 
     @Override
     protected void onStop() {
+        Log.e("Main","onStop enter");
         super.onStop();
-        Log.i(TAG,"onStop");
     }
 
     private void initData() {
@@ -1048,14 +1114,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     }
     //重置loadStart,切换时刷新,应当重置loadStart
     public void resetLoadStart(){
-        loadStart_dck=refreshLimit_search;
-        loadStart_yck=refreshLimit_search;
-        loadStart_dds=refreshLimit_search;
-        loadStart_dsz=refreshLimit_search;
-        loadStart_yds=refreshLimit_search;
-        loadStart_hp=refreshLimit_search;
-        loadStart_gz=refreshLimit_search;
-        loadStart_ls=refreshLimit_search;
+        loadStart_dck=0;
+        loadStart_yck=0;
+        loadStart_dds=0;
+        loadStart_dsz=0;
+        loadStart_yds=0;
+        loadStart_hp=0;
+        loadStart_gz=0;
+        loadStart_ls=0;
     }
 
     private void showFilterWindow(Context ctx) {
@@ -1206,9 +1272,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         }
     }
 
-    private void InitSocket() {
-        if(MSocketHelper.getInstance().hasInit()){
-            mSocket=MSocketHelper.getInstance().getMSocket();
+    private void InitSocketListener() {
             mSocket.on("disconnect",new Emitter.Listener(){//服务器断开连接测试
 
                 @Override
@@ -1222,65 +1286,9 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 @Override
                 public void call(Object... args) {
                     Log.e("ProcessMain","server is connect");
-
                 }
             });
-            mSocket.on("new_msg", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    Log.e("ProcessMain","server is new_msg");
-                    /*try{
-                        JSONObject dataGet=new JSONObject(args[0].toString());
-                    }catch(){
-
-                    }*/
-                    String toUser="";
-                    String eventtype="";
-                    if(args[0]!=null){//jsonobject转换
-                        Log.e("ProcessMain","args[0]"+args[0].toString());
-                        try{
-                            JSONObject dataGet=new JSONObject(args[0].toString());
-                            toUser=dataGet.getString("toUser");
-                            eventtype=dataGet.getString("eventype");
-                        }catch(JSONException e){
-                            e.printStackTrace();
-                        }
-                    }else{
-                        Log.e("ProcessMain","args[0]=null");
-                    }
-                    if(toUser!="" && toUser.equals(userManager.getUserName())){
-                        final String finalEventtype = eventtype;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                String taskTypeName=MSocketHelper.getTaskTypeName(finalEventtype);
-                                Toast.makeText(mContext,"您有新的"+taskTypeName+"消息",Toast.LENGTH_SHORT).show();//未读数量+1
-                                if(finalEventtype !=null && finalEventtype.length()>0){
-                                    String taskType=MSocketHelper.getTaskType(finalEventtype);
-                                    int counts=UnReadCounts.getCount(taskType);
-                                    UnReadCounts.setCount(taskType,counts+1);
-                                    updateCountView();
-                                    if(currentBottom.equals(taskType)){
-                                        if(taskType.equals(ParamType.DCK) ||taskType.equals(ParamType.YCK) ){
-                                            getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(),taskType,"","","","",loadStart_dck,loadLimit,
-                                                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,taskType,ProcessMain.this));
-                                        }else if(taskType.equals(ParamType.DDS) ||taskType.equals(ParamType.DSZ) || taskType.equals(ParamType.YDS) ||taskType.equals(ParamType.HP)){
-                                            getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,"",loadStart_dds,loadLimit,
-                                                    OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
-                                        }
-                                    }
-                                    //CountSetHelper.getInstance(ProcessMain.this).setCount(ParamType.YCK,UnReadCounts.getCount(ParamType.YCK));
-                                }else{
-                                    if(finalEventtype==null){
-                                        Log.e("ProcessMain","finalEventType is null");
-                                    }
-                                }
-                            }
-                        });
-                    }
-
-                }
-            });
+            mSocket.on("new_msg", msgListener);
             mSocket.on("logout", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
@@ -1293,7 +1301,6 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     }
                 }
             });
-        }
     }
 
     public void setCount(TextView textView,int count){
@@ -1302,19 +1309,17 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         }else{
             textView.setVisibility(View.GONE);
         }
-        textView.setText(String.valueOf(count));
+        textView.setText(""+count);
+        Log.e("processmain","setCount:"+count);
     }
 
     public void updateCountView(){
         setCount(bar_num1,UnReadCounts.getCount(ParamType.DCK));
-        //setCount(bar_num1,120);
         setCount(bar_num2,UnReadCounts.getCount(ParamType.YCK));
-        //setCount(bar_num2,4);
         setCount(bar_num3,UnReadCounts.getCount(ParamType.DDS));
         setCount(bar_num4,UnReadCounts.getCount(ParamType.DSZ));
         setCount(bar_num5,UnReadCounts.getCount(ParamType.YDS));
         setCount(bar_num6,UnReadCounts.getCount(ParamType.HP));
-        setCount(bar_num7,UnReadCounts.getCount(ParamType.ALL));
         setCount(bar_num8,UnReadCounts.getCount(ParamType.GZ));
         setCount(bar_num9,UnReadCounts.getCount(ParamType.LS));
     }
@@ -1411,6 +1416,8 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     @Override
     protected void onDestroy() {
         //MViewManager.getInstance().finishAllAdapter();//销毁所有adapter
+        Log.e("Main","onDestroy enter");
+        //MSocketHelper.getInstance().logout();
         super.onDestroy();
     }
     //刷新当前页面
