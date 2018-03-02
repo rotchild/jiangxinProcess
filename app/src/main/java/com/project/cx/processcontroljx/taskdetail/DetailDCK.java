@@ -148,10 +148,12 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
 
         cbrs_btn= (Button) findViewById(R.id.cbrs_btn);
         cbrs_btn.setOnClickListener(this);
-        if(selectDCK.getAsString(TaskCK.hurt_state).equals("1")){//只有hurt_state为1显示催办人伤
-            cbrs_btn.setVisibility(View.VISIBLE);
-        }else{
-            cbrs_btn.setVisibility(View.GONE);
+        if(selectDCK.getAsString(TaskCK.hurt_state)!=null){
+            if(selectDCK.getAsString(TaskCK.hurt_state).equals("1")){//只有hurt_state为1显示催办人伤
+                cbrs_btn.setVisibility(View.VISIBLE);
+            }else{
+                cbrs_btn.setVisibility(View.GONE);
+            }
         }
         //dck_risktype.setText(selectDCK.getAsString(TaskCK.risktype));//dck_risktype is gone?
     }

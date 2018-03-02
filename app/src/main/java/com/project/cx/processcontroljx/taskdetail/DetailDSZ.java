@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.BusFXState;
+import com.project.cx.processcontroljx.beans.BusFinishAct;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.MRequestCode;
 import com.project.cx.processcontroljx.beans.SelectedTask;
@@ -241,6 +242,13 @@ public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
             if(dsz_detail_riskstate!=null){
                 dsz_detail_riskstate.setText("已上报");
             }
+        }
+    }
+
+    @Subscribe
+    public void finishDSZ(BusFinishAct busdata){
+        if(busdata.getType().equals("DS")){
+            DetailDSZ.this.finish();
         }
     }
 

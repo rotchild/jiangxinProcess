@@ -188,6 +188,14 @@ public class YDSAdapter extends BaseAdapter {
 
     //修改数据源
     public void setDataList(ArrayList<ContentValues> dataList){
-        mData=dataList;
+        mData.clear();
+        mData.addAll(dataList);
+        notifyDataSetChanged();
+    }
+
+    //添加数据
+    public void addDataList(ArrayList<ContentValues> dataList){
+        mData.addAll(dataList);
+        notifyDataSetChanged();
     }
 }

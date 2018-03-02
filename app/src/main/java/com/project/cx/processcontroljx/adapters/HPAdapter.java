@@ -107,13 +107,16 @@ public class HPAdapter extends BaseAdapter {
 //            }
             String hp_ticketstate=mData.get(position).getAsString(TaskDS.ticket_state);
             String hp_ticketstateStr="--";
-            if(hp_ticketstate.equals("0")){
+            if(hp_ticketstate!=null){
+                if(hp_ticketstate.equals("0")){
 
-            }else if(hp_ticketstate.equals("-1")){
-                hp_ticketstateStr="未获票";
-            } if(hp_ticketstate.equals("1")){
-                hp_ticketstateStr="已获票";
+                }else if(hp_ticketstate.equals("-1")){
+                    hp_ticketstateStr="未获票";
+                } if(hp_ticketstate.equals("1")){
+                    hp_ticketstateStr="已获票";
+                }
             }
+
             holder_hp.hp_tickestate.setText(hp_ticketstateStr);
             holder_hp.caseNo.setText(mData.get(position).getAsString(TaskDS.caseNo));
             holder_hp.licenseno.setText(mData.get(position).getAsString(TaskDS.licenseno));
@@ -184,6 +187,14 @@ public class HPAdapter extends BaseAdapter {
 
     //修改数据源
     public void setDataList(ArrayList<ContentValues> dataList){
-        mData=dataList;
+        mData.clear();
+        mData.addAll(dataList);
+        notifyDataSetChanged();
+    }
+
+    //添加数据
+    public void addDataList(ArrayList<ContentValues> dataList){
+        mData.addAll(dataList);
+        notifyDataSetChanged();
     }
 }

@@ -126,12 +126,13 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
         yck_detail_cbrs_btn = (Button) findViewById(R.id.yck_detail_cbrs_btn);
         yck_detail_cbrs_btn.setOnClickListener(this);
 
-        if(selectYCK.getAsString(TaskCK.hurt_state).equals("1")){//只有hurt_state为1显示催办人伤
-            yck_detail_cbrs_btn.setVisibility(View.VISIBLE);
-        }else{
-            yck_detail_cbrs_btn.setVisibility(View.GONE);
+        if(selectYCK.getAsString(TaskCK.hurt_state)!=null){
+            if(selectYCK.getAsString(TaskCK.hurt_state).equals("1")){//只有hurt_state为1显示催办人伤
+                yck_detail_cbrs_btn.setVisibility(View.VISIBLE);
+            }else{
+                yck_detail_cbrs_btn.setVisibility(View.GONE);
+            }
         }
-
         yck_detail_riskstate = (TextView) findViewById(R.id.yck_detail_riskstate);
         yck_detail_caseNo.setText(selectYCK.getAsString(TaskCK.caseNo));
         Long Ctime_long = Long.valueOf(selectYCK.getAsString(TaskCK.caseTime)) * 1000;

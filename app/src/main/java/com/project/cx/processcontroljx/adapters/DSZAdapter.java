@@ -90,7 +90,7 @@ public class DSZAdapter extends BaseAdapter {
             if(reparations_long>10000){
                 head.setBackground(mContext.getResources().getDrawable(R.drawable.grayhead_background));
             }else {
-                long offSet = Long.valueOf(mData.get(position).getAsString(TaskDS.accept_time));
+                long offSet = Long.valueOf(mData.get(position).getAsString(TaskDS.caseTime));
                 long today = System.currentTimeMillis() / 1000;
                 long intervalTime = (today - offSet) / 3600;
                 Log.i("dm","intervalTime"+intervalTime);
@@ -183,6 +183,13 @@ public class DSZAdapter extends BaseAdapter {
     }
     //修改数据源
     public void setDataList(ArrayList<ContentValues> dataList){
-        mData=dataList;
+        mData.clear();
+        mData.addAll(dataList);
+        notifyDataSetChanged();
+    }
+    //添加数据
+    public void addDataList(ArrayList<ContentValues> dataList){
+        mData.addAll(dataList);
+        notifyDataSetChanged();
     }
 }

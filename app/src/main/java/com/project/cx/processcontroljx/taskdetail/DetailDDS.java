@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.BusFXState;
+import com.project.cx.processcontroljx.beans.BusFinishAct;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.MRequestCode;
 import com.project.cx.processcontroljx.beans.SelectedTask;
@@ -284,6 +285,13 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
         okhandler.getTaskRiskHttp(token,frontrole,task_role,caseNo,licenseNo,start,limit,Callback);
+    }
+
+    @Subscribe
+    public void finishDDS(BusFinishAct busdata){
+        if(busdata.getType().equals("DS")){
+            DetailDDS.this.finish();
+        }
     }
 
     @Override

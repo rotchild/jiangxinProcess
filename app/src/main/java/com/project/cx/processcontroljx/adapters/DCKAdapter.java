@@ -136,7 +136,7 @@ public class DCKAdapter extends BaseAdapter {
             holder_dck.outNumber.setText(mData.get(position).getAsString(TaskCK.outNumber)+"次");
 
             String hurtstate_str="--";
-            Long hurtstate_long=Long.valueOf(mData.get(position).getAsString(TaskCK.hurt_state));
+            Long hurtstate_long=Long.valueOf(mData.get(position).getAsString(TaskCK.hurt_state)==null?"0":mData.get(position).getAsString(TaskCK.hurt_state));
             if(hurtstate_long==0){
                 hurtstate_str="";
             }else if(hurtstate_long==1){
@@ -189,7 +189,14 @@ public class DCKAdapter extends BaseAdapter {
     }
     //修改数据源
     public void setDataList(ArrayList<ContentValues> dataList){
-        mData=dataList;
+        mData.clear();
+        mData.addAll(dataList);
+        notifyDataSetChanged();
+    }
+
+    //添加数据
+    public void addDataList(ArrayList<ContentValues> dataList){
+        mData.addAll(dataList);
         notifyDataSetChanged();
     }
 }

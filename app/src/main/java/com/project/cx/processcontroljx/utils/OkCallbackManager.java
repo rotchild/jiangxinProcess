@@ -15,6 +15,7 @@ import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.AccessDetailBean;
 import com.project.cx.processcontroljx.beans.AccessDetailData;
 import com.project.cx.processcontroljx.beans.BusFXState;
+import com.project.cx.processcontroljx.beans.BusFinishAct;
 import com.project.cx.processcontroljx.beans.DSArea;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.ListDataCache;
@@ -84,9 +85,9 @@ public class OkCallbackManager {
     public Callback getCallback(final int loadtype, final Context ctx, final String type, final ProcessMain pm){
        // mArrayList=getArrayList(type,pm);
         if(loadtype== LoadType.REFRESH){//clear arrayList
-            mArrayList=new ArrayList<ContentValues>();
+            mArrayList.clear();
         }else if(loadtype== LoadType.LOADMORE){// load more
-
+            mArrayList.clear();
         }
 
         Callback resultCallback=null;
@@ -183,11 +184,6 @@ public class OkCallbackManager {
                                         public void run() {
                                             if(loadtype== LoadType.REFRESH){
                                                 if(type==ParamType.DCK){
-                                                    /*for(int i=0;i<mArrayList.size();i++){
-                                                        ContentValues value=mArrayList.get(i);
-                                                        String caseNo=value.getAsString(TaskCK.caseNo);
-                                                        Log.i(TAG,"caseNo"+caseNo);
-                                                    }*/
                                                     MViewManager.getInstance().setDCKLayout(ctx,mArrayList,LoadType.REFRESH,pm);
                                                 }else if(type==ParamType.YCK){
                                                     MViewManager.getInstance().setYCKLayout(ctx,mArrayList,LoadType.REFRESH,pm);
@@ -1584,6 +1580,7 @@ public class OkCallbackManager {
                                 @Override
                                 public void run() {
                                     Toast.makeText(ctx,"提交成功",Toast.LENGTH_SHORT).show();
+                                    BusUtil.getINSTANCE().post(new BusFinishAct("DS"));//
                                     AppManager.getAppManager().finishActivity(detailClass);
                                 }
                             });

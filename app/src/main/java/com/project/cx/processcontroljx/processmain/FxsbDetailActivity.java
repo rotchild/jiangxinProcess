@@ -11,14 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.RiskWarm;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskRisk;
-import com.project.cx.processcontroljx.taskdetail.DetailDCK;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.LayoutAddDanamic;
@@ -99,7 +97,7 @@ public class FxsbDetailActivity extends MBaseActivity implements View.OnClickLis
 
         fxsb_detail_auditor.setText(selectRisk.getAsString(TaskRisk.auditor));
 
-        Toast.makeText(mContext,selectRisk.getAsString(TaskRisk.auditor), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext,selectRisk.getAsString(TaskRisk.auditor), Toast.LENGTH_SHORT).show();
     }
 
     private void initData() {

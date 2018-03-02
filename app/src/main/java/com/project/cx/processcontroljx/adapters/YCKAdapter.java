@@ -187,4 +187,10 @@ public class YCKAdapter extends BaseAdapter {
         mData.addAll(dataList);
         notifyDataSetChanged();
     }
+
+    //添加数据
+    public void addDataList(ArrayList<ContentValues> dataList){
+        mData.addAll(dataList);
+        notifyDataSetChanged();
+    }
 }

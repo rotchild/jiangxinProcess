@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,8 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.bigkoo.pickerview.TimePickerView;
-import com.bigkoo.pickerview.TimePickerView;
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.AreaObj;
 import com.project.cx.processcontroljx.beans.DSArea;
@@ -38,6 +35,7 @@ import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.TelphoneUtil;
 import com.project.cx.processcontroljx.utils.TimeUtil;
 import com.project.cx.processcontroljx.utils.UserManager;
+import com.project.cx.processcontroljx.widget.CustomDatePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,11 +45,7 @@ import java.util.Locale;
 
 import okhttp3.Callback;
 
-import com.project.cx.processcontroljx.widget.CustomDatePicker;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+//import com.bigkoo.pickerview.TimePickerView;
 /**
  * Created by Administrator on 2017/12/6 0006.
  */
@@ -550,8 +544,7 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                         applyAccessHttpData(mUsermanager.getUserToken(),mUsermanager.getFrontRole(),selectTask.getAsString(TaskCK.id),licenseno_selected,car_role,
                                 assessor_nameStr,assessor_mobileStr,assess_selected,booktimestampSelected,case_from_seleced,assess_selected_id,areaname_selected_id,"",group_id,OkCallbackManager.getInstance().applyAccessCallback(mContext,DSappointment.this));
                     }
-
-                }else if(type.equals("DDS") || type.equals("DSZ")){
+                }else if(type.equals("DDS") || type.equals("DSZ")){//任务改派
                     apply_taskchangeHttpData(mUsermanager.getUserToken(),mUsermanager.getFrontRole(),selectTask.getAsString(TaskCK.id),assess_selected,booktimestampSelected,assess_selected_id,areaname_selected_id,group_id,OkCallbackManager.getInstance().applyAccessCallback(mContext,DSappointment.this));
                 }
                 break;
