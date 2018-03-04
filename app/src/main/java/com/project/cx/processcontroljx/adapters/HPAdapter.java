@@ -29,7 +29,7 @@ public class HPAdapter extends BaseAdapter {
     private int mResourceID=-1;
     ViewHolder_hp holder_hp=null;
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(View v,int i);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -166,7 +166,7 @@ public class HPAdapter extends BaseAdapter {
             holder_hp.item_hp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(v,position);
                 }
             });
 

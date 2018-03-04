@@ -31,7 +31,7 @@ public class RSWORKAdapter extends BaseAdapter {
     ViewHolder_rswork holder_rswork=null;
 
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(View v,int i);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -77,7 +77,7 @@ public class RSWORKAdapter extends BaseAdapter {
             holder_rswork.item_rslb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(v,position);
                 }
             });
             holder_rswork.caseNo.setText(mData.get(position).getAsString(Taskhurt.caseNo));

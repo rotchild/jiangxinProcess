@@ -189,4 +189,9 @@ public class DDSAdapter extends BaseAdapter {
         mData.addAll(dataList);
         notifyDataSetChanged();
     }
+
+/*    public void setTag(View v,int visiblity){
+        ImageView tag= (ImageView) v.findViewById(R.id.dds_new_tag);
+        tag.setVisibility(visiblity);
+    }*/
 }

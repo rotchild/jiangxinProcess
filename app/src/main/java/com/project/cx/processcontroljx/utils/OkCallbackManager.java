@@ -16,6 +16,7 @@ import com.project.cx.processcontroljx.beans.AccessDetailBean;
 import com.project.cx.processcontroljx.beans.AccessDetailData;
 import com.project.cx.processcontroljx.beans.BusFXState;
 import com.project.cx.processcontroljx.beans.BusFinishAct;
+import com.project.cx.processcontroljx.beans.BusRefreshAct;
 import com.project.cx.processcontroljx.beans.DSArea;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.ListDataCache;
@@ -1581,6 +1582,7 @@ public class OkCallbackManager {
                                 public void run() {
                                     Toast.makeText(ctx,"提交成功",Toast.LENGTH_SHORT).show();
                                     BusUtil.getINSTANCE().post(new BusFinishAct("DS"));//
+                                    BusUtil.getINSTANCE().post(new BusRefreshAct("refresh"));//
                                     AppManager.getAppManager().finishActivity(detailClass);
                                 }
                             });
@@ -1758,9 +1760,12 @@ public class OkCallbackManager {
                             if(data){//?依据data为true,还是success为true,设置成功
                                 pm.startActivity(denstination, DetailIntentType.UNREAD);
                             }*/
+                           //通知ProcessMain刷新
+
                             fxsb.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    //BusUtil.getINSTANCE().post(new BusRefreshAct("refresh"));
                                     View view=SelectedTask.getView();//更改list列表的上报状态,但对应详情的状态没有变
                                     if(taskType.equals("CK")){
                                         TextView dck_riskstate= (TextView) view.findViewById(R.id.dck_riskstate);

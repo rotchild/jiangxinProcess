@@ -32,6 +32,7 @@ import com.project.cx.processcontroljx.adapters.RSWORKAdapter;
 import com.project.cx.processcontroljx.adapters.YCKAdapter;
 import com.project.cx.processcontroljx.adapters.YDSAdapter;
 import com.project.cx.processcontroljx.beans.BottomIndex;
+import com.project.cx.processcontroljx.beans.BusRefreshAct;
 import com.project.cx.processcontroljx.beans.CurrentBottom;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.FilterState;
@@ -61,12 +62,14 @@ import com.project.cx.processcontroljx.ui.IconCenterEditText;
 import com.project.cx.processcontroljx.ui.LoadMoreListView;
 import com.project.cx.processcontroljx.ui.PopWin_Left;
 import com.project.cx.processcontroljx.utils.AppManager;
+import com.project.cx.processcontroljx.utils.BusUtil;
 import com.project.cx.processcontroljx.utils.MViewManager;
 import com.project.cx.processcontroljx.utils.MetricUtil;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
 import com.project.cx.processcontroljx.utils.SearchHelper;
 import com.project.cx.processcontroljx.utils.UserManager;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.squareup.otto.Subscribe;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -128,15 +131,6 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 
 
     public int loadLimit=10;
-
-//    public int loadStart_dck=refreshLimit;
-//    public int loadStart_yck=refreshLimit;
-//    public int loadStart_dds=refreshLimit;
-//    public int loadStart_dsz=refreshLimit;
-//    public int loadStart_yds=refreshLimit;
-//    public int loadStart_hp=refreshLimit;
-//    public int loadStart_gz=refreshLimit;
-//    public int loadStart_ls=refreshLimit;
 
     public int loadStart_dck=0;
     public int loadStart_yck=0;
@@ -342,7 +336,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             return;
         }
        updateCountView();
-        refreshCurrentPage();
+        //refreshCurrentPage();
         if(!hasGetCount){
             getTaskCountHttpData(userManager.getUserToken(),userManager.getFrontRole(),
                     OkCallbackManager.getInstance().getTaskCountCallback(mContext,userManager.getFrontRole(),ProcessMain.this));
@@ -367,6 +361,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         userManager=UserManager.getInstance();
         userManager.init(mContext);
         frontRole=userManager.getFrontRole();
+        BusUtil.getINSTANCE().register(this);
     }
 
     private void initView() {
@@ -376,7 +371,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         initTitle();
         initBottom();//must before setpage
         setPage();
-        //getFirstData();
+        getFirstData();
 
     }
 
@@ -386,6 +381,9 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             @Override
             public void onClick(int id,View v) {
                 Log.i("MViewManager","selece position:"+id);
+                //点击时改变new_tag
+                ImageView tag= (ImageView) v.findViewById(R.id.dck_new_tag);
+                tag.setVisibility(View.GONE);
                 ContentValues selectTask= (ContentValues) mdckAdapter.getItem(id);
                 if(selectTask!=null){
                     SelectedTask.storeTaskDCK(selectTask);
@@ -406,6 +404,9 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             @Override
             public void onClick(int id,View v) {
                 Log.i("MViewManager","selece position:"+id);
+                //点击时改变new_tag
+                ImageView tag= (ImageView) v.findViewById(R.id.yck_new_tag);
+                tag.setVisibility(View.GONE);
                 ContentValues selectTask= (ContentValues) myckAdapter.getItem(id);
                 if(selectTask!=null){
                     SelectedTask.storeTaskYCK(selectTask);
@@ -427,6 +428,12 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             @Override
             public void onClick(int id,View v) {
                 //Detail对应修改
+                ContentValues values=(ContentValues) mddsAdapter.getItem(id);
+                String assessorNo=values.getAsString(TaskDS.assessorNo);
+                if(UserManager.getInstance().getJobNo().equals(assessorNo)){//newTag标签的显示隐藏
+                    ImageView tag= (ImageView) v.findViewById(R.id.dds_new_tag);
+                    tag.setVisibility(View.GONE);
+                }
                 Log.i("MViewManager","selece position:"+id);
                 ContentValues selectTask= (ContentValues) mddsAdapter.getItem(id);
                 if(selectTask!=null){
@@ -455,6 +462,8 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             @Override
             public void onClick(int id,View v) {
                 Log.i("MViewManager","selece position:"+id);
+                ImageView tag= (ImageView) v.findViewById(R.id.dsz_new_tag);
+                tag.setVisibility(View.GONE);
                 ContentValues selectTask= (ContentValues) mdszAdapter.getItem(id);
                 if(selectTask!=null){
                     SelectedTask.storeTaskDSZ(selectTask);
@@ -475,6 +484,8 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
             @Override
             public void onClick(int id,View v) {
                 Log.i("MViewManager","selece position:"+id);
+                ImageView tag= (ImageView) v.findViewById(R.id.yds_new_tag);
+                tag.setVisibility(View.GONE);
                 ContentValues selectTask= (ContentValues) mydsAdapter.getItem(id);
                 if(selectTask!=null){
                     SelectedTask.storeTaskYDS(selectTask);
@@ -493,8 +504,10 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         mhpAdapter=new HPAdapter(this,initialList);
         mhpAdapter.setMOnItemClickListener(new HPAdapter.MOnItemClickListener() {
             @Override
-            public void onClick(int id) {
+            public void onClick(View v,int id) {
                 Log.i("MViewManager","selece position:"+id);
+                ImageView tag= (ImageView) v.findViewById(R.id.hp_new_tag);
+                tag.setVisibility(View.GONE);
                 ContentValues selectTask= (ContentValues) mhpAdapter.getItem(id);
                 if(selectTask!=null){
                     SelectedTask.storeTaskHP(selectTask);
@@ -512,8 +525,10 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         mrsworkAdapter=new RSWORKAdapter(this,initialList);
         mrsworkAdapter.setMOnItemClickListener(new RSWORKAdapter.MOnItemClickListener() {
             @Override
-            public void onClick(int id) {
+            public void onClick(View v,int id) {
                 Log.i("MViewManager","selece position:"+id);
+                ImageView tag= (ImageView) v.findViewById(R.id.rswork_new_tag);
+                tag.setVisibility(View.GONE);
                 ContentValues selectTask= (ContentValues) mrsworkAdapter.getItem(id);
                 if(selectTask!=null){
                     SelectedTask.storeTaskRSWORK(selectTask);
@@ -532,8 +547,10 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         mrshisAdapter=new RSHISAdapter(this,initialList);
         mrshisAdapter.setMOnItemClickListener(new RSHISAdapter.MOnItemClickListener() {
             @Override
-            public void onClick(int id) {
+            public void onClick(View v,int id) {
                 Log.i("MViewManager","selece position:"+id);
+                ImageView tag= (ImageView) v.findViewById(R.id.rshis_new_tag);
+                tag.setVisibility(View.GONE);
                 ContentValues selectTask= (ContentValues) mrshisAdapter.getItem(id);
                 if(selectTask!=null){
                     SelectedTask.storeTaskRSHIS(selectTask);
@@ -1537,6 +1554,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     }
     //刷新当前页面
     public void refreshCurrentPage(){
+        Log.e("ProcessMain","currentBottom:"+currentBottom);
         String keyword="";
         if(cur_search_et2!=null){
             keyword=cur_search_et2.getText().toString().trim();
@@ -1571,8 +1589,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         }
         else if(currentBottom.equals(CurrentBottom.CK_YCK) || currentBottom.equals(CurrentBottom.CD_YCK)){
             getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","",keyword,refreshStart,refreshLimit_yck,
-
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
+        }
+    }
+
+    @Subscribe
+    public void refreshAct(BusRefreshAct busdata){
+        if(busdata.getType().equals("refresh")){
+            refreshCurrentPage();
         }
     }
 }

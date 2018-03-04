@@ -29,7 +29,7 @@ public class RSHISAdapter extends BaseAdapter {
     ViewHolder_rsls holder_rsls=null;
 
     public interface MOnItemClickListener{
-        public void onClick(int i);
+        public void onClick(View view,int i);
     }
 
     private MOnItemClickListener mOnItemClicklistener;
@@ -75,7 +75,7 @@ public class RSHISAdapter extends BaseAdapter {
             holder_rsls.item_rsls.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClicklistener.onClick(position);
+                    mOnItemClicklistener.onClick(v,position);
                 }
             });
             holder_rsls.caseNo.setText(mData.get(position).getAsString(Taskhurt.caseNo));
