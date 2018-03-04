@@ -2,6 +2,9 @@ package com.project.cx.processcontroljx.beans;
 
 import android.content.ContentValues;
 import android.view.View;
+import android.widget.TextView;
+
+import com.project.cx.processcontroljx.R;
 
 /**
  * Created by Administrator on 2017/12/5 0005.
@@ -74,5 +77,29 @@ public class SelectedTask {
     }
     public static ContentValues getTaskRisk(){
         return mtaskRisk;
+    }
+
+    //更改tasklist的任务状态
+    public static void changeViewStateSelected() {
+        TextView viewSelected=null;
+        if (Type_Selected.typeSelected.equals("dck")) {
+            viewSelected = (TextView) selectedView.findViewById(R.id.dck_riskstate);
+        }
+        if (Type_Selected.typeSelected.equals("yck")) {
+            viewSelected = (TextView) selectedView.findViewById(R.id.yck_riskstate);
+        }
+        if (Type_Selected.typeSelected.equals("dds")) {
+            viewSelected = (TextView) selectedView.findViewById(R.id.dds_riskstate);
+        }
+        if (Type_Selected.typeSelected.equals("dsz")) {
+            viewSelected = (TextView) selectedView.findViewById(R.id.dsz_riskstate);
+        }
+        if (Type_Selected.typeSelected.equals("yds")) {
+            viewSelected = (TextView) selectedView.findViewById(R.id.yds_riskstate);
+        }
+
+        if (viewSelected != null) {
+            viewSelected.setText("已上报");
+        }
     }
 }

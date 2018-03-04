@@ -42,7 +42,7 @@ import okhttp3.Callback;
  * Created by Administrator on 2017/11/30 0030.
  */
 
-public class DetailDDS extends MBaseActivity implements View.OnClickListener {
+public class DetailDDS extends DetailTask implements View.OnClickListener {
     Context mContext;
     public int intentType;//已读未读
     ContentValues selectDDS;
@@ -82,6 +82,8 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
             getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDDS.getAsString(TaskDS.caseNo),selectDDS.getAsString(TaskDS.licenseno),
                     "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailDDS.this));
         }
+        getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
+                selectDDS.getAsString(TaskDS.caseNo),selectDDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDDS.this));
     }
 
     private void initView() {
@@ -243,6 +245,7 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
                 break;
 
             case R.id.safe_book:
+                setTaskTypeSelected("dds");
                 Intent intent = new Intent(DetailDDS.this, FXSBActivity.class);
                 intent.putExtra("from", "DetailDDS");
                 //startActivity(intent);
@@ -254,9 +257,7 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
                 Intent toDsappoint=new Intent(DetailDDS.this, DSappointment.class);
                 toDsappoint.putExtra("type","DDS");
                 startActivity(toDsappoint);
-                //AppManager.getAppManager().finishActivity(DetailDDS.this);
                 break;
-                //dds_detail_reporterPhone
             case R.id.dds_detail_reporterPhone:
                 TelphoneUtil.toDial(mContext,selectDDS.getAsString(TaskDS.reporterPhone));
                 break;
@@ -297,21 +298,18 @@ public class DetailDDS extends MBaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if(userManager!=null){//更新risk表
-            Log.i(TAG,"onResume  userManager !=null enter");
-            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
-                    selectDDS.getAsString(TaskDS.caseNo),selectDDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDDS.this));
-            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectDDS.getAsString(TaskDS.caseNo),
-                    selectDDS.getAsString(TaskDS.licenseno),"all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDDS.this));
-        }
     }
 
     @Subscribe
-    public void setRiskState(BusFXState busdata){
-        if(busdata.getType().equals("DS")){
+    public void afterFXSB(BusFXState busdata){
+        if(busdata.getType().equals("dds")){
             if(dds_detail_riskstate!=null){
                 dds_detail_riskstate.setText("已上报");
             }
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectDDS.getAsString(TaskDS.caseNo),
+                    selectDDS.getAsString(TaskDS.licenseno),"all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDDS.this));
+            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
+                    selectDDS.getAsString(TaskDS.caseNo),selectDDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDDS.this));
         }
     }
 

@@ -31,7 +31,7 @@ import okhttp3.Callback;
  * Created by Administrator on 2017/11/30 0030.
  */
 
-public class DetailHP extends MBaseActivity implements View.OnClickListener {
+public class DetailHP extends DetailTask implements View.OnClickListener {
     Context mContext;
     public int intentType;//已读未读
     Button approve_btn;

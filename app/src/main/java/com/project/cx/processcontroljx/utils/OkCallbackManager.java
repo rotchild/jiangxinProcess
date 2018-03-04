@@ -33,6 +33,7 @@ import com.project.cx.processcontroljx.beans.TaskRisk;
 import com.project.cx.processcontroljx.beans.TaskThirdcars;
 import com.project.cx.processcontroljx.beans.Taskhurt;
 import com.project.cx.processcontroljx.beans.ThirdCars;
+import com.project.cx.processcontroljx.beans.Type_Selected;
 import com.project.cx.processcontroljx.beans.UnReadCounts;
 import com.project.cx.processcontroljx.beans.UrgeResponseData;
 import com.project.cx.processcontroljx.processmain.AuthorityActivity;
@@ -706,7 +707,7 @@ public class OkCallbackManager {
     //设置风险提醒Callback
     public Callback getRiskWarmCallback(final Context ctx, final MBaseActivity detailClass){
         Callback resultCallback=null;
-        RiskWarm.riskwarmArray=new ArrayList<ContentValues>();//清除riskArray
+        RiskWarm.riskwarmArray.clear();//清除riskArray
         resultCallback=new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -1765,8 +1766,11 @@ public class OkCallbackManager {
                             fxsb.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    //修改相关页面的状态
+                                    BusUtil.getINSTANCE().post(new BusFXState(Type_Selected.typeSelected));
+                                    SelectedTask.changeViewStateSelected();
                                     //BusUtil.getINSTANCE().post(new BusRefreshAct("refresh"));
-                                    View view=SelectedTask.getView();//更改list列表的上报状态,但对应详情的状态没有变
+/*                                    View view=SelectedTask.getView();//更改list列表的上报状态,但对应详情的状态没有变
                                     if(taskType.equals("CK")){
                                         TextView dck_riskstate= (TextView) view.findViewById(R.id.dck_riskstate);
                                         TextView yck_riskstate= (TextView) view.findViewById(R.id.yck_riskstate);
@@ -1793,14 +1797,8 @@ public class OkCallbackManager {
                                             yds_riskstate.setText("已上报");
                                         }
                                         BusUtil.getINSTANCE().post(new BusFXState("DS"));//
-                                    }
-
-
+                                    }*/
                                     Toast.makeText(ctx,"提交成功",Toast.LENGTH_SHORT).show();
-                                    //LayoutAddDanamic.getInstance().addTraceListView(ctx,risklist_wrapper,detailDCK.riskArray);
-                                    Intent mIntent=new Intent();
-                                    mIntent.putExtra("sbstate","1");
-                                    fxsb.setResult(MResultCode.FXSB,mIntent);
                                     AppManager.getAppManager().finishActivity(fxsb);
                                 }
                             });

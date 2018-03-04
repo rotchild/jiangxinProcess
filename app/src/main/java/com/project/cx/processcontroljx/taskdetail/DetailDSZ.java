@@ -41,7 +41,7 @@ import okhttp3.Callback;
  * Created by Administrator on 2017/11/30 0030.
  */
 
-public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
+public class DetailDSZ extends DetailTask implements View.OnClickListener {
     Context mContext;
     public int intentType;//已读未读
     ContentValues selectDSZ;
@@ -78,6 +78,8 @@ public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
             getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),
                     "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailDSZ.this));
         }
+        getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
+                selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDSZ.this));
     }
 
     private void initView() {
@@ -176,6 +178,7 @@ public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
                 AppManager.getAppManager().finishActivity();
                 break;
             case R.id.safe_book:
+                setTaskTypeSelected("dsz");
                 Intent tosafe_book = new Intent(DetailDSZ.this, FXSBActivity.class);
                 tosafe_book.putExtra("from", "DetailDSZ");
                 //startActivity(intent);
@@ -227,21 +230,19 @@ public class DetailDSZ extends MBaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if(userManager!=null){//更新risk表
-            Log.i(TAG,"onResume  userManager !=null enter");
-            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
-                    selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDSZ.this));
-            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),
-                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDSZ.this));
-        }
     }
 
     @Subscribe
-    public void setRiskState(BusFXState busdata){
-        if(busdata.getType().equals("DS")){
+    public void afterFXSB(BusFXState busdata){
+        if(busdata.getType().equals("dsz")){
             if(dsz_detail_riskstate!=null){
                 dsz_detail_riskstate.setText("已上报");
             }
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(), selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),
+                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDSZ.this));
+            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
+                    selectDSZ.getAsString(TaskDS.caseNo),selectDSZ.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDSZ.this));
+
         }
     }
 

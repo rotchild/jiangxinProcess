@@ -22,7 +22,7 @@ import com.project.cx.processcontroljx.utils.TimeUtil;
  * Created by Administrator on 2017/11/30 0030.
  */
 
-public class DetailRSWORK extends MBaseActivity implements View.OnClickListener {
+public class DetailRSWORK extends DetailTask implements View.OnClickListener {
     Context mContext;
     int intentType;//已读未读,人伤无已读未读，默认成已读
     ImageView setting_back;

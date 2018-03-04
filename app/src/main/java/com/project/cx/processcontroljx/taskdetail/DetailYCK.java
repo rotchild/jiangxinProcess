@@ -47,7 +47,7 @@ import okhttp3.Callback;
  * Created by Administrator on 2017/11/30 0030.
  */
 
-public class DetailYCK extends MBaseActivity implements View.OnClickListener {
+public class DetailYCK extends DetailTask implements View.OnClickListener {
     Context mContext;
     public int intentType;//已读未读
     public String TAG;
@@ -91,6 +91,8 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
             getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectYCK.getAsString(TaskCK.caseNo),selectYCK.getAsString(TaskCK.licenseno),
                     "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailYCK.this));
         }
+        getTaskRiskHttpData(userManager.getUserToken(), userManager.getFrontRole(), TaskRole.ck,
+                selectYCK.getAsString(TaskCK.caseNo), selectYCK.getAsString(TaskCK.licenseno),risktask_start, risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext, DetailYCK.this));
         //获取三者车数据,转移到resume中使用
         //getthirdcarHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYCK.getAsString(TaskCK.id), OkCallbackManager.getInstance().getthirdcarCallback(mContext,DetailYCK.this));
     }
@@ -183,6 +185,7 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
 
             case R.id.safe_book:
                 //风险上报
+                setTaskTypeSelected("yck");
                 Intent intent = new Intent(DetailYCK.this, FXSBActivity.class);
                 intent.putExtra("from", "DetailYCK");
                 //startActivity(intent);
@@ -211,27 +214,6 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case MRequestCode.YCK:
-                if(resultCode== MResultCode.FXSB){
-                    if(data!=null){
-                        Bundle b=data.getExtras();
-                        String result=b.getString("sbstate");
-                        if(result.equals("1")){//调用FXSB接口成功,局部改变上报状态
-                            yck_detail_riskstate.setText("已上报");
-                    }
-                    }
-                }
-
-                break;
-            default:
-                break;
-
-        }
-    }
 
     //获取风险上报任务数据
     public void getTaskRiskHttpData(String token,String frontrole, String task_role,String caseNo,String licenseNo,int start,int limit,Callback Callback){
@@ -355,16 +337,19 @@ public class DetailYCK extends MBaseActivity implements View.OnClickListener {
         if(userManager==null)
             return;
         getthirdcarHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYCK.getAsString(TaskCK.caseNo),selectYCK.getAsString(TaskCK.licenseno), OkCallbackManager.getInstance().getthirdcarCallback(mContext,DetailYCK.this));
-        getTaskRiskHttpData(userManager.getUserToken(), userManager.getFrontRole(), TaskRole.ck,
-                selectYCK.getAsString(TaskCK.caseNo), selectYCK.getAsString(TaskCK.licenseno),risktask_start, risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext, DetailYCK.this));
+
     }
 
     @Subscribe
-    public void setRiskState(BusFXState busdata){
-        if(busdata.getType().equals("CK")){
+    public void afterFXSB(BusFXState busdata){
+        if(busdata.getType().equals("yck")){
             if(yck_detail_riskstate!=null){
                 yck_detail_riskstate.setText("已上报");
             }
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectYCK.getAsString(TaskCK.caseNo),selectYCK.getAsString(TaskCK.licenseno),
+                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailYCK.this));
+            getTaskRiskHttpData(userManager.getUserToken(), userManager.getFrontRole(), TaskRole.ck,
+                    selectYCK.getAsString(TaskCK.caseNo), selectYCK.getAsString(TaskCK.licenseno),risktask_start, risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext, DetailYCK.this));
         }
     }
 

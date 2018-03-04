@@ -20,6 +20,7 @@ import com.project.cx.processcontroljx.beans.RiskWarm;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskCK;
 import com.project.cx.processcontroljx.beans.TaskRole;
+import com.project.cx.processcontroljx.beans.Type_Selected;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
@@ -41,7 +42,7 @@ import okhttp3.Callback;
  * Created by Administrator on 2017/11/30 0030.
  */
 
-public class DetailDCK extends MBaseActivity implements View.OnClickListener {
+public class DetailDCK extends DetailTask implements View.OnClickListener {
     private static  String TAG;
     Context mContext;
     Dialog_risktip risktipDg=null;
@@ -80,6 +81,9 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
             getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),
                     "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailDCK.this));
         }
+
+        getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ck,
+                selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDCK.this));
         Log.e(TAG,"onCreate enter");
     }
     public void startActivity(Class activity,int intentType){
@@ -192,13 +196,6 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         Log.e(TAG,"onResume enter");
-        if(userManager!=null){//更新risk表
-            Log.i(TAG,"New-onResume  userManager !=null enter");
-            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ck,
-                    selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDCK.this));
-            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),
-                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDCK.this));
-        }
     }
 
     @Override
@@ -211,6 +208,7 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
                 AppManager.getAppManager().finishActivity();
                 break;
             case R.id.safe_book:
+                setTaskTypeSelected("dck");
                Intent intent=new Intent(DetailDCK.this, FXSBActivity.class);
                intent.putExtra("from","DetailDCK");
                startActivity(intent);
@@ -263,11 +261,15 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
     }
 
     @Subscribe
-    public void setRiskState(BusFXState busdata){
-        if(busdata.getType().equals("CK")){
+    public void afterFXSB(BusFXState busdata){
+        if(busdata.getType().equals("dck")){
             if(dck_riskstate!=null){
                 dck_riskstate.setText("已上报");
             }
+            getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),
+                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext, DetailDCK.this));
+            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ck,
+                    selectDCK.getAsString(TaskCK.caseNo),selectDCK.getAsString(TaskCK.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailDCK.this));
         }
     }
 
@@ -276,4 +278,5 @@ public class DetailDCK extends MBaseActivity implements View.OnClickListener {
         BusUtil.getINSTANCE().unregister(this);
         super.onDestroy();
     }
+
 }

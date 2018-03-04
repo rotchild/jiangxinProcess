@@ -39,7 +39,7 @@ import okhttp3.Callback;
  * Created by Administrator on 2017/11/30 0030.
  */
 
-public class DetailYDS extends MBaseActivity implements View.OnClickListener {
+public class DetailYDS extends DetailTask implements View.OnClickListener {
     Context mContext;
     public int intentType;//已读未读
     ContentValues selectYDS;
@@ -72,6 +72,8 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
             getRisksWarnHttpData(userManager.getUserToken(), userManager.getFrontRole(),selectYDS.getAsString(TaskCK.caseNo),selectYDS.getAsString(TaskCK.licenseno),
                     "sys", OkCallbackManager.getInstance().getRiskWarmsysCallback(mContext, DetailYDS.this));
         }
+        getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
+                selectYDS.getAsString(TaskDS.caseNo), selectYDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailYDS.this));
     }
 
     private void initView() {
@@ -170,6 +172,7 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
                 break;
             case R.id.safe_book:
                 //风险上报
+                setTaskTypeSelected("yds");
                 Intent intent=new Intent(DetailYDS.this, FXSBActivity.class);
                 intent.putExtra("from","DetailYDS");
                 startActivity(intent);
@@ -208,21 +211,18 @@ public class DetailYDS extends MBaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if(userManager!=null){//更新risk表
-            Log.i(TAG,"onResume  userManager !=null enter");
-            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
-                    selectYDS.getAsString(TaskDS.caseNo), selectYDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailYDS.this));
-            getRisksWarnHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYDS.getAsString(TaskDS.caseNo),selectYDS.getAsString(TaskDS.licenseno),
-                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext,DetailYDS.this));
-        }
     }
 
     @Subscribe
-    public void setRiskState(BusFXState busdata){
-        if(busdata.getType().equals("DS")){
+    public void afterFXSB(BusFXState busdata){
+        if(busdata.getType().equals("yds")){
             if(yds_detail_riskstate!=null){
                 yds_detail_riskstate.setText("已上报");
             }
+            getRisksWarnHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYDS.getAsString(TaskDS.caseNo),selectYDS.getAsString(TaskDS.licenseno),
+                    "all", OkCallbackManager.getInstance().getRiskWarmCallback(mContext,DetailYDS.this));
+            getTaskRiskHttpData(userManager.getUserToken(),userManager.getFrontRole(), TaskRole.ds,
+                    selectYDS.getAsString(TaskDS.caseNo), selectYDS.getAsString(TaskDS.licenseno),risktask_start,risktask_limit, OkCallbackManager.getInstance().getTaskRiskCallback(mContext,DetailYDS.this));
         }
     }
 

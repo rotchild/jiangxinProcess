@@ -152,6 +152,7 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
     private void initData() {
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
+        //commitRiskRecordData提交风险上报需要的请求参数
         String from=bundle.getString("from");
         if(from.equals("DetailDCK")){
             selectTask=SelectedTask.getTaskDCK();
