@@ -146,8 +146,16 @@ public class DetailDSZ extends DetailTask implements View.OnClickListener {
             rolestate_str="标的车";
         }else if(rolestate_long==2){
             rolestate_str="三者车";
-            LinearLayout threehide1=(LinearLayout) findViewById(R.id.szhide1);
-            threehide1.setVisibility(View.GONE);
+            LinearLayout threehide5=(LinearLayout) findViewById(R.id.threehide5);
+            threehide5.setVisibility(View.GONE);
+            LinearLayout threehide6=(LinearLayout) findViewById(R.id.threehide6);
+            threehide6.setVisibility(View.GONE);
+            LinearLayout threehide7=(LinearLayout) findViewById(R.id.threehide7);
+            threehide7.setVisibility(View.GONE);
+            LinearLayout threehide8=(LinearLayout) findViewById(R.id.threehide8);
+            threehide8.setVisibility(View.GONE);
+            LinearLayout threehide9=(LinearLayout) findViewById(R.id.dsz_risklist_wrapper);
+            threehide9.setVisibility(View.GONE);
         }
         dsz_detail_car_role.setText(rolestate_str);
         dsz_detail_licenseno.setText(selectDSZ.getAsString(TaskDS.licenseno));

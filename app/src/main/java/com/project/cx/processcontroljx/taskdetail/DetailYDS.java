@@ -138,8 +138,16 @@ public class DetailYDS extends DetailTask implements View.OnClickListener {
             rolestate_str="标的车";
         }else if(rolestate_long==2){
             rolestate_str="三者车";
-            LinearLayout threehide1=(LinearLayout) findViewById(R.id.szhide2);
-            threehide1.setVisibility(View.GONE);
+            LinearLayout threehide10=(LinearLayout) findViewById(R.id.threehide10);
+            threehide10.setVisibility(View.GONE);
+            LinearLayout threehide11=(LinearLayout) findViewById(R.id.threehide11);
+            threehide11.setVisibility(View.GONE);
+            LinearLayout threehide12=(LinearLayout) findViewById(R.id.threehide12);
+            threehide12.setVisibility(View.GONE);
+            LinearLayout threehide13=(LinearLayout) findViewById(R.id.threehide13);
+            threehide13.setVisibility(View.GONE);
+            LinearLayout threehide14=(LinearLayout) findViewById(R.id.yds_risklist_wrapper);
+            threehide14.setVisibility(View.GONE);
 
         }
         yds_detail_car_role.setText(rolestate_str);

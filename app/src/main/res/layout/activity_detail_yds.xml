@@ -455,16 +455,11 @@
                     android:textSize="@dimen/detail_size"
                     />
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/szhide2"
-            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:id="@+id/threehide10"
                 >
 
                 <TextView
@@ -525,64 +520,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="16dp"
-                    android:text="标的车牌号："
-                    android:textSize="@dimen/detail_size"
-                    />
-
-                <TextView
-                    android:id="@+id/bd_num"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="赣A100000"
-                    android:textColor="@color/maintext"
-                    android:textSize="@dimen/detail_size"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                >
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="16dp"
-                    android:text="车辆品牌："
-                    android:textSize="@dimen/detail_size"
-                    />
-
-                <TextView
-                    android:id="@+id/case_brand"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text=""
-                    android:textColor="@color/maintext"
-                    android:textSize="@dimen/detail_size"
-
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:id="@+id/threehide11"
 
                 >
 
@@ -645,6 +584,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:id="@+id/threehide12"
                 >
 
                 <TextView
@@ -666,6 +606,7 @@
                 android:background="#a9a9a9"
                 android:gravity="center|center_horizontal|center_vertical"
                 android:orientation="horizontal"
+                android:id="@+id/threehide13"
                 >
 
                 <TextView
@@ -715,7 +656,6 @@
                     android:visibility="gone"
                     />
             </LinearLayout>
-             </LinearLayout>
-        </LinearLayout>
+            </LinearLayout>
     </ScrollView>
 </LinearLayout>
