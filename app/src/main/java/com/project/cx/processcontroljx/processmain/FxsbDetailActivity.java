@@ -23,6 +23,8 @@ import com.project.cx.processcontroljx.utils.LayoutAddDanamic;
 import com.project.cx.processcontroljx.utils.TimeUtil;
 import com.project.cx.processcontroljx.utils.UserManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by Administrator on 2017/12/7 0007.
  */
@@ -93,7 +95,12 @@ public class FxsbDetailActivity extends MBaseActivity implements View.OnClickLis
 
         LinearLayout risktype_wrapper= (LinearLayout) findViewById(R.id.dck_risktype_wrapper);
         risktype_wrapper.removeAllViews();
-        LayoutAddDanamic.getInstance().addRiskTypeListView(mContext,risktype_wrapper, RiskWarm.riskwarmArray);
+        RiskWarm riskWarm=new RiskWarm();
+        ArrayList<ContentValues> fxsbList=riskWarm.format2AList(selectRisk.getAsString(TaskRisk.risktype),selectRisk.getAsString(TaskRisk.others));
+        if(fxsbList!=null && fxsbList.size()>0){
+            LayoutAddDanamic.getInstance().addRiskTypeListView(mContext,risktype_wrapper, fxsbList);
+        }
+        //LayoutAddDanamic.getInstance().addRiskTypeListView(mContext,risktype_wrapper, RiskWarm.riskwarmArray);
 
         fxsb_detail_auditor.setText(selectRisk.getAsString(TaskRisk.auditor));
 

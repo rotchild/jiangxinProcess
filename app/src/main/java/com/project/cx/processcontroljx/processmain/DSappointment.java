@@ -512,7 +512,7 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                     return;
                 }
                 String assessor_mobileStr=dsyy_edit_assessor_mobile.getText().toString().trim();
-                String num = "[1][345678]\\d{9}";
+                String num = "[1][3456789]\\d{9}";
                 boolean telcheck =assessor_mobileStr.matches(num);
                 if(!telcheck){
                     Toast.makeText(mContext,"请输入正确手机号码",Toast.LENGTH_SHORT).show();
@@ -529,7 +529,7 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                 //areaname_selected
                 long today = System.currentTimeMillis() / 1000;
                 if(booktimelong<today){
-                    Toast.makeText(mContext,"预约时间必须在当天以后",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"预约时间不能小于当前时间",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 areaname_selected_id=DSArea.area_idMap.get(areaname_selected);

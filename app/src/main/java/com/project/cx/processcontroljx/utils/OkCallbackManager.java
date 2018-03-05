@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
@@ -21,7 +20,6 @@ import com.project.cx.processcontroljx.beans.DSArea;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.ListDataCache;
 import com.project.cx.processcontroljx.beans.LoadType;
-import com.project.cx.processcontroljx.beans.MResultCode;
 import com.project.cx.processcontroljx.beans.ParamType;
 import com.project.cx.processcontroljx.beans.RiskWarm;
 import com.project.cx.processcontroljx.beans.SelectedTask;
@@ -1096,21 +1094,21 @@ public class OkCallbackManager {
                 Log.i(TAG,"getTaskRiskCallbackSUCCESS");
                 if(detailClass instanceof DetailDCK){
                     DetailDCK detailDCK=(DetailDCK) detailClass;
-                    detailDCK.riskArray=new ArrayList<ContentValues>();//清空
+                    detailDCK.riskArray.clear();//清空
                 }else if(detailClass instanceof DetailYCK){
                     DetailYCK detailYCK=(DetailYCK) detailClass;
-                    detailYCK.riskArray=new ArrayList<ContentValues>();//清空
+                    detailYCK.riskArray.clear();//清空
                 }else if(detailClass instanceof DetailDDS){
                     DetailDDS detailDDS=(DetailDDS) detailClass;
-                    detailDDS.riskArray=new ArrayList<ContentValues>();//清空
+                    detailDDS.riskArray.clear();//清空
                 }
                 else if(detailClass instanceof DetailDSZ){
                     DetailDSZ detailDSZ=(DetailDSZ) detailClass;
-                    detailDSZ.riskArray=new ArrayList<ContentValues>();//清空
+                    detailDSZ.riskArray.clear();//清空
                 }
                 else if(detailClass instanceof DetailYDS){
                     DetailYDS detailYDS=(DetailYDS) detailClass;
-                    detailYDS.riskArray=new ArrayList<ContentValues>();//清空
+                    detailYDS.riskArray.clear();//清空
                 }
                 if(response!=null){
                     String bodystr=response.body().string();
