@@ -2,6 +2,7 @@ package com.project.cx.processcontroljx.adapters;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,13 +77,17 @@ public class HPAdapter extends BaseAdapter {
             holder_hp.hp_tickestate=(TextView)convertView.findViewById(R.id.hp_tickestate);
 
             holder_hp.newTaskTag=(ImageView)convertView.findViewById(R.id.hp_new_tag);
-            String isRead=mData.get(position).getAsString(TaskDS.isRead);
-            if(isRead.equals("0")){//是否显示isNewTag
-                holder_hp.newTaskTag.setVisibility(View.VISIBLE);
+            //String isRead=mData.get(position).getAsString(TaskDS.isRead);
+            String isRead=mData.get(position).getAsString(TaskDS.isRead_hp);
+            if(!TextUtils.isEmpty(isRead)){
+                if(isRead.equals("0")){//是否显示isNewTag
+                    holder_hp.newTaskTag.setVisibility(View.VISIBLE);
+                }else{
+                    holder_hp.newTaskTag.setVisibility(View.GONE);
+                }
             }else{
                 holder_hp.newTaskTag.setVisibility(View.GONE);
             }
-
             holder_hp.hp_head_change = (RelativeLayout)convertView.findViewById(R.id.hp_head_change);
             ImageView image_hurt = (ImageView)convertView.findViewById(R.id.hp_hurt_state_icon);
             long reparations_long=Long.valueOf(mData.get(position).getAsString(TaskCK.reparations));

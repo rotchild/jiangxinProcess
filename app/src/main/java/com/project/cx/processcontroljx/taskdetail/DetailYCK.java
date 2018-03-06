@@ -19,7 +19,6 @@ import com.project.cx.processcontroljx.adapters.ThirdcarAdapter;
 import com.project.cx.processcontroljx.beans.BusFXState;
 import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.MRequestCode;
-import com.project.cx.processcontroljx.beans.MResultCode;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.SelectedThirdCar;
 import com.project.cx.processcontroljx.beans.TaskCK;
@@ -29,7 +28,6 @@ import com.project.cx.processcontroljx.beans.ThirdCars;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.processmain.DSappointment;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
-import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.BusUtil;
 import com.project.cx.processcontroljx.utils.LayoutAddDanamic;
@@ -336,6 +334,7 @@ public class DetailYCK extends DetailTask implements View.OnClickListener {
         //为了定损预约返回时刷新（定损预约/详情状态）
         if(userManager==null)
             return;
+        Log.e("detailDCK","onResume enter");
         getthirdcarHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectYCK.getAsString(TaskCK.caseNo),selectYCK.getAsString(TaskCK.licenseno), OkCallbackManager.getInstance().getthirdcarCallback(mContext,DetailYCK.this));
 
     }

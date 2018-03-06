@@ -335,7 +335,7 @@ public class OkhttpDataHandler {
         String url= MHttpParams.Addthirdcar;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
                 add("caseNo",caseNo).add("taskid",taskid).add("thirdlicenseno",thirdlicenseno).build();
-        Log.i(TAG,"addthirdcarHttp params:"+"url:"+url+"?token="+token+"&"+"frontrole="+frontrole+"&"+"caseNo="+caseNo+"&"+"thirdlicenseno="+thirdlicenseno);
+        Log.i(TAG,"addthirdcarHttp params:"+"url:"+url+"?token="+token+"&"+"frontrole="+frontrole+"&"+"caseNo="+caseNo+"&"+"taskid="+taskid+"&"+"thirdlicenseno="+thirdlicenseno);
         Request request=new Request.Builder().url(url).post(requestBody).build();
         Call call=okhttpClient.newCall(request);
         call.enqueue(pcallback);
