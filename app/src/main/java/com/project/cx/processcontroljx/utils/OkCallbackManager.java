@@ -164,12 +164,6 @@ public class OkCallbackManager {
                                     }
                                 }else if(loadtype== LoadType.LOADMORE){// load more,update loadstart
                                     if(type.equals(ParamType.DCK)){
-                                        //pm.loadStart_dck= pm.loadStart_dck+datas.length();
-/*                                        if(pm.lv_dck!=null){
-                                            pm.loadStart_dck=pm.lv_dck.getCount()+datas.length();
-                                            //pm.refreshLimit_dck=pm.loadStart_dck;
-                                            Log.e(TAG,"loadStart_dck"+datas.length()+"/lv_dck.getCount()"+pm.lv_dck.getCount());
-                                        }*/
                                         pm.loadStart_dck=pm.loadStart_dck+datas.length();
                                     }else if(type.equals(ParamType.YCK)){
                                         pm.loadStart_yck= pm.loadStart_yck+datas.length();

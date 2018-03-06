@@ -17,7 +17,6 @@ import com.project.cx.processcontroljx.beans.DetailIntentType;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskDS;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
-import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.ui.Dialog_risktip;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
@@ -143,10 +142,14 @@ public class DetailHP extends DetailTask implements View.OnClickListener {
         hp_detail_should_ticket_amount.setText(selectHP.getAsString(TaskDS.should_ticket_amount)+"元");
         hp_detail_real_ticket_garage.setText(selectHP.getAsString(TaskDS.real_ticket_garage));
 
-        Long Htime_long=Long.valueOf(selectHP.getAsString(TaskDS.real_ticket_time))*1000;
+/*        Long Htime_long=Long.valueOf(selectHP.getAsString(TaskDS.real_ticket_time))*1000;
         String Htime_str=String.valueOf(Htime_long);
         String Htime_result= TimeUtil.stampToDate(Htime_str);
+        hp_detail_real_ticket_time.setText(Htime_result);*/
+        String Htime_result="";
+        Htime_result=selectHP.getAsString(TaskDS.real_ticket_time);
         hp_detail_real_ticket_time.setText(Htime_result);
+
         hp_detail_cooperative_name.setText(selectHP.getAsString(TaskDS.cooperative_name));
         hp_detail_ticket_amount.setText(selectHP.getAsString(TaskDS.ticket_amount)+"元");
 
