@@ -142,7 +142,7 @@
             android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
             android:text="--"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textColor="@color/maintext"
             android:textSize="@dimen/default_size"
             />
@@ -155,7 +155,7 @@
             android:layout_toStartOf="@+id/dds_riskstate"
             android:gravity="center"
             android:text="风险上报状态："
-            android:visibility="gone"
+            android:visibility="visible"
             android:textColor="@color/maintext"
             android:textSize="@dimen/default_size"/>
 

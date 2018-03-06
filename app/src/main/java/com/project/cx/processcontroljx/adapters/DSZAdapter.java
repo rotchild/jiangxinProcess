@@ -159,6 +159,9 @@ public class DSZAdapter extends BaseAdapter {
             dds_car_role.setText("三者车");
             dds_car_role.setTextColor(mContext.getResources().getColor(R.color.typegreen));
             dds_car_role.setBackground(mContext.getResources().getDrawable(R.drawable.text_border_green));
+            TextView riskstate_text=(TextView)convertView.findViewById(R.id.riskstate_text);
+            riskstate_text.setVisibility(View.GONE);
+            holder_dsz.riskstate.setVisibility(View.GONE);
         }
 
             holder_dsz.item_ck.setOnClickListener(new View.OnClickListener() {

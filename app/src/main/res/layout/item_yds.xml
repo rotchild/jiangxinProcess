@@ -152,7 +152,7 @@
             android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
             android:text="--"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textColor="@color/maintext"
             android:textSize="@dimen/default_size"
             />
@@ -165,7 +165,7 @@
             android:layout_alignBottom="@+id/yds_riskstate"
             android:layout_toStartOf="@+id/yds_riskstate"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="风险上报状态："
             android:textColor="@color/maintext"
             android:textSize="@dimen/default_size"/>
