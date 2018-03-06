@@ -29,16 +29,18 @@
     <LinearLayout
                   android:id="@+id/dialog_riskcontent"
                   android:layout_width="match_parent"
-                  android:layout_height="160dp"
+                  android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:visibility="visible"
+                  android:background="@color/white"
+
 
         >
         <ListView
             android:id="@+id/riskwarm_list"
             android:layout_width="match_parent"
             android:divider="@null"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
 
             />
 
