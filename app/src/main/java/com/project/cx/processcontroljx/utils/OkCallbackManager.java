@@ -327,6 +327,8 @@ public class OkCallbackManager {
                                         values.put(TaskDS.reparations,mdata.getString(TaskDS.reparations));
                                         values.put(TaskDS.lianTime,mdata.getString(TaskDS.lianTime));
 
+                                        values.put(TaskDS.isRead_hp,mdata.getString(TaskDS.isRead_hp));
+                                        values.put(TaskDS.assessorNo_hp,mdata.getString(TaskDS.assessorNo_hp));
                                         //12.13 dm增加定损人，定损联系人号码
 
                                         mArrayList.add(values);
@@ -976,21 +978,14 @@ public class OkCallbackManager {
                         JSONObject jsonObject=new JSONObject(bodystr);
                         boolean success=jsonObject.getBoolean("success");
                         if(success){
-                           /* boolean data=jsonObject.getBoolean("data");
-                            if(data){//?依据data为true,还是success为true,设置成功
-                                pm.startActivity(denstination, DetailIntentType.UNREAD);
-                            }*/
                             detailDDS.runOnUiThread(new Runnable() {
                                @Override
                                public void run() {
                                    Toast.makeText(ctx,"提交成功",Toast.LENGTH_SHORT).show();
-                                   Intent mIntent=new Intent();
-                                  /* mIntent.putExtra("sbstate","1");
-                                   fxsb.setResult(MResultCode.FXSB,mIntent);*/
                                    AppManager.getAppManager().finishActivity(detailDDS);
+                                   BusUtil.getINSTANCE().post(new BusRefreshAct("refresh"));//
                                }
                            });
-
                         }else{
                             final JSONObject err=jsonObject.getJSONObject("err");//err是否一定是jsonobject?
                             final String msg=err.getString("message");

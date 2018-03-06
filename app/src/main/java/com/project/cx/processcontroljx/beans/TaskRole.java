@@ -7,5 +7,6 @@ package com.project.cx.processcontroljx.beans;
 public class TaskRole {
     public static final String ck="ck";//查勘员
     public static final String ds="ds";//定损员
+    public static final String hp="hp";//增加hp(hp_isRead seperate)
     public static final String rs="rs";//人伤
 }

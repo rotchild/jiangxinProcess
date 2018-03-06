@@ -78,6 +78,9 @@ public class TaskDS {
     public static final String  county_id="county_id";
     public static final String  reparations="reparations";
     public static final String  lianTime="lianTime";
+    //hp
+    public static final String  isRead_hp="isRead_hp";
+    public static final String  assessorNo_hp="assessorNo_hp";
 
 
 

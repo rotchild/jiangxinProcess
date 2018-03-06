@@ -108,15 +108,6 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     public LoadMoreListView lvr_dsz,lvr_yds,lvr_hp;
     public LoadMoreListView lvr_rswork,lvr_rshistroy;
 
-    //public RecyclerView lv_dckR;
-
-    //public XRefreshView xrv_dck,xrv_yck,xrv_dds,xrv_all;
-    //public XRefreshView xrv_dck,xrv_dds,xrv_all;
-    //public SwipeRefreshLayout srf_yck;
-
-    //public XRefreshView xrv_dsz,xrv_yds,xrv_hp;
-    //public XRefreshView xrv_gz,xrv_ls;
-
     public int refreshStart=0;
     //public int refreshLimit=10;
     public int refreshLimit_search=10;
@@ -393,6 +384,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 if(isRead.equals("0")){//未读,调用设置已读接口,!需要注意刷新的时机
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
                             TaskRole.ck,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailDCK.class,ProcessMain.this,ParamType.DCK));
+                    selectTask.put(TaskCK.isRead,"1");
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailDCK.class,DetailIntentType.READ);
                 }
@@ -417,6 +409,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 if(isRead.equals("0")){//未读,调用设置已读接口
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
                             TaskRole.ck,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailYCK.class,ProcessMain.this,ParamType.YCK));
+                    selectTask.put(TaskCK.isRead,"1");
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailYCK.class,DetailIntentType.READ);
                 }
@@ -447,6 +440,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     if(!selectTask.getAsString(TaskDS.assessorNo).equals(userManager.getJobNo())){
                         //不是自己的任务不调用setTaskRead
                         startActivity(DetailDDS.class, DetailIntentType.UNREAD);
+                        selectTask.put(TaskDS.isRead,"1");
                     }else{
                         setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
                                 TaskRole.ds,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailDDS.class,ProcessMain.this,ParamType.DDS));
@@ -473,6 +467,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 if(isRead.equals("0")){//未读,调用设置已读接口
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
                             TaskRole.ds,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailDSZ.class,ProcessMain.this,ParamType.DSZ));
+                    selectTask.put(TaskDS.isRead,"1");
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailDSZ.class,DetailIntentType.READ);
                 }
@@ -496,6 +491,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 if(isRead.equals("0")){//未读,调用设置已读接口
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
                             TaskRole.ds,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailYDS.class,ProcessMain.this,ParamType.YDS));
+                    selectTask.put(TaskDS.isRead,"1");
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailYDS.class,DetailIntentType.READ);
                 }
@@ -512,10 +508,11 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 if(selectTask!=null){
                     SelectedTask.storeTaskHP(selectTask);
                 }
-                String isRead=selectTask.getAsString(TaskDS.isRead);
+                String isRead=selectTask.getAsString(TaskDS.isRead_hp);
                 if(isRead.equals("0")){//未读,调用设置已读接口
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
-                            TaskRole.ds,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailHP.class,ProcessMain.this,ParamType.HP));
+                            TaskRole.hp,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailHP.class,ProcessMain.this,ParamType.HP));
+                    selectTask.put(TaskDS.isRead_hp,"1");
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailHP.class,DetailIntentType.READ);
                 }
@@ -538,6 +535,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 if(isRead.equals("0")){//未读,调用设置已读接口
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
                             TaskRole.rs,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailRSWORK.class,ProcessMain.this,ParamType.GZ));
+                    selectTask.put(TaskDS.isRead,"1");
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailRSWORK.class,DetailIntentType.READ);
                 }
@@ -558,7 +556,8 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                 String isRead=selectTask.getAsString(Taskhurt.isRead);
                 if(isRead.equals("0")){//未读,调用设置已读接口
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
-                            TaskRole.rs,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailRSHIS.class,ProcessMain.this,ParamType.GZ));
+                            TaskRole.rs,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailRSHIS.class,ProcessMain.this,ParamType.LS));
+                    selectTask.put(TaskDS.isRead,"1");
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailRSHIS.class,DetailIntentType.READ);
                 }
@@ -1463,10 +1462,14 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     RelativeLayout noReportRL1= (RelativeLayout) findViewById(R.id.dck_noReportRL);
                     if(nodata){
                         //xrv_dck.setVisibility(View.GONE);
-                        noReportRL1.setVisibility(View.VISIBLE);
+                        if(noReportRL1!=null){
+                            noReportRL1.setVisibility(View.VISIBLE);
+                        }
                     }else {
                         //xrv_dck.setVisibility(View.VISIBLE);
-                        noReportRL1.setVisibility(View.GONE);
+                        if(noReportRL1!=null){
+                            noReportRL1.setVisibility(View.GONE);
+                        }
                     }
                     break;
                 case ParamType.YCK:
