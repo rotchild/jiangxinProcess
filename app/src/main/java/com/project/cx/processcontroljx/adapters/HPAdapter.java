@@ -120,7 +120,7 @@ public class HPAdapter extends BaseAdapter {
             holder_hp.hp_tickestate.setText(hp_ticketstateStr);
             holder_hp.caseNo.setText(mData.get(position).getAsString(TaskDS.caseNo));
             holder_hp.licenseno.setText(mData.get(position).getAsString(TaskDS.licenseno));
-            Long Ctime_long=Long.valueOf(mData.get(position).getAsString(TaskDS.caseTime))*1000;
+            Long Ctime_long=Long.valueOf(mData.get(position).getAsString(TaskDS.createtime))*1000;//0227在待定损把报案时间改成派发时间
             String Ctime_str=String.valueOf(Ctime_long);
             String caseTime_str= TimeUtil.stampToDate(Ctime_str);
             holder_hp.caseTime.setText(caseTime_str);
