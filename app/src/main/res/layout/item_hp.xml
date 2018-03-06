@@ -73,7 +73,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="12dp"
             android:layout_centerVertical="true"
-            android:text="报案时间："
+            android:text="派发时间："
             android:textColor="@color/maintext"
             android:textSize="@dimen/default_size"
             />
