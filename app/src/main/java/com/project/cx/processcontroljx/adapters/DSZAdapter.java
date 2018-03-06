@@ -90,7 +90,7 @@ public class DSZAdapter extends BaseAdapter {
             if(reparations_long>10000){
                 head.setBackground(mContext.getResources().getDrawable(R.drawable.grayhead_background));
             }else {
-                long offSet = Long.valueOf(mData.get(position).getAsString(TaskDS.caseTime));
+                long offSet = Long.valueOf(mData.get(position).getAsString(TaskDS.accept_time));
                 long today = System.currentTimeMillis() / 1000;
                 long intervalTime = (today - offSet) / 3600;
                 Log.i("dm","intervalTime"+intervalTime);
