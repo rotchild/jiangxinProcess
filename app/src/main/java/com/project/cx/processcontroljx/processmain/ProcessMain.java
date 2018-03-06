@@ -1557,6 +1557,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         Log.e("Main","onDestroy enter");
         //MSocketHelper.getInstance().logout();
         super.onDestroy();
+        BusUtil.getINSTANCE().unregister(this);
     }
     //刷新当前页面
     public void refreshCurrentPage(){
