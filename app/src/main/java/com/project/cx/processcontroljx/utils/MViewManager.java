@@ -564,6 +564,7 @@ public class MViewManager {
                 pm.myckAdapter.setDataList(listData);
             }else{
                 pm.setNoDataView(false,ParamType.YCK);
+                Log.i("MViewManager","setDataList enter size:"+listData.size());
                 pm.myckAdapter.setDataList(listData);
             }
         }

@@ -1494,13 +1494,16 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     break;
                 case ParamType.DSZ:
                     RelativeLayout noReportRL4= (RelativeLayout) findViewById(R.id.dsz_noReportRL);
-                    if(nodata){
-                        //xrv_dsz.setVisibility(View.GONE);
-                        noReportRL4.setVisibility(View.VISIBLE);
-                    }else {
-                        //xrv_dsz.setVisibility(View.VISIBLE);
-                        noReportRL4.setVisibility(View.GONE);
+                    if(noReportRL4!=null){
+                        if(nodata){
+                            //xrv_dsz.setVisibility(View.GONE);
+                            noReportRL4.setVisibility(View.VISIBLE);
+                        }else {
+                            //xrv_dsz.setVisibility(View.VISIBLE);
+                            noReportRL4.setVisibility(View.GONE);
+                        }
                     }
+
                     break;
                 case ParamType.YDS:
                     RelativeLayout noReportRL5= (RelativeLayout) findViewById(R.id.yds_noReportRL);
@@ -1554,6 +1557,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         Log.e("Main","onDestroy enter");
         //MSocketHelper.getInstance().logout();
         super.onDestroy();
+        BusUtil.getINSTANCE().unregister(this);
     }
     //刷新当前页面
     public void refreshCurrentPage(){
@@ -1570,27 +1574,33 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.LS,ProcessMain.this));
         }
         else if(currentBottom.equals(CurrentBottom.CK_DDS) || currentBottom.equals(CurrentBottom.DS_DDS) || currentBottom.equals(CurrentBottom.CD_DDS)){
+                  Log.e("ProcessMain","dds_currentBottom:"+currentBottom);
             getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DDS,keyword,refreshStart,refreshLimit_dds,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DDS,ProcessMain.this));
         }else if(currentBottom.equals(CurrentBottom.DS_DSZ) || currentBottom.equals(CurrentBottom.CD_DSZ)){
+                  Log.e("ProcessMain","dsz_currentBottom:"+currentBottom);
             getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DSZ,keyword,refreshStart,refreshLimit_dsz,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DSZ,ProcessMain.this));
         }else if(currentBottom.equals(CurrentBottom.DS_YDS) || currentBottom.equals(CurrentBottom.CD_YDS)){
+                  Log.e("ProcessMain","yds_currentBottom:"+currentBottom);
             getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YDS,keyword,refreshStart,refreshLimit_yds,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YDS,ProcessMain.this));
         }
         else if(currentBottom.equals(CurrentBottom.DS_HP) || currentBottom.equals(CurrentBottom.CD_HP)){
+                  Log.e("ProcessMain","hp_currentBottom:"+currentBottom);
             getTaskDSData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.HP,keyword,refreshStart,refreshLimit_hp,
 
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.HP,ProcessMain.this));
         }
 
         else if(currentBottom.equals(CurrentBottom.CK_DCK) || currentBottom.equals(CurrentBottom.CD_DCK)){
+                  Log.e("ProcessMain","dck_currentBottom:"+currentBottom);
             getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.DCK,"","","",keyword,refreshStart,refreshLimit_dck,
 
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.DCK,ProcessMain.this));
         }
         else if(currentBottom.equals(CurrentBottom.CK_YCK) || currentBottom.equals(CurrentBottom.CD_YCK)){
+                  Log.e("ProcessMain","yck_currentBottom:"+currentBottom);
             getTaskCKData(userManager.getUserToken(),userManager.getFrontRole(), ParamType.YCK,"","","",keyword,refreshStart,refreshLimit_yck,
                     OkCallbackManager.getInstance().getCallback(LoadType.REFRESH,mContext,ParamType.YCK,ProcessMain.this));
         }
@@ -1599,6 +1609,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     @Subscribe
     public void refreshAct(BusRefreshAct busdata){
         if(busdata.getType().equals("refresh")){
+            Log.e("processmain","currentBottom:"+currentBottom);
             refreshCurrentPage();
         }
     }
