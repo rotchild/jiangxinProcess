@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.BusFXState;
@@ -50,7 +51,7 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
     TextView dds_detail_caseNo,dds_detail_caseTime,dds_detail_outTime,dds_detail_outNumber,dds_detail_reporter,
             dds_detail_reporterPhone,dds_detail_reporter1,dds_detail_appointTime,dds_detail_reporterPhone1,
             dds_detail_licenseno,dds_detail_riskstate, dds_detail_assess_address,dds_detail_risktype,
-            dds_detail_expect_amount,dds_detail_vehicleBrand,dds_detail_car_role;
+            dds_detail_expect_amount,dds_detail_vehicleBrand,dds_detail_car_role,dds_task_origin;
     Button dds_authority_book;
     Button safe_book;
     Button task_claim;
@@ -115,6 +116,7 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
         dds_detail_caseTime= (TextView) findViewById(R.id.dds_detail_caseTime);
         dds_detail_outTime= (TextView) findViewById(R.id.dds_detail_outTime);
         //dds_detail_outNumber= (TextView) findViewById(R.id.dds_detail_outNumber);
+        dds_task_origin=(TextView) findViewById(R.id.dds_task_origin);
         dds_detail_reporter= (TextView) findViewById(R.id.dds_detail_reporter);
         dds_detail_reporterPhone= (TextView) findViewById(R.id.dds_detail_reporterPhone);
         dds_detail_reporter1= (TextView) findViewById(R.id.dds_detail_reporter1);
@@ -127,6 +129,15 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
         dds_detail_licenseno= (TextView) findViewById(R.id.dds_detail_licenseno);
         dds_detail_riskstate= (TextView) findViewById(R.id.dds_detail_riskstate);
         dds_detail_caseNo.setText(selectDDS.getAsString(TaskDS.caseNo));
+        String task_origin_str="--";
+        Long task_origin_long=Long.valueOf(selectDDS.getAsString(TaskDS.case_from));
+        if(task_origin_long==1){
+            task_origin_str="查勘员派发";
+        }else if(task_origin_long==2) {
+            task_origin_str="95518派发";
+        }
+        //Toast.makeText(mContext, "task_origin_str:"+task_origin_long, Toast.LENGTH_SHORT).show();
+        dds_task_origin.setText(task_origin_str);
         Long Ctime_long=Long.valueOf(selectDDS.getAsString(TaskDS.caseTime))*1000;
         String Ctime_str=String.valueOf(Ctime_long);
         String Ctime_result= TimeUtil.stampToDate(Ctime_str);
@@ -135,6 +146,7 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
         String Otime_str=String.valueOf(Otime_long);
         String Otime_result= TimeUtil.stampToDate(Otime_str);
         dds_detail_outTime.setText(Otime_result);
+
         //dds_detail_outNumber.setText(selectDDS.getAsString(TaskDS.outNumber));
         Log.i("selectDDS1","selectDDS1:"+selectDDS.getAsString(TaskDS.reporter));
         dds_detail_reporter.setText(selectDDS.getAsString(TaskDS.reporter));
