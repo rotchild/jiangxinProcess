@@ -106,8 +106,15 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
             fxsb_edit_vehicleBrand.setText(selectTask.getAsString(TaskCK.licenseno));
         }else if(tasktype.equals("DS")){
             fxsb_edit_caseNo.setText(selectTask.getAsString(TaskDS.caseNo));
-            fxsb_edit_caseTime.setText(selectTask.getAsString(TaskDS.caseTime));
-            fxsb_edit_outTime.setText(selectTask.getAsString(TaskDS.outTime));
+            Long Ctime_long=Long.valueOf(selectTask.getAsString(TaskCK.caseTime))*1000;
+            String Ctime_str=String.valueOf(Ctime_long);
+            String caseTime_str= TimeUtil.stampToDate(Ctime_str);
+            fxsb_edit_caseTime.setText(caseTime_str);
+            Long Otime_long=Long.valueOf(selectTask.getAsString(TaskCK.outTime))*1000;
+            String Otime_str=String.valueOf(Otime_long);
+            String OcaseTime_str= TimeUtil.stampToDate(Otime_str);
+            //Log.i("selectDCK","OcaseTime_str:"+OcaseTime_str);
+            fxsb_edit_outTime.setText(OcaseTime_str);
             fxsb_edit_reporter.setText(selectTask.getAsString(TaskDS.reporter));
             fxsb_edit_reporterPhone.setText(selectTask.getAsString(TaskDS.reporterPhone));
             fxsb_edit_vehicleBrand.setText(selectTask.getAsString(TaskDS.licenseno));
