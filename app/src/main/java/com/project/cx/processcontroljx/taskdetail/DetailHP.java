@@ -150,8 +150,8 @@ public class DetailHP extends DetailTask implements View.OnClickListener {
         Htime_result=selectHP.getAsString(TaskDS.real_ticket_time);
         hp_detail_real_ticket_time.setText(Htime_result);
 
-        hp_detail_cooperative_name.setText(selectHP.getAsString(TaskDS.cooperative_name));
-        hp_detail_ticket_amount.setText(selectHP.getAsString(TaskDS.ticket_amount)+"元");
+        hp_detail_cooperative_name.setText(selectHP.getAsString(TaskDS.should_ticket_garage));//根据接口将cooperative_name改成should_ticket_garage
+        hp_detail_ticket_amount.setText(selectHP.getAsString(TaskDS.should_ticket_amount)+"元");//根据接口将ticket_amount改成should_ticket_amount
 
 
     }
