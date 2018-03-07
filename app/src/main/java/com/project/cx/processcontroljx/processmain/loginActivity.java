@@ -1,8 +1,12 @@
 package com.project.cx.processcontroljx.processmain;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,9 +18,13 @@ import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.settings.SystemSetActivity;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
+import com.project.cx.processcontroljx.ui.Dialog_alert;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.MD5;
 import com.project.cx.processcontroljx.utils.UserManager;
+import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionDenied;
+import com.zhy.m.permission.PermissionGrant;
 
 import org.json.JSONObject;
 
@@ -41,6 +49,10 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
     //Window_alert
     //private final int WINDOWALERT_PERMISSION=23;
     private final String TAG=getClass().getSimpleName();
+    //存储权限
+    private final int STORAGE_PERMISSION=22;
+
+    Dialog_alert dialog_alert=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,19 +60,15 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
         mContext=this;
         initData();
         initView();
+        toRequestPermission();
     }
 
     private void initView() {
         usernameET= (EditText) findViewById(R.id.username);
         passwordEt= (EditText) findViewById(R.id.password);
-
-
         usernameET.setText(userManager.getUserName());
-
-
         loginbtn= (Button) findViewById(R.id.login);
         settingbtn= (Button) findViewById(R.id.setting);
-
         loginbtn.setOnClickListener(this);
         settingbtn.setOnClickListener(this);
     }
@@ -70,16 +78,44 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
         userManager.init(mContext);
         //toRequestAlertWindow();
     }
-/*    public void toRequestAlertWindow(){
-        MPermissions.requestPermissions(loginActivity.this,WINDOWALERT_PERMISSION, Manifest.permission.SYSTEM_ALERT_WINDOW);
-    }*/
-
     public void login(String username,String password){
         pwMd5= new MD5().toMd5(password);
         OkhttpDataHandler okhandler=new OkhttpDataHandler(mContext);
         okhandler.setmIsShowProgressDialog(true);
         okhandler.loginOKhttp(username,pwMd5,loginCallback);
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    private void toRequestPermission() {
+        toRequestStorage();
+    }
+
+    public void  toRequestStorage(){
+        MPermissions.requestPermissions(loginActivity.this,STORAGE_PERMISSION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        MPermissions.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @PermissionGrant(STORAGE_PERMISSION)
+    public void requestSuccess(){
+        //
+    }
+
+    @PermissionDenied(STORAGE_PERMISSION)
+    public void requestFail(){
+        showCloseAlert();
+        //Toast.makeText(mContext,"请开启存储权限",Toast.LENGTH_SHORT).show();
+    }
+
 /*    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         MPermissions.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
@@ -168,7 +204,7 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
                         login(username,password);
                     }
                 }else{
-                    Toast.makeText(mContext,"请开启弹框权限后再登录",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext,"请开启弹框权限后再登录",Toast.LENGTH_SHORT).show();
                 }
 
 /*                Intent toLogin=new Intent(loginActivity.this,ProcessMain.class);
@@ -183,6 +219,42 @@ public class loginActivity extends MBaseActivity implements View.OnClickListener
             default:
                 break;
         }
+    }
+    public void showCloseAlert(){
+        if(!this.isFinishing()){//判断Actiivty是否存在
+                    dialog_alert=new Dialog_alert(loginActivity.this,R.style.RiskTipDialog,R.layout.dialog_alerttip);
+                    dialog_alert.setCancelable(false);
+                    dialog_alert.setalertText("请开启权限后再登录");
+                    dialog_alert.setOnPositiveListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(dialog_alert!=null && dialog_alert.isShowing()){
+                                dialog_alert.dismiss();
+                                dialog_alert=null;
+                                AppManager.getAppManager().AppExit(loginActivity.this.getApplicationContext());//context 是否正确
+                                getAppDetailSettingIntent(loginActivity.this);
+                            }
+                        }
+                    });
+                    dialog_alert.show();
+        }
+    }
+
+    /**
+     * 跳转到权限设置界面
+     */
+    private void getAppDetailSettingIntent(Context context){
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(Build.VERSION.SDK_INT >= 9){
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            intent.setData(Uri.fromParts("package", getPackageName(), null));
+        } else if(Build.VERSION.SDK_INT <= 8){
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setClassName("com.android.settings","com.android.settings.InstalledAppDetails");
+            intent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
+        }
+        startActivity(intent);
     }
 
 }

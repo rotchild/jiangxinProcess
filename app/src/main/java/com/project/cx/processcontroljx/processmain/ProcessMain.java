@@ -232,9 +232,6 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                                     int counts= UnReadCounts.getCount(taskType);
                                     UnReadCounts.setCount(taskType,counts+1);
                                     Log.e("processmain","counts+1:"+UnReadCounts.getCount(taskType));
-
-
-
                                     Log.e("processmain","counts+2:"+String.valueOf(3));
                                     Log.e("processmain","counts+3:"+bar_num3.getText().toString());
 
@@ -290,7 +287,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
 
     public void  toRequestStorage(){
         MPermissions.requestPermissions(ProcessMain.this,STORAGE_PERMISSION, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    };
+    }
 
 
     @Override
@@ -322,7 +319,7 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
     protected void onResume() {//刷新当前的任务列表?
         Log.e("Main","onResume enter");
         super.onResume();
-        toRequestPermission();
+        //toRequestPermission();
         if(userManager==null){
             return;
         }
@@ -363,7 +360,6 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
         initBottom();//must before setpage
         setPage();
         getFirstData();
-
     }
 
     private void initAdapter() {
@@ -404,7 +400,6 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     SelectedTask.storeTaskYCK(selectTask);
                     SelectedTask.storeView(v);
                 }
-
                 String isRead=selectTask.getAsString(TaskCK.isRead);
                 if(isRead.equals("0")){//未读,调用设置已读接口
                     setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),

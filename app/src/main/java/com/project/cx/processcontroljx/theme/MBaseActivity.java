@@ -26,7 +26,6 @@ public class MBaseActivity extends FragmentActivity implements NetBroadcastRecei
     public static NetBroadcastReceiver.NetEvevt evevt;
     NetBroadcastReceiver mNetBroadreceiver;
     Socket mSocket=null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(getClass().getSimpleName(), "onCreate() savedInstanceState:" + savedInstanceState);
@@ -69,7 +68,6 @@ public class MBaseActivity extends FragmentActivity implements NetBroadcastRecei
     @Override
     protected void onResume() {
         Log.i(getClass().getSimpleName(), "onResume");
-
         super.onResume();
         evevt = this;
         if(mNetBroadreceiver==null){
