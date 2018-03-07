@@ -143,6 +143,34 @@
                 android:layout_weight="@integer/weight1"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
+                android:text="任务来源："
+                android:textSize="@dimen/detail_size"/>
+
+            <TextView
+                android:id="@+id/dds_task_origin"
+                android:layout_width="1dp"
+                android:layout_height="@dimen/list_height"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/maintext"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="@dimen/list_height"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="@integer/weight1"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
                 android:text="报案人："
                 android:textSize="@dimen/detail_size"/>
 
