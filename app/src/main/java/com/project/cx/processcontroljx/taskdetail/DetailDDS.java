@@ -216,10 +216,18 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
             ck_dds_operator_linear.setVisibility(View.GONE);
             dds_operator_linear.setVisibility(View.VISIBLE);
         }
+        //Toast.makeText(mContext,"任务分派给别人工号"+selectDDS.getAsString(TaskDS.assessorNo),Toast.LENGTH_SHORT).show();
+        if(userManager.getFrontRole().equals("12")&&userManager.getJobNo().equals(selectDDS.getAsString(TaskDS.assessorNo))){
+            LinearLayout cbdy=(LinearLayout) findViewById(R.id.cbdy);
+            cbdy.setVisibility(View.VISIBLE);
+        }
+
+
         setting_back= (ImageView) findViewById(R.id.setting_back);
         setting_back.setOnClickListener(this);
         //dds_authority_book=(Button)findViewById(R.id.dds_authority_book);
         //dds_authority_book.setOnClickListener(this);
+
 
     }
 
