@@ -20,10 +20,8 @@ import com.project.cx.processcontroljx.beans.RiskWarm;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskCK;
 import com.project.cx.processcontroljx.beans.TaskRole;
-import com.project.cx.processcontroljx.beans.Type_Selected;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
-import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.ui.Dialog_risktip;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.BusUtil;
@@ -66,6 +64,7 @@ public class DetailDCK extends DetailTask implements View.OnClickListener {
     private Button cbrs_btn;
 
     public LinearLayout dck_risktype_wrapper;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +90,6 @@ public class DetailDCK extends DetailTask implements View.OnClickListener {
         intent.putExtra("intentType",intentType);//intentType 0:未读 1:已读
         startActivity(intent);
     }
-
 
     private void initView() {
 /*        if(intentType==DetailIntentType.UNREAD){

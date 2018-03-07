@@ -629,7 +629,7 @@ public class OkCallbackManager {
         return null;
     }
 
-    //设置已读Callback
+    //设置已读Callback,同时刷新processmain的列表,重新排序
     public Callback getReadCallback(final Context ctx, final Class denstination, final ProcessMain pm, final String tasktype){
         Callback resultCallback=null;
         resultCallback=new Callback() {
@@ -652,7 +652,6 @@ public class OkCallbackManager {
                             if(data){//?依据data为true,还是success为true,设置成功
                                 pm.startActivity(denstination, DetailIntentType.UNREAD);
                             }*/
-
                             pm.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -662,6 +661,7 @@ public class OkCallbackManager {
                                     //CountSetHelper.getInstance(pm).setCount(tasktype,UnReadCounts.getCount(tasktype));
                                     pm.updateCountView();
                                     pm.startActivity(denstination, DetailIntentType.UNREAD);
+                                    BusUtil.getINSTANCE().post(new BusRefreshAct("refresh"));
                                 }
                             });
 
