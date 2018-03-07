@@ -2,6 +2,7 @@ package com.project.cx.processcontroljx.adapters;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,21 +88,28 @@ public class DSZAdapter extends BaseAdapter {
             ImageView image_hurt = (ImageView)convertView.findViewById(R.id.dsz_hurt_state_icon);
             long reparations_long=Long.valueOf(mData.get(position).getAsString(TaskDS.reparations));
             Log.i("dm","reparations_long"+reparations_long);
+
+
             if(reparations_long>10000){
                 head.setBackground(mContext.getResources().getDrawable(R.drawable.grayhead_background));
             }else {
-                long offSet = Long.valueOf(mData.get(position).getAsString(TaskDS.accept_time));
-                long today = System.currentTimeMillis() / 1000;
-                long intervalTime = (today - offSet) / 3600;
-                Log.i("dm","intervalTime"+intervalTime);
-                if (intervalTime < 2) {
+                String Rltime=mData.get(position).getAsString(TaskDS.accept_time);
+                if(TextUtils.isEmpty(Rltime) || Rltime.equals("0") ){
                     head.setBackground(mContext.getResources().getDrawable(R.drawable.grayhead_background));
-                } else if (intervalTime < 4) {
-                    head.setBackground(mContext.getResources().getDrawable(R.drawable.bluehead_background));
-                } else if (intervalTime < 6) {
-                    head.setBackground(mContext.getResources().getDrawable(R.drawable.yellowhead_background));
-                } else {
-                    head.setBackground(mContext.getResources().getDrawable(R.drawable.redhead_background));
+                }else {
+                    long offSet = Long.valueOf(mData.get(position).getAsString(TaskDS.accept_time));
+                    long today = System.currentTimeMillis() / 1000;
+                    long intervalTime = (today - offSet) / 3600;
+                    Log.i("dm", "intervalTime" + intervalTime);
+                    if (intervalTime < 2) {
+                        head.setBackground(mContext.getResources().getDrawable(R.drawable.grayhead_background));
+                    } else if (intervalTime < 4) {
+                        head.setBackground(mContext.getResources().getDrawable(R.drawable.bluehead_background));
+                    } else if (intervalTime < 6) {
+                        head.setBackground(mContext.getResources().getDrawable(R.drawable.yellowhead_background));
+                    } else {
+                        head.setBackground(mContext.getResources().getDrawable(R.drawable.redhead_background));
+                    }
                 }
             }
             holder_dsz.caseNo.setText(mData.get(position).getAsString(TaskDS.caseNo));
