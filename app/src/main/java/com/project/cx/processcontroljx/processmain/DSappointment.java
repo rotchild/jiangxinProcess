@@ -532,6 +532,12 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                     Toast.makeText(mContext,"预约时间不能小于当前时间",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                //点击后禁用
+                if(dsyy_edit_yes!=null){
+                    dsyy_edit_yes.setEnabled(false);
+                }
+
                 areaname_selected_id=DSArea.area_idMap.get(areaname_selected);
                 assess_selected_id=DSArea.access_idMap.get(assess_selected);
                 group_id=DSArea.access_group.get(assess_selected);
@@ -607,7 +613,14 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
         displayappointDate();
     }
 
+    public void onCommitFail(){
+        if(dsyy_edit_yes!=null){
+            dsyy_edit_yes.setEnabled(true);
+        }
+    }
 
+    public void onCommitSuccess(){
 
+    }
 
 }

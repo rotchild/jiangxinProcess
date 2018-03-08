@@ -106,6 +106,8 @@ public class AuthorityActivity extends MBaseActivity implements View.OnClickList
                     Toast.makeText(mContext,"车辆品牌不能为空",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //禁用超权限提交
+                authority_edit_yes.setEnabled(false);
                 supperReportHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),authority_expect_amount_str,
                         authority_vehicleBrand_str,authority_remarks_str, OkCallbackManager.getInstance().supperReportCallback(mContext,AuthorityActivity.this));
 
@@ -118,7 +120,12 @@ public class AuthorityActivity extends MBaseActivity implements View.OnClickList
             default:
                 break;
         }
+    }
 
-
+    //超权限上报失败
+    public void onCommitFail(){
+        if(authority_edit_yes!=null){
+            authority_edit_yes.setEnabled(true);
+        }
     }
 }

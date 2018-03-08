@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.BusFXState;
@@ -26,7 +25,6 @@ import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.processmain.AuthorityActivity;
 import com.project.cx.processcontroljx.processmain.DSappointment;
 import com.project.cx.processcontroljx.processmain.FXSBActivity;
-import com.project.cx.processcontroljx.theme.MBaseActivity;
 import com.project.cx.processcontroljx.utils.AppManager;
 import com.project.cx.processcontroljx.utils.BusUtil;
 import com.project.cx.processcontroljx.utils.OkCallbackManager;
@@ -250,6 +248,7 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
                 break;*/
             case R.id.task_claim:
                 //认领任务
+                task_claim.setEnabled(false);
                 claimTaskHttpData(userManager.getUserToken(),userManager.getFrontRole(),selectDDS.getAsString(TaskDS.id), OkCallbackManager.getInstance().claimTaskCallback(mContext,DetailDDS.this));
                 break;
 
@@ -337,5 +336,12 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
     protected void onDestroy() {
         BusUtil.getINSTANCE().unregister(this);
         super.onDestroy();
+    }
+
+    //认领失败
+    public void onClaimFail(){
+        if(task_claim!=null){
+            task_claim.setEnabled(true);
+        }
     }
 }
