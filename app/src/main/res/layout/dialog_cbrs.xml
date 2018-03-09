@@ -20,6 +20,30 @@
         android:topLeftRadius="20dip"
         android:background="@drawable/telhead_background"
         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="53dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:gravity="center_vertical"
+                android:text="联系电话:" />
+
+            <TextView
+                android:id="@+id/dialog_rs_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:gravity="center_vertical"
+                android:text="--" />
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -53,27 +77,7 @@
                 android:gravity="center_vertical"
                 />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
 
-            android:gravity="center|center_horizontal|center_vertical"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:text="联系电话:"
-                android:gravity="center_vertical"
-                />
-            <TextView
-                android:id="@+id/dialog_rs_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:text="--"
-                android:gravity="center_vertical"
-                />
-        </LinearLayout>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"

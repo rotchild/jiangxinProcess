@@ -64,11 +64,12 @@ public class Dialog_risktip extends Dialog {
             dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_risktype, null);
             confirm_bt = (Button) dialogView.findViewById(R.id.confirm_bt_single);
             riskwarm_list= (ListView) dialogView.findViewById(R.id.riskwarm_list);
+            riskwarm_list.setDividerHeight(0);
             RiskWarmAdapter riskWarmAdapter=new RiskWarmAdapter(mContext,mdata);
             riskwarm_list.setAdapter(riskWarmAdapter);
         }
         int diaW = scrW * 3 / 4;
-        int diaH =scrW * 3 /4;
+        int diaH =scrW * 3 / 4;
         super.addContentView(dialogView, new ViewGroup.LayoutParams(diaW, diaH));
     }
     public void Notice_Dialog() {

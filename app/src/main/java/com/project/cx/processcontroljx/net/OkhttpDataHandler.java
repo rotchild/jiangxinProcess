@@ -1,9 +1,8 @@
 package com.project.cx.processcontroljx.net;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-
-import com.mingle.widget.ShapeLoadingDialog;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -26,8 +25,8 @@ public class OkhttpDataHandler {
             .connectTimeout(MHttpParams.DEFAULT_TIME_OUT, TimeUnit.MILLISECONDS)
             .readTimeout(MHttpParams.DEFAULT_TIME_OUT,TimeUnit.MILLISECONDS)
             .build();
-    //private ProgressDialog mProgressDialog;
-    private ShapeLoadingDialog loadingDialog;
+    private ProgressDialog mProgressDialog;
+    //private ShapeLoadingDialog loadingDialog;
 
     private boolean mIsShowProgressDialog=true;
     private Callback mCallback=null;
@@ -40,25 +39,27 @@ public class OkhttpDataHandler {
     }
 
     private void initProgressDialog(Context context) {
-/*        mProgressDialog=new ProgressDialog(context);
-        mProgressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        mProgressDialog=new ProgressDialog(context);
+        //mProgressDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         String loading="正在请求网络...";
         mProgressDialog.setMessage(loading);
-        mProgressDialog.setCanceledOnTouchOutside(false);*/
-
-        loadingDialog=new ShapeLoadingDialog(context);
-        loadingDialog.setLoadingText("正在请求网络...");
-        loadingDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
+/*        if(loadingDialog==null){
+            loadingDialog=new ShapeLoadingDialog(context);
+            loadingDialog.setLoadingText("正在请求网络...");
+            loadingDialog.setCanceledOnTouchOutside(false);
+        }*/
     }
 
     public void setmIsShowProgressDialog(boolean isShow) {
         mIsShowProgressDialog=isShow;
-/*        if (!mIsShowProgressDialog && mProgressDialog != null && mProgressDialog.isShowing()) {
+        if (!mIsShowProgressDialog && mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
-        }*/
-        if (!mIsShowProgressDialog && loadingDialog != null ) {
-            loadingDialog.dismiss();
         }
+/*        if (!mIsShowProgressDialog && loadingDialog != null ) {
+            loadingDialog.dismiss();
+            //loadingDialog=null;
+        }*/
     }
 
  /*   public void setCounts(int mcounts){//并发请求
@@ -77,8 +78,8 @@ public class OkhttpDataHandler {
      */
     public void loginOKhttp(String username,String password, Callback Callback){
         Log.i(TAG,"loginOKhttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.USERLOGIN;
         RequestBody requestBody=new FormBody.Builder().add("username",username).add("password",password).build();
@@ -98,8 +99,8 @@ public class OkhttpDataHandler {
      */
     public void modifyPsdhttp(String token,String frontrole,String oldpassword,String newpassword, Callback Callback){
         Log.i(TAG,"modifyPsdhttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.MODIFYPSD;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -125,8 +126,8 @@ public class OkhttpDataHandler {
         String startStr=String.valueOf(start);
         String limitStr=String.valueOf(limit);
 
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.GETTASK_ck;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -153,8 +154,8 @@ public class OkhttpDataHandler {
         String startStr=String.valueOf(start);
         String limitStr=String.valueOf(limit);
 
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.GETTASK_ds;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -171,8 +172,8 @@ public class OkhttpDataHandler {
         String startStr=String.valueOf(start);
         String limitStr=String.valueOf(limit);
 
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.GETTASK_hurt;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -194,8 +195,8 @@ public class OkhttpDataHandler {
      */
     public void getRisksWarnHttp(String token,String frontrole,String caseNo,String licenseno,String type,Callback Callback){
         Log.i(TAG,"getRisksWarnHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.GetRisks_warn;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -217,8 +218,8 @@ public class OkhttpDataHandler {
         Log.i(TAG,"getRisksWarnHttp enter");
         if(mIsShowProgressDialog)
 
-            //mProgressDialog.show();
-            loadingDialog.show();
+            mProgressDialog.show();
+            //loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.SetTask_isread;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -243,8 +244,8 @@ public class OkhttpDataHandler {
     public void commitRiskRecordHttp(String token,String frontrole,String taskid,String task_role,String risktype,String risktype_sys,String risktype_man,String risktype_temp,String others,
                                       String remark,Callback Callback){
         Log.i(TAG,"comimitRiskRecordHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.CommitRiskRecord;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -273,8 +274,8 @@ public class OkhttpDataHandler {
         String startStr=String.valueOf(start);
         String limitStr=String.valueOf(limit);
 
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.GETTASK_risk;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -304,8 +305,8 @@ public class OkhttpDataHandler {
     public void applyAccessHttp(String token,String frontrole, String taskid,String licenseno,String car_role, String reporter1,
                                 String reporterPhone1,String assess_address,String appointTime,String case_from,String assess_id,String county_id,String vehicleBrand,String group_id,Callback Callback){
         Log.i(TAG,"getRisksWarnHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.Apply_access;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -328,8 +329,8 @@ public class OkhttpDataHandler {
      */
     public void getAreasHttp(String token,String frontrole,String taskid,Callback Callback){
         Log.i(TAG,"getAreasHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.Getareas;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -350,8 +351,8 @@ public class OkhttpDataHandler {
      */
     public void addthirdcarHttp(String token,String frontrole,String caseNo,String taskid,String thirdlicenseno,Callback Callback){
         Log.i(TAG,"addthirdcarHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.Addthirdcar;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -372,8 +373,8 @@ public class OkhttpDataHandler {
      */
     public void getthirdcarHttp(String token,String frontrole,String caseNo,String licenseno,Callback Callback){
         Log.i(TAG,"getthirdcarHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.Getthirdcar;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -393,8 +394,8 @@ public class OkhttpDataHandler {
      */
     public void urgeDealHurtHttp(String token,String frontrole,String taskid,Callback Callback){
         Log.i(TAG,"urgeDealHurtHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.UrgeDealHurt;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -419,8 +420,8 @@ public class OkhttpDataHandler {
     public void apply_taskchangeHttp(String token,String frontrole,String taskid,String assess_address,String appointTime,
                                      String assess_id,String county_id,String group_id,Callback Callback){
         Log.i(TAG,"apply_taskchangeHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.Apply_taskchange;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -443,8 +444,8 @@ public class OkhttpDataHandler {
      */
     public void claimTaskHttp(String token,String frontrole,String taskid,Callback Callback){
         Log.i(TAG,"claimTaskHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.ClaimTask;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -467,8 +468,8 @@ public class OkhttpDataHandler {
      */
     public void supperReportHttp(String token,String frontrole,String taskid,String expect_amount, String vehicleBrand, String remark,Callback Callback){
         Log.i(TAG,"supperReportHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.SuperReport;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -490,8 +491,8 @@ public class OkhttpDataHandler {
      */
     public void TicketReportHttp(String token,String frontrole,String taskid,String remarks,Callback Callback){
         Log.i(TAG,"TicketReportHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.TicketReport;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -513,8 +514,8 @@ public class OkhttpDataHandler {
      */
     public void access_detailHttp(String token,String frontrole,String caseNo,String licenseno,Callback Callback){
         Log.i(TAG,"TicketReportHttp enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.Access_detail;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).
@@ -534,8 +535,8 @@ public class OkhttpDataHandler {
      */
     public void getTaskCountHttp(String token,String frontrole,Callback Callback){
         Log.i(TAG,"getTaskCount enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.GetTaskCount;
         RequestBody requestBody=new FormBody.Builder().add("token",token).add("frontrole",frontrole).build();
@@ -553,8 +554,8 @@ public class OkhttpDataHandler {
      */
     public void checkupdateHttp(String SystemOS, String ProjectName, Callback Callback){
         Log.i(TAG,"getTaskCount enter");
-        //if(mIsShowProgressDialog) mProgressDialog.show();
-        if(mIsShowProgressDialog) loadingDialog.show();
+        if(mIsShowProgressDialog) mProgressDialog.show();
+        //if(mIsShowProgressDialog) loadingDialog.show();
         mCallback=Callback;
         String url= MHttpParams.Update;
         RequestBody requestBody=new FormBody.Builder().add("SystemOS",SystemOS).add("ProjectName",ProjectName).build();
@@ -567,12 +568,13 @@ public class OkhttpDataHandler {
     private Callback pcallback=new Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
-/*            if(mProgressDialog!=null && mIsShowProgressDialog && mProgressDialog.isShowing()){
+            if(mProgressDialog!=null && mIsShowProgressDialog && mProgressDialog.isShowing()){
                 mProgressDialog.dismiss();
-            }*/
-            if(loadingDialog!=null && mIsShowProgressDialog ){
-                loadingDialog.dismiss();
             }
+/*            if(loadingDialog!=null && mIsShowProgressDialog ){
+                loadingDialog.dismiss();
+                //loadingDialog=null;
+            }*/
 
             if(mCallback!=null){
                 mCallback.onFailure(call,e);
@@ -581,13 +583,14 @@ public class OkhttpDataHandler {
 
         @Override
         public void onResponse(Call call, Response response) throws IOException {
-/*            if(mProgressDialog!=null && mIsShowProgressDialog && mProgressDialog.isShowing()){
+            if(mProgressDialog!=null && mIsShowProgressDialog && mProgressDialog.isShowing()){
                 mProgressDialog.dismiss();
-            }*/
-
-            if(loadingDialog!=null && mIsShowProgressDialog ){
-                loadingDialog.dismiss();
             }
+
+/*            if(loadingDialog!=null && mIsShowProgressDialog ){
+                loadingDialog.dismiss();
+                //loadingDialog=null;
+            }*/
             if(mCallback!=null){
                 mCallback.onResponse(call,response);
             }

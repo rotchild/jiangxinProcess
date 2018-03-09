@@ -20,7 +20,6 @@ import com.project.cx.processcontroljx.beans.RiskWarm;
 import com.project.cx.processcontroljx.beans.SelectedTask;
 import com.project.cx.processcontroljx.beans.TaskCK;
 import com.project.cx.processcontroljx.beans.TaskDS;
-import com.project.cx.processcontroljx.beans.TaskRisk;
 import com.project.cx.processcontroljx.beans.TaskRole;
 import com.project.cx.processcontroljx.net.OkhttpDataHandler;
 import com.project.cx.processcontroljx.theme.MBaseActivity;
@@ -272,6 +271,7 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
                 if(TextUtils.isEmpty(risktypenew) && TextUtils.isEmpty(others)){
                     Toast.makeText(this,"请选择一个需上报的风险类型或填写其他类型",Toast.LENGTH_SHORT).show();
                 }else{
+                    fxsb_edit_yes.setEnabled(false);
                     if(tasktype.equals("CK")){
                         commitRiskRecordData(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskCK.id),
                                 TaskRole.ck,risktypenew,"","","", others,remark, OkCallbackManager.getInstance().commitRiskRecordCallback(mContext,FXSBActivity.this,"CK"));
@@ -511,6 +511,17 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
         }
         arrayStr=arrayBuffer.toString();
         return arrayStr;
+
+    }
+    //风险上报提交失败
+    public void onCommitFail(){
+        if(fxsb_edit_yes!=null){
+            fxsb_edit_yes.setEnabled(true);
+        }
+    }
+
+    //风险上报提交成功
+    public void onCommitSuccess(){
 
     }
 }

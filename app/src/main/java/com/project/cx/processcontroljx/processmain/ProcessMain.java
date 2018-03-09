@@ -435,10 +435,11 @@ public class ProcessMain extends MBaseActivity implements ViewPager.OnPageChange
                     if(!selectTask.getAsString(TaskDS.assessorNo).equals(userManager.getJobNo())){
                         //不是自己的任务不调用setTaskRead
                         startActivity(DetailDDS.class, DetailIntentType.UNREAD);
-                        selectTask.put(TaskDS.isRead,"1");
+
                     }else{
                         setTaskReadHttp(userManager.getUserToken(),userManager.getFrontRole(),selectTask.getAsString(TaskDS.id),
                                 TaskRole.ds,OkCallbackManager.getInstance().getReadCallback(ProcessMain.this,DetailDDS.class,ProcessMain.this,ParamType.DDS));
+                        selectTask.put(TaskDS.isRead,"1");
                     }
                 }else if(isRead.equals("1")){//已读
                     startActivity(DetailDDS.class,DetailIntentType.READ);
