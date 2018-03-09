@@ -3,6 +3,7 @@ package com.project.cx.processcontroljx.utils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -229,26 +230,28 @@ public void addThirdcarItem(final Context context, LinearLayout parentLayout, Co
         TextView carNoTV=new TextView(context);
         LinearLayout.LayoutParams carNoPra=new LinearLayout.LayoutParams(1,50,2);
         //createTimePra.gravity= Gravity.CENTER;
+
         carNoTV.setLayoutParams(carNoPra);
-        carNoTV.setGravity(Gravity.CENTER);
+        carNoTV.setGravity(Gravity.LEFT);
         carNoTV.setText(carNoStr);
         carNoTV.setTextColor(context.getResources().getColor(R.color.maintext));
         carNoTV.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
         itemLayout.addView(carNoTV);
 
         RelativeLayout btnwrap=new RelativeLayout(context);
-        LinearLayout.LayoutParams btnwrapPra=new LinearLayout.LayoutParams(1,(int)context.getResources().getDimension(R.dimen.list_height),1);
+        LinearLayout.LayoutParams btnwrapPra=new LinearLayout.LayoutParams(80,(int)context.getResources().getDimension(R.dimen.hdetail_button),1);
         //btnwrapPra.gravity=Gravity.CENTER;
         btnwrap.setLayoutParams(btnwrapPra);
         btnwrap.setGravity(Gravity.CENTER);
         itemLayout.addView(btnwrap);
 
         TextView operateTv=new TextView(context);
-        LinearLayout.LayoutParams operatePra=new LinearLayout.LayoutParams(220,100);
+        LinearLayout.LayoutParams operatePra=new LinearLayout.LayoutParams(300,120);
         //detailPra.gravity=Gravity.CENTER;
         operateTv.setLayoutParams(operatePra);
         operateTv.setGravity(Gravity.CENTER);
         operateTv.setTag(data);
+
 
         operateTv.setText(operateStr);
         operateTv.setGravity(Gravity.CENTER);
@@ -279,12 +282,13 @@ public void addThirdcarItem(final Context context, LinearLayout parentLayout, Co
 
         final LinearLayout itemLayout=new LinearLayout(context);
         LinearLayout.LayoutParams itemPra=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        //itemPra.setMargins(5,5,5,5);
+        itemPra.height=130;;
         itemLayout.setLayoutParams(itemPra);
         itemLayout.setGravity(Gravity.CENTER);
         itemLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         RelativeLayout editWrap=new RelativeLayout(context);
+        editWrap.setPadding(0,0,0,10);
         LinearLayout.LayoutParams editWrapPra=new LinearLayout.LayoutParams(1,100,3);
         editWrap.setLayoutParams(editWrapPra);
         editWrap.setGravity(Gravity.CENTER);
@@ -292,7 +296,7 @@ public void addThirdcarItem(final Context context, LinearLayout parentLayout, Co
 
         final EditText thirdcarEt=new EditText(context);
         RelativeLayout.LayoutParams thirdcarEtPra=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
-        thirdcarEtPra.setMargins(10,10,10,10);
+        thirdcarEtPra.setMargins(10,0,10,0);
         thirdcarEtPra.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         thirdcarEtPra.addRule(RelativeLayout.CENTER_VERTICAL);
         thirdcarEt.setLayoutParams(thirdcarEtPra);

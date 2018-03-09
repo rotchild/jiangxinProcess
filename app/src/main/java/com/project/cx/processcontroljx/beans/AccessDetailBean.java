@@ -49,5 +49,6 @@ public class AccessDetailBean {
     public static final  String assess_id="assess_id";
     public static final  String county_id="county_id";
     public static final  String AuthorityContent="AuthorityContent";
+    public static String case_mode="case_mode";
 
 }

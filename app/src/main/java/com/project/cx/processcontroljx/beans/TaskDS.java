@@ -81,6 +81,7 @@ public class TaskDS {
     //hp
     public static final String  isRead_hp="isRead_hp";
     public static final String  assessorNo_hp="assessorNo_hp";
+    public static final String  case_mode="case_mode";
 
 
 

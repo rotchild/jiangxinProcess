@@ -84,10 +84,10 @@ public class DSappointmentDetail extends MBaseActivity implements View.OnClickLi
         book_detail_caseNo.setText(AccessDetailData.caseNo);
 
         String case_fromStr="--";
-        if(AccessDetailData.case_from.equals("1")){
-            case_fromStr="查勘员派发";
-        }else if(AccessDetailData.car_role.equals("2")){
-            case_fromStr="95518派发";
+        if(AccessDetailData.case_mode.equals("1")){
+            case_fromStr="GIS调度";
+        }else if(AccessDetailData.case_mode.equals("2")){
+            case_fromStr="派发给自己";
         }
         book_detail_case_from.setText(case_fromStr);
         book_detail_reporter1.setText(AccessDetailData.reporter1);

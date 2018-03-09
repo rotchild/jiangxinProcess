@@ -2077,6 +2077,7 @@ public class OkCallbackManager {
                             AccessDetailData.assess_id=data.getString(AccessDetailBean.assess_id);
                             AccessDetailData.county_id=data.getString(AccessDetailBean.county_id);
                             AccessDetailData.AuthorityContent=data.getString(AccessDetailBean.AuthorityContent);
+                            AccessDetailData.case_mode=data.getString(AccessDetailBean.case_mode);
                             detailYCK.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

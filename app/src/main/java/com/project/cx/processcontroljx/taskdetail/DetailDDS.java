@@ -219,9 +219,12 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
         //Toast.makeText(mContext,"任务分派给别人工号"+selectDDS.getAsString(TaskDS.assessorNo),Toast.LENGTH_SHORT).show();
         if(userManager.getFrontRole().equals("12")&&userManager.getJobNo().equals(selectDDS.getAsString(TaskDS.assessorNo))){
             LinearLayout cbdy=(LinearLayout) findViewById(R.id.cbdy);
-            cbdy.setVisibility(View.VISIBLE);
+            cbdy.setVisibility(View.GONE);
         }
-
+        if(userManager.getFrontRole().equals("2")){
+            LinearLayout cbdy=(LinearLayout) findViewById(R.id.cbdy);
+            cbdy.setVisibility(View.GONE);
+        }
 
         setting_back= (ImageView) findViewById(R.id.setting_back);
         setting_back.setOnClickListener(this);
@@ -254,7 +257,7 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
                 break;
 
             case R.id.urge_tel:
-                Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + selectDDS.getAsString(TaskDS.reporterPhone1)));//跳转到拨
+                Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + selectDDS.getAsString(TaskDS.assessor_mobile)));//跳转到拨将reporterPhone1改成assessor_mobile
                 startActivity(dialIntent);
                 break;
 

@@ -49,4 +49,5 @@ public class AccessDetailData {
     public static String assess_id="assess_id";
     public static String county_id="county_id";
     public static String AuthorityContent="AuthorityContent";
+    public static String case_mode="case_mode";
 }

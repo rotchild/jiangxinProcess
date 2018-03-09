@@ -11,6 +11,7 @@
     <color name="gray_white">#ffcccccc</color>
     <color name="white">#ffffff</color>
     <color name="blueed">#04a9ff</color>
+    <color name="btn_blueed">#1597e9</color>
     <color name="yellowed">#ffa200</color>
     <color name="maintext">#333333</color>
     <color name="noticetext">#eb655e</color>
