@@ -47,4 +47,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/background</item>
     </style>
+    <style name="load_dialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 </resources>
