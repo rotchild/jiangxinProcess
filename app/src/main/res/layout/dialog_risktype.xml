@@ -29,6 +29,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+
                   android:id="@+id/dialog_riskcontent"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
