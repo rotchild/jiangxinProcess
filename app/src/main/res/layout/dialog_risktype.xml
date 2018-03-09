@@ -34,6 +34,7 @@
                   android:layout_height="match_parent"
                   android:orientation="vertical"
                   android:visibility="visible"
+                  android:maxHeight="160dp"
                   android:background="@drawable/whitehead_background"
         >
         <ListView
@@ -42,6 +43,7 @@
             android:divider="@null"
             android:layout_height="match_parent"
             android:paddingBottom="10dp"
+            android:maxHeight="160dp"
             android:background="@drawable/whitehead_background"
 
             />
