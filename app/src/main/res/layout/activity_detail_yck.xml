@@ -352,7 +352,6 @@
                         android:layout_marginRight="5dp"
                         android:background="@drawable/button_roundbig_blue"
                         android:text="+"
-                        android:layout_centerVertical="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/login_size"
                         />

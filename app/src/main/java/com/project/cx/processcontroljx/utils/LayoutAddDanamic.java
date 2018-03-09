@@ -222,7 +222,9 @@ public void addThirdcarItem(final Context context, LinearLayout parentLayout, Co
 
         LinearLayout itemLayout=new LinearLayout(context);
         LinearLayout.LayoutParams itemPra=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        itemPra.setMargins(5,0,5,0);
+        itemPra.setMargins(5,0,5,20);
+        itemPra.height=70;
+
         itemLayout.setLayoutParams(itemPra);
         itemLayout.setGravity(Gravity.CENTER);
         itemLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -246,7 +248,7 @@ public void addThirdcarItem(final Context context, LinearLayout parentLayout, Co
         itemLayout.addView(btnwrap);
 
         TextView operateTv=new TextView(context);
-        LinearLayout.LayoutParams operatePra=new LinearLayout.LayoutParams(300,120);
+        LinearLayout.LayoutParams operatePra=new LinearLayout.LayoutParams(300,60);
         //detailPra.gravity=Gravity.CENTER;
         operateTv.setLayoutParams(operatePra);
         operateTv.setGravity(Gravity.CENTER);
@@ -282,7 +284,7 @@ public void addThirdcarItem(final Context context, LinearLayout parentLayout, Co
 
         final LinearLayout itemLayout=new LinearLayout(context);
         LinearLayout.LayoutParams itemPra=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        itemPra.height=130;;
+        itemPra.height=130;
         itemLayout.setLayoutParams(itemPra);
         itemLayout.setGravity(Gravity.CENTER);
         itemLayout.setOrientation(LinearLayout.HORIZONTAL);
