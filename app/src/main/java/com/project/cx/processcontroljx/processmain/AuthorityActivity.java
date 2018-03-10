@@ -122,8 +122,8 @@ public class AuthorityActivity extends MBaseActivity implements View.OnClickList
         }
     }
 
-    //超权限上报失败
-    public void onCommitFail(){
+    //超权限上报完成
+    public void onCommitFinish(){
         if(authority_edit_yes!=null){
             authority_edit_yes.setEnabled(true);
         }

@@ -341,8 +341,8 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
         super.onDestroy();
     }
 
-    //认领失败
-    public void onClaimFail(){
+    //认领完成
+    public void onClaimFinish(){
         if(task_claim!=null){
             task_claim.setEnabled(true);
         }

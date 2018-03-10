@@ -965,7 +965,7 @@ public class OkCallbackManager {
                     detailDDS.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            detailDDS.onClaimFail();
+                            detailDDS.onClaimFinish();
                         }
                     });
                 }
@@ -974,6 +974,15 @@ public class OkCallbackManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i(TAG,"claimTaskCallbackSUCCESS");
+                //恢复认领按钮
+                if(detailDDS!=null){
+                    detailDDS.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            detailDDS.onClaimFinish();
+                        }
+                    });
+                }
                 if(response!=null){
                     String bodystr=response.body().string();
                     Log.i(TAG,"getCallbackResponsebodyStr:"+bodystr);
@@ -1013,26 +1022,10 @@ public class OkCallbackManager {
                     }catch (Exception e){
                         Log.e(TAG,"exception info:"+e.getMessage());
                         //恢复认领按钮
-                        if(detailDDS!=null){
-                            detailDDS.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    detailDDS.onClaimFail();
-                                }
-                            });
-                        }
                     }
                 }else{
                     Log.i(TAG,"claimTaskCallbackResponse is null or length0");
                     //恢复认领按钮
-                    if(detailDDS!=null){
-                        detailDDS.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                detailDDS.onClaimFail();
-                            }
-                        });
-                    }
                 }
             }
         };
@@ -1582,7 +1575,7 @@ public class OkCallbackManager {
                     detailClass.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            detailClass.onCommitFail();
+                            detailClass.onCommitFinish();
                         }
                     });
                 }
@@ -1591,6 +1584,15 @@ public class OkCallbackManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i(TAG,"applyAccessCallbackSUCCESS");
+                //恢复commitbuttom
+                if(detailClass!=null){
+                    detailClass.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            detailClass.onCommitFinish();
+                        }
+                    });
+                }
                 if(response!=null){
                     String bodystr=response.body().string();
                     Log.i(TAG,"applyAccessCallbackResponsebodyStr:"+bodystr);
@@ -1610,6 +1612,7 @@ public class OkCallbackManager {
                                 }
                             });
                         }else{
+                            //恢复commitbuttom
                             final JSONObject err=jsonObject.getJSONObject("err");//err是否一定是jsonobject?
                             final String msg=err.getString("message");
                             if(msg.equals("token已失效，请重新登录")){//据此判断是否下线
@@ -1633,26 +1636,10 @@ public class OkCallbackManager {
                     }catch (Exception e){
                         Log.e(TAG,"warm exception info:"+e.getMessage());
                         //恢复commitbuttom
-                        if(detailClass!=null){
-                            detailClass.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    detailClass.onCommitFail();
-                                }
-                            });
-                        }
                     }
                 }else{
                     Log.i(TAG,"loginCallbackResponse is null or length0");
                     //恢复commitbuttom
-                    if(detailClass!=null){
-                        detailClass.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                detailClass.onCommitFail();
-                            }
-                        });
-                    }
                 }
             }
         };
@@ -1789,7 +1776,7 @@ public class OkCallbackManager {
                     fxsb.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            fxsb.onCommitFail();
+                            fxsb.onCommitFinish();
                         }
                     });
                 }
@@ -1798,6 +1785,15 @@ public class OkCallbackManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i(TAG,"commitRiskRecordCallbackSUCCESS");
+                //恢复commitbtn
+                if(fxsb!=null){
+                    fxsb.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fxsb.onCommitFinish();
+                        }
+                    });
+                }
                 if(response!=null){
                     String bodystr=response.body().string();
                     Log.i(TAG,"getCallbackResponsebodyStr:"+bodystr);
@@ -1852,6 +1848,7 @@ public class OkCallbackManager {
                             });
 
                         }else{
+
                             final JSONObject err=jsonObject.getJSONObject("err");//err是否一定是jsonobject?
                             final String msg=err.getString("message");
                             if(msg.equals("token已失效，请重新登录")){//据此判断是否下线
@@ -1875,26 +1872,10 @@ public class OkCallbackManager {
                     }catch (Exception e){
                         Log.e(TAG,"exception info:"+e.getMessage());
                         //恢复commitbtn
-                        if(fxsb!=null){
-                            fxsb.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    fxsb.onCommitFail();
-                                }
-                            });
-                        }
                     }
                 }else{
                     Log.i(TAG,"loginCallbackResponse is null or length0");
                     //恢复commitbtn
-                    if(fxsb!=null){
-                        fxsb.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                fxsb.onCommitFail();
-                            }
-                        });
-                    }
                 }
             }
         };
@@ -1976,7 +1957,7 @@ public class OkCallbackManager {
                     authorityActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            authorityActivity.onCommitFail();
+                            authorityActivity.onCommitFinish();
                         }
                     });
                 }
@@ -1985,6 +1966,15 @@ public class OkCallbackManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i(TAG,"supperReportCallbackSUCCESS");
+                //恢复超权限上报提交
+                if(authorityActivity!=null){
+                    authorityActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            authorityActivity.onCommitFinish();
+                        }
+                    });
+                }
                 if(response!=null){
                     String bodystr=response.body().string();
                     Log.i(TAG,"getCallbackResponsebodyStr:"+bodystr);
@@ -2028,26 +2018,10 @@ public class OkCallbackManager {
                     }catch (Exception e){
                         Log.e(TAG,"exception info:"+e.getMessage());
                         //恢复超权限上报提交
-                        if(authorityActivity!=null){
-                            authorityActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    authorityActivity.onCommitFail();
-                                }
-                            });
-                        }
                     }
                 }else{
                     Log.i(TAG,"loginCallbackResponse is null or length0");
                     //恢复超权限上报提交
-                    if(authorityActivity!=null){
-                        authorityActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                authorityActivity.onCommitFail();
-                            }
-                        });
-                    }
                 }
             }
         };

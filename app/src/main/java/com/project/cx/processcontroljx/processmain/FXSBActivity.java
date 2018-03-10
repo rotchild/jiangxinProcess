@@ -513,8 +513,8 @@ public class FXSBActivity extends MBaseActivity implements View.OnClickListener{
         return arrayStr;
 
     }
-    //风险上报提交失败
-    public void onCommitFail(){
+    //commit完成
+    public void onCommitFinish(){
         if(fxsb_edit_yes!=null){
             fxsb_edit_yes.setEnabled(true);
         }

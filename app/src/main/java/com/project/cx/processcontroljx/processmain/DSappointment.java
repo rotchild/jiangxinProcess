@@ -537,7 +537,6 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
                 if(dsyy_edit_yes!=null){
                     dsyy_edit_yes.setEnabled(false);
                 }
-
                 areaname_selected_id=DSArea.area_idMap.get(areaname_selected);
                 assess_selected_id=DSArea.access_idMap.get(assess_selected);
                 group_id=DSArea.access_group.get(assess_selected);
@@ -613,7 +612,7 @@ public class DSappointment extends MBaseActivity implements View.OnClickListener
         displayappointDate();
     }
 
-    public void onCommitFail(){
+    public void onCommitFinish(){
         if(dsyy_edit_yes!=null){
             dsyy_edit_yes.setEnabled(true);
         }
