@@ -1182,6 +1182,7 @@ public class OkCallbackManager {
                                     }
                                 }
                             }else{
+
                                 Log.e(TAG,"getTaskRiskCallback is null or length0");
                             }
                             detailClass.runOnUiThread(new Runnable() {
@@ -1192,6 +1193,10 @@ public class OkCallbackManager {
                                         MViewManager.getInstance().setRiskListView(ctx,detailDCK.riskArray,detailDCK);
                                         LinearLayout risklist_wrapper= (LinearLayout) detailDCK.findViewById(R.id.dck_risklist_wrapper);
                                         risklist_wrapper.removeAllViews();//清空原有views
+                                            if(detailDCK.riskArray.size()>0){
+                                               LinearLayout dck__no_risklist= (LinearLayout) detailDCK.findViewById(R.id.dck__no_risklist);
+                                               dck__no_risklist.setVisibility(View.GONE);
+                                            }
                                         LayoutAddDanamic.getInstance().addTraceListView(ctx,risklist_wrapper,detailDCK.riskArray);
 
                                     }else if(detailClass instanceof DetailYCK){
@@ -1199,6 +1204,10 @@ public class OkCallbackManager {
                                         MViewManager.getInstance().setRiskListView(ctx,detailYCK.riskArray,detailYCK);
                                         LinearLayout risklist_wrapper= (LinearLayout) detailYCK.findViewById(R.id.risklist_wrapper);
                                         risklist_wrapper.removeAllViews();//清空原有views
+                                        if(detailYCK.riskArray.size()>0){
+                                            LinearLayout yck__no_risklist= (LinearLayout) detailYCK.findViewById(R.id.yck__no_risklist);
+                                            yck__no_risklist.setVisibility(View.GONE);
+                                        }
                                         LayoutAddDanamic.getInstance().addTraceListView(ctx,risklist_wrapper,detailYCK.riskArray);
 
                                     }
@@ -1207,6 +1216,10 @@ public class OkCallbackManager {
                                         MViewManager.getInstance().setRiskListView(ctx,detailDDS.riskArray,detailDDS);
                                         LinearLayout risklist_wrapper= (LinearLayout) detailDDS.findViewById(R.id.dds_risklist_wrapper);
                                         risklist_wrapper.removeAllViews();//清空原有views
+                                        if(detailDDS.riskArray.size()>0){
+                                            LinearLayout dds__no_risklist= (LinearLayout) detailDDS.findViewById(R.id.dds__no_risklist);
+                                            dds__no_risklist.setVisibility(View.GONE);
+                                        }
                                         LayoutAddDanamic.getInstance().addTraceListView(ctx,risklist_wrapper,detailDDS.riskArray);
 
                                     }
@@ -1215,6 +1228,10 @@ public class OkCallbackManager {
                                         MViewManager.getInstance().setRiskListView(ctx,detailDSZ.riskArray,detailDSZ);
                                         LinearLayout risklist_wrapper= (LinearLayout) detailDSZ.findViewById(R.id.dsz_risklist_wrapper);
                                         risklist_wrapper.removeAllViews();//清空原有views
+                                        if(detailDSZ.riskArray.size()>0){
+                                            LinearLayout dsz__no_risklist= (LinearLayout) detailDSZ.findViewById(R.id.dsz__no_risklist);
+                                            dsz__no_risklist.setVisibility(View.GONE);
+                                        }
                                         LayoutAddDanamic.getInstance().addTraceListView(ctx,risklist_wrapper,detailDSZ.riskArray);
 
                                     }
@@ -1223,6 +1240,10 @@ public class OkCallbackManager {
                                         DetailYDS detailYDS=(DetailYDS) detailClass;
                                         LinearLayout risklist_wrapper= (LinearLayout) detailYDS.findViewById(R.id.yds_risklist_wrapper);
                                         risklist_wrapper.removeAllViews();//清空原有views
+                                        if(detailYDS.riskArray.size()>0){
+                                            LinearLayout yds__no_risklist= (LinearLayout) detailYDS.findViewById(R.id.yds__no_risklist);
+                                            yds__no_risklist.setVisibility(View.GONE);
+                                        }
                                         LayoutAddDanamic.getInstance().addTraceListView(ctx,risklist_wrapper,detailYDS.riskArray);
                                         MViewManager.getInstance().setRiskListView(ctx,detailYDS.riskArray,detailYDS);
                                     }

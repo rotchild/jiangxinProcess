@@ -703,6 +703,25 @@
                 />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/dds__no_risklist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical"
+            android:background="#eae8e8"
+            android:visibility="visible"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:text="暂无数据"
+                android:textColor="#c2c2c2"
+                android:textSize="@dimen/detail_size"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/dds_risklist_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

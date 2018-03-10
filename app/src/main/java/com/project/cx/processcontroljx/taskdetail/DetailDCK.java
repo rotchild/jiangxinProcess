@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.cx.processcontroljx.R;
 import com.project.cx.processcontroljx.beans.BusFXState;
@@ -176,6 +177,12 @@ public class DetailDCK extends DetailTask implements View.OnClickListener {
 
     public void showRiskDg(ArrayList<ContentValues> riskwarmArray){
         risktipDg=new Dialog_risktip(mContext,R.style.RiskTipDialog,riskwarmArray);
+//        Toast.makeText(mContext,"风险条数"+riskwarmArray.size(),Toast.LENGTH_SHORT).show();
+//        if(riskwarmArray.size()>0){
+//            LinearLayout dck__no_risklist= (LinearLayout) findViewById(R.id.dck__no_risklist);
+//            dck__no_risklist.setVisibility(View.GONE);
+//        }
+
         risktipDg.setCancelable(false);
         risktipDg.initDialog();
         risktipDg.setOnPositiveListener(new View.OnClickListener() {
