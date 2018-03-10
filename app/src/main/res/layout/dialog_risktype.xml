@@ -35,15 +35,15 @@
                   android:layout_height="match_parent"
                   android:orientation="vertical"
                   android:visibility="visible"
-                  android:maxHeight="160dp"
+                  android:maxHeight="120dp"
                   android:background="@drawable/whitehead_background"
         >
         <ListView
             android:id="@+id/riskwarm_list"
             android:layout_width="match_parent"
             android:divider="@null"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="0dp"
             android:maxHeight="160dp"
             android:background="@drawable/whitehead_background"
 
