@@ -178,6 +178,9 @@ public class DetailDDS extends DetailTask implements View.OnClickListener {
             threehide4.setVisibility(View.GONE);
             LinearLayout threehide5=(LinearLayout) findViewById(R.id.dds_risklist_wrapper);
             threehide5.setVisibility(View.GONE);
+            LinearLayout threehide6=(LinearLayout) findViewById(R.id.dds__no_risklist);
+            threehide6.setVisibility(View.GONE);
+
         }
         dds_detail_car_role.setText(rolestate_str);
         dds_detail_licenseno.setText(selectDDS.getAsString(TaskDS.licenseno));
