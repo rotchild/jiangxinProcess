@@ -302,7 +302,7 @@
                 android:text="详情"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/login_size"
+                android:textSize="14dp"
                 android:visibility="visible"
 
                 />
@@ -347,8 +347,9 @@
                     <Button
                         android:id="@+id/danamic_thirdcars_add"
                         android:layout_width="65dp"
-                        android:layout_height="18dp"
+                        android:layout_height="20dp"
                         android:layout_alignParentRight="true"
+                        android:layout_marginTop="2dp"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/button_roundbig_blue"
                         android:text="+"
