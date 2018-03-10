@@ -295,7 +295,7 @@
             <Button
                 android:id="@+id/go_detail"
                 android:layout_width="74dp"
-                android:layout_height="@dimen/hdetail_button"
+                android:layout_height="26dp"
                 android:layout_marginRight="72dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/button_roundbig_red"
@@ -344,18 +344,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
+
                     <Button
                         android:id="@+id/danamic_thirdcars_add"
                         android:layout_width="65dp"
-                        android:layout_height="20dp"
+                        android:layout_height="26dp"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="2dp"
                         android:layout_marginRight="5dp"
+                        android:layout_marginTop="2dp"
                         android:background="@drawable/button_roundbig_blue"
                         android:text="+"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/login_size"
-                        />
+                        android:textSize="@dimen/login_size" />
                     <LinearLayout
                         android:id="@+id/thirdcars_linear"
                         android:layout_width="match_parent"

@@ -27,7 +27,8 @@
     <dimen name="list_height">36dp</dimen>
     <dimen name="detail_size">14dp</dimen>
     <dimen name="wdetail_button">80dp</dimen>
-    <dimen name="hdetail_button">20dp</dimen>
+    <dimen name="hdetail_button">26dp</dimen>
+    <dimen name="shdetail_button">40dp</dimen>
     <dimen name="text_width">1dp</dimen>
     <dimen name="book_list_margin">3dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
