@@ -347,7 +347,7 @@
                     <Button
                         android:id="@+id/danamic_thirdcars_add"
                         android:layout_width="65dp"
-                        android:layout_height="@dimen/hdetail_button"
+                        android:layout_height="18dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/button_roundbig_blue"
