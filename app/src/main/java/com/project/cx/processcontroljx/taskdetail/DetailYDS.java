@@ -148,6 +148,8 @@ public class DetailYDS extends DetailTask implements View.OnClickListener {
             threehide13.setVisibility(View.GONE);
             LinearLayout threehide14=(LinearLayout) findViewById(R.id.yds_risklist_wrapper);
             threehide14.setVisibility(View.GONE);
+            LinearLayout threehide15=(LinearLayout) findViewById(R.id.yds__no_risklist);
+            threehide15.setVisibility(View.GONE);
 
         }
         yds_detail_car_role.setText(rolestate_str);

@@ -156,6 +156,8 @@ public class DetailDSZ extends DetailTask implements View.OnClickListener {
             threehide8.setVisibility(View.GONE);
             LinearLayout threehide9=(LinearLayout) findViewById(R.id.dsz_risklist_wrapper);
             threehide9.setVisibility(View.GONE);
+            LinearLayout threehide10=(LinearLayout) findViewById(R.id.dsz__no_risklist);
+            threehide10.setVisibility(View.GONE);
         }
         dsz_detail_car_role.setText(rolestate_str);
         dsz_detail_licenseno.setText(selectDSZ.getAsString(TaskDS.licenseno));
