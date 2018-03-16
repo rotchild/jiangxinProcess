@@ -105,11 +105,12 @@ public class SystemPWDSetActivity extends MBaseActivity implements View.OnClickL
                             }
                         });
                     }else{
-                        final String err=jsonObject.getString("err");
+                         final JSONObject err=jsonObject.getJSONObject("err");
+                         final String errmsg=err.getString("message");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext,err,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext,errmsg,Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
